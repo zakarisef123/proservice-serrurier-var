@@ -32,12 +32,12 @@ netlify.toml          configuration Netlify (dossier publié, en-têtes)
 - 7 guides pratiques
 - Mentions légales, confidentialité (noindex), 404
 
-Chaque page affiche la section « Un plombier proche de chez vous » avec le temps d'arrivée pour chaque commune
+Chaque page affiche la section « Un serrurier proche de chez vous » avec le temps d'arrivée pour chaque commune
 (délais modifiables dans `src/data_cities.py`).
 
 ## Fonctionnalités
 
-Menus déroulants, héros avec photo, bandeau de confiance défilant, bandeau « Une urgence plomberie ? »,
+Menus déroulants, héros avec photo, bandeau de confiance défilant, bandeau « Une urgence serrurerie ? »,
 logos des 38 assureurs défilants (`src/assets/assurances/`), cartes de service avec photo et boutons
 « Appeler / Demander un devis », fenêtre « Demander un devis » (formulaire `devis-express`),
 garanties, « Nous pouvons aussi vous aider pour », bandeau d'appel, page `/merci/` (conversion Google Ads),

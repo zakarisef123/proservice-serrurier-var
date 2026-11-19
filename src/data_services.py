@@ -17,7 +17,7 @@ SERVICES = [
         "title": "Serrurier urgence 24h/24 dans le Var — nuit, week-end, jours fériés",
         "meta": "Serrurier d'urgence dans le Var 24h/24 et 7j/7 : porte claquée, clés perdues, serrure bloquée, effraction. Tarif annoncé avant déplacement. ☎ 06 75 93 19 04",
         "h1": "Serrurier d'urgence 24h/24 et 7j/7 dans le Var",
-        "lead": "Porte claquée, clés perdues, serrure bloquée, porte forcée : un serrurier vous répond <b>jour et nuit, week-end et jours fériés compris</b>, depuis Vidauban vers tout le centre Var.",
+        "lead": "Porte claquée, clés perdues, serrure bloquée, porte forcée : un serrurier vous répond <b>jour et nuit, week-end et jours fériés compris</b>, partout dans le Var (83).",
         "checks": ["Réponse immédiate au téléphone", "Prix annoncé avant de partir", "Facture pour l'assurance"],
         "card_desc": "Porte claquée, clés perdues, effraction : un serrurier joignable jour et nuit, week-end et jours fériés compris.",
         "card_checks": ["Disponible 7j/7", "Tarif confirmé avant déplacement"],
@@ -44,7 +44,7 @@ SERVICES = [
         ],
         "faq": [
             ("Combien coûte un serrurier en urgence la nuit ou le dimanche ?", "Le prix dépend de la situation et de l'horaire. Un supplément peut s'appliquer la nuit, le week-end et les jours fériés : il vous est annoncé au téléphone avant le déplacement, puis le prix total est confirmé sur place avant de commencer."),
-            ("En combien de temps un serrurier peut-il arriver ?", "Depuis notre base de Vidauban, comptez environ 15 minutes pour Le Muy, Les Arcs ou Le Cannet-des-Maures, 20 minutes pour Le Luc et 25 minutes pour Draguignan, hors trafic. Le délai précis vous est donné au moment de l'appel."),
+            ("En combien de temps un serrurier peut-il arriver ?", "Selon votre commune, comptez de 15 minutes (Le Muy, Les Arcs, Le Cannet-des-Maures) à environ une heure (Toulon et son agglomération), hors trafic. Le délai précis vous est donné au moment de l'appel."),
             ("Faut-il justifier son identité pour une ouverture de porte ?", "Oui. Une pièce d'identité ou un justificatif de domicile est demandé sur place, pour la sécurité de l'occupant réel du logement."),
             ("Intervenez-vous après un cambriolage ?", "Oui. Nous sécurisons le logement le jour même (remplacement de serrure ou fermeture provisoire) et vous remettons une facture détaillée pour votre déclaration à l'assurance."),
         ],
@@ -52,7 +52,7 @@ SERVICES = [
         "combo_title": "Serrurier urgence {city} ({cp}) — 24h/24, 7j/7",
         "combo_meta": "Serrurier d'urgence {a} 24h/24 et 7j/7 : porte claquée, clés perdues, serrure bloquée, effraction. {delay_txt}. Prix annoncé avant déplacement. ☎ 06 75 93 19 04",
         "combo_intros": [
-            "Porte claquée un soir de week-end, clés perdues, serrure bloquée : {a}, vous pouvez joindre un serrurier à toute heure au <b>06 75 93 19 04</b>. Nous partons de Vidauban et le délai d'arrivée vous est donné dès l'appel.",
+            "Porte claquée un soir de week-end, clés perdues, serrure bloquée : {a}, vous pouvez joindre un serrurier à toute heure au <b>06 75 93 19 04</b>. Le délai d'arrivée vous est donné dès l'appel.",
             "Besoin d'un serrurier tout de suite {a} ? Notre ligne est ouverte jour et nuit, dimanches et jours fériés compris. Vous décrivez la situation, on vous annonce le prix et le délai, puis un serrurier part avec le matériel adapté.",
             "Habitants {de}, gardez ce numéro : <b>06 75 93 19 04</b>. En cas d'urgence de serrurerie, un artisan du secteur vous répond directement, sans plateforme ni centre d'appel, et intervient rapidement avec un prix annoncé à l'avance.",
         ],
@@ -112,7 +112,7 @@ SERVICES = [
         "combo_meta": "Ouverture de porte {a} 24h/24 : porte claquée ou fermée à clé, sans casse dans la majorité des cas, dès 69 €. {delay_txt}. ☎ 06 75 93 19 04",
         "combo_intros": [
             "Porte claquée ou clés perdues {a} ? Nous ouvrons votre porte 24h/24, sans dégât dans la majorité des cas, à partir de 69 €.",
-            "Vous êtes bloqué dehors {a} ? Un serrurier part de Vidauban avec le matériel d'ouverture adapté. Le prix vous est annoncé au téléphone, avant le déplacement.",
+            "Vous êtes bloqué dehors {a} ? Un serrurier part avec le matériel d'ouverture adapté. Le prix vous est annoncé au téléphone, avant le déplacement.",
             "Ouverture de porte claquée, fermée à clé ou porte blindée {a} : nous choisissons la technique la moins destructive et vous annonçons le prix avant de commencer.",
         ],
         "combo_points": [
@@ -177,7 +177,7 @@ SERVICES = [
         "combo_meta": "Changement de serrure et de cylindre {a} : serrures A2P, multipoints, garantie 2 ans, dès 129 €. {delay_txt}. ☎ 06 75 93 19 04",
         "combo_intros": [
             "Clés perdues, effraction ou serrure usée {a} : nous remplaçons votre cylindre ou votre serrure par un modèle certifié A2P, à partir de 129 €, garantie 2 ans.",
-            "Vous venez d'emménager {a} ou avez perdu vos clés ? Changer le cylindre est le moyen le plus sûr de reprendre le contrôle de vos accès. Nous intervenons rapidement depuis Vidauban.",
+            "Vous venez d'emménager {a} ou avez perdu vos clés ? Changer le cylindre est le moyen le plus sûr de reprendre le contrôle de vos accès. Nous intervenons rapidement, partout dans le Var.",
             "Changement de serrure {a} : à l'identique ou en montée en gamme, avec un conseil honnête sur le niveau de sécurité dont vous avez vraiment besoin.",
         ],
         "combo_points": [

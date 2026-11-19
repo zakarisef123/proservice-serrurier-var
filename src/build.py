@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Générateur du site PRO SERVICE 83.
+"""Générateur du site PROSERVICE 83.
 
 Usage : python3 src/build.py
 Produit le site statique complet dans ./public (pages, sitemap.xml, robots.txt, llms.txt…).
@@ -81,11 +81,11 @@ def delay_label(c):
 def delay_sentence(c):
     if c["delay"] == 0:
         return "Notre base est à Vidauban : nous y intervenons sans délai de route, souvent dans l'heure."
-    return "Depuis notre base de Vidauban, comptez environ %d minutes pour arriver %s, hors trafic. Le délai précis vous est donné au moment de l'appel." % (c["delay"], c["a"])
+    return "Comptez environ %d minutes pour notre arrivée %s, hors trafic. Le délai précis vous est donné au moment de l'appel." % (c["delay"], c["a"])
 
 
 def delay_txt(c):
-    return "Basé à Vidauban" if c["delay"] == 0 else "À ~%d min de Vidauban" % c["delay"]
+    return "Intervention rapide" if c["delay"] == 0 else "Arrivée estimée ~%d min" % c["delay"]
 
 
 def picture(name, alt, width, height, sizes, cls="", attrs=""):
@@ -159,7 +159,7 @@ def delay_faq():
     for d in sorted(groups):
         ns = groups[d]
         parts.append("%d minutes pour %s" % (d, ns[0] if len(ns) == 1 else ", ".join(ns[:-1]) + " ou " + ns[-1]))
-    return ("Depuis notre base de Vidauban, comptez environ %s, hors trafic. Ces délais sont indicatifs : "
+    return ("Selon votre commune, comptez environ %s, hors trafic. Ces délais sont indicatifs : "
             "le délai précis vous est donné au moment de l'appel, avant tout déplacement." % ", ".join(parts))
 
 
@@ -198,7 +198,7 @@ def business_schema():
         "@id": SITE + "/#entreprise",
         "name": B.NAME,
         "legalName": B.LEGAL_NAME,
-        "description": "Artisan serrurier basé à Vidauban (Var). Dépannage serrurerie 24h/24 et 7j/7 : ouverture de porte, changement de serrure, porte blindée, reproduction de clés, serrure connectée, rideaux métalliques et sécurisation après effraction.",
+        "description": "Artisan serrurier intervenant dans tout le Var (83). Dépannage serrurerie 24h/24 et 7j/7 : ouverture de porte, changement de serrure, porte blindée, reproduction de clés, serrure connectée, rideaux métalliques et sécurisation après effraction.",
         "url": SITE + "/",
         "telephone": B.PHONE_TEL,
         "email": B.EMAIL,
@@ -388,7 +388,7 @@ def header(path):
   <div class="wrap headbar">
     <a class="logo" href="/" aria-label="{B.NAME}, accueil">
       {LOGO_SVG}
-      <span class="logo-text"><span class="l1" style="display:block">Pro Service</span><span class="l2" style="display:block">SERRURIER 83</span></span>
+      <span class="logo-text"><span class="l1" style="display:block">Proservice</span><span class="l2" style="display:block">SERRURIER 83</span></span>
     </a>
     <nav class="main" aria-label="Navigation principale">{links}</nav>
     <a href="tel:{B.PHONE_TEL}" class="call-pill">
@@ -417,7 +417,7 @@ def footer(form_anchor="#devis"):
     <div class="foot-cols">
       <div>
         <a class="logo" href="/">{LOGO_SVG.replace('class="logo-mark"', 'class="logo-mark" width="34" height="34"')}<span class="logo-text"><span class="l2">{B.NAME}</span></span></a>
-        <p class="foot-about">Artisan serrurier indépendant basé à <b>Vidauban</b> depuis {B.SINCE}. Dépannage <b>24h/24 et 7j/7</b> dans le centre Var : ouverture de porte, serrure, porte blindée, clés, rideaux métalliques.</p>
+        <p class="foot-about">Artisan serrurier indépendant depuis {B.SINCE}. Dépannage <b>24h/24 et 7j/7</b> dans <b>tout le Var (83)</b> : ouverture de porte, serrure, porte blindée, clés, rideaux métalliques.</p>
         <p class="foot-about"><a href="tel:{B.PHONE_TEL}"><b>{B.PHONE}</b></a><br><a href="mailto:{B.EMAIL}">{B.EMAIL}</a></p>
       </div>
       <div><h2>Prestations</h2><ul>{svc_links}</ul></div>
@@ -433,7 +433,7 @@ def footer(form_anchor="#devis"):
       </ul></div>
     </div>
     <div class="foot-bottom">
-      <span>© {date.today().year} {B.LEGAL_NAME} — Artisan serrurier, Vidauban (83550), Var{" · SIRET " + B.SIRET if B.SIRET else ""}{" · " + B.RCS_RM if B.RCS_RM else ""}.</span>
+      <span>© {date.today().year} {B.LEGAL_NAME} — Artisan serrurier dans tout le Var (83){" · SIRET " + B.SIRET if B.SIRET else ""}{" · " + B.RCS_RM if B.RCS_RM else ""}.</span>
       <span><a href="/mentions-legales/">Mentions légales</a> · <a href="/politique-confidentialite/">Confidentialité</a> · <button type="button" data-consent="open">Cookies</button></span>
     </div>
   </div>
@@ -523,7 +523,7 @@ def page_hero(crumbs, h1, lead, checks=None, badge=None, image=None, image_alt="
 def trust_items_short():
     items = ["Plus de %s ans d'expérience en serrurerie" % B.YEARS.rstrip("+"), "Disponible 24h/24 et 7j/7",
              "Prix annoncé avant toute intervention", "Devis gratuit, sans engagement",
-             "Facture détaillée acceptée par votre assureur", "Artisan local basé à Vidauban",
+             "Facture détaillée acceptée par votre assureur", "Artisan local, partout dans le Var",
              "Intervention dans tout le Var (83)", "Travaux garantis"]
     if B.ASSURANCE_DECENNALE:
         items.insert(1, "Assurance décennale & RC professionnelle")
@@ -548,7 +548,7 @@ def urgent_band():
 """
 
 
-def cta_band(title="Porte claquée, serrure, projet de sécurité ?", text="Un artisan serrurier basé à Vidauban, joignable 24h/24 et 7j/7 dans tout le Var."):
+def cta_band(title="Porte claquée, serrure, projet de sécurité ?", text="Un artisan serrurier joignable 24h/24 et 7j/7 dans tout le Var (83)."):
     return f"""<section class="cta-band"><div class="wrap cta-inner">
   <div><h2>{title}</h2><p>{text}</p></div>
   <div class="cta-actions">
@@ -561,7 +561,7 @@ def cta_band(title="Porte claquée, serrure, projet de sécurité ?", text="Un a
 
 def guarantees_section(cls="alt"):
     cards = [
-        ("Plus de %s ans d'expérience" % B.YEARS.rstrip("+"), "Un serrurier de métier, installé à Vidauban depuis %d, qui a déjà rencontré à peu près toutes les pannes." % B.SINCE),
+        ("Plus de %s ans d'expérience" % B.YEARS.rstrip("+"), "Un serrurier de métier, en activité dans le Var depuis %d, qui a déjà rencontré à peu près toutes les pannes." % B.SINCE),
         ("Prix annoncé avant travaux", "Diagnostic d'abord, prix ensuite, intervention seulement avec votre accord. Aucune mauvaise surprise."),
         ("Facture pour l'assurance", "Facture détaillée remise systématiquement, reconnue par les assureurs habitation en cas de sinistre."),
         ("Artisan local, 24h/24", "Un seul numéro, un serrurier qui connaît le Var et qui reste votre interlocuteur après l'intervention."),
@@ -704,7 +704,7 @@ def contact_section(path, title="Besoin d'un serrurier maintenant ?", service=No
         </div>
         <div class="cinfo">
           <div class="icon-sq">{svc_icon("shield", 18)}</div>
-          <div><b>Vidauban &amp; tout le centre Var</b><span>Diagnostic téléphonique et devis gratuits</span></div>
+          <div><b>Tout le Var (83)</b><span>Diagnostic téléphonique et devis gratuits</span></div>
         </div>
       </div>
     </div>
@@ -962,13 +962,13 @@ def zones_section(current=None, service=None, cls=""):
     <div>
       <div class="pill pill-lav">Zone d'intervention</div>
       <h2>Un serrurier proche de chez vous</h2>
-      <p class="intro">Temps d'arrivée indicatifs depuis notre base de Vidauban, hors trafic. Le délai exact vous est confirmé au moment de l'appel.</p>
+      <p class="intro">Temps d'arrivée indicatifs, hors trafic. Le délai exact vous est confirmé au moment de l'appel.</p>
       <div class="zone-list">{"".join(items)}</div>
     </div>
     <div class="zone-note">
       <span class="pill pill-orange">Hors zone ?</span>
       <h3>On couvre tout le Var</h3>
-      <p>Les délais ci-contre sont indicatifs, depuis notre base de Vidauban et hors trafic. Pour une commune qui n'y figure pas, le délai précis est donné au téléphone, avant tout déplacement.</p>
+      <p>Les délais ci-contre sont indicatifs, hors trafic. Pour une commune qui n'y figure pas, le délai précis est donné au téléphone, avant tout déplacement.</p>
       <a href="tel:{B.PHONE_TEL}" class="btn btn-purple">{phone_icon(18, True)} Vérifier mon secteur</a>
       <a href="/zones-intervention/" class="btn btn-outline">Toutes nos zones d'intervention</a>
     </div>
@@ -1005,7 +1005,7 @@ def trust_items():
         ("Devis validé avant les travaux", "Le prix est confirmé sur place et vous le validez avant que nous commencions. Vous restez libre de refuser."),
         ("Pas de travaux inutiles", "Si une réparation suffit, nous ne remplaçons pas. Si l'intervention peut attendre, nous vous le disons."),
         ("Facture détaillée", "Déplacement, main-d'œuvre et pièces détaillés : un document clair, accepté par les assureurs habitation."),
-        ("Un artisan local, joignable en direct", "Pas de plateforme ni de centre d'appel : vous parlez directement à un serrurier basé à Vidauban."),
+        ("Un artisan local, joignable en direct", "Pas de plateforme ni de centre d'appel : vous parlez directement à un serrurier du Var."),
         ("Travaux garantis", "Nos interventions sont garanties. En cas de souci, nous revenons."),
         ("Chantier propre", "Protection des sols, nettoyage en fin d'intervention et évacuation des anciennes pièces."),
         ("Ponctualité et transparence", "Un imprévu ? Nous vous prévenons à l'avance, avec un nouvel horaire."),
@@ -1024,11 +1024,11 @@ HOME_FAQ = [
     ("Faut-il justifier son identité pour une ouverture ?", "Oui, une pièce d'identité ou un justificatif de domicile est demandé sur place, pour la sécurité de l'occupant réel du logement."),
     ("La porte sera-t-elle abîmée pour l'ouvrir ?", "Dans la majorité des cas, non : une porte claquée s'ouvre sans dégât. Si la serrure doit être forcée ou percée, c'est toujours annoncé et validé avant."),
     ("Le devis est-il vraiment gratuit ?", "Oui, le diagnostic téléphonique et le devis sur place sont gratuits et sans engagement, que vous acceptiez ou non l'intervention."),
-    ("Dans quelles communes intervenez-vous ?", "Nous sommes basés à Vidauban et intervenons dans tout le centre Var : Le Muy, Les Arcs-sur-Argens, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan, Lorgues, Taradeau, Le Thoronet, mais aussi Fréjus, Saint-Raphaël, Toulon et son agglomération (La Seyne-sur-Mer, La Garde, La Valette-du-Var, Hyères, Six-Fours-les-Plages, Ollioules). <a href=\"/zones-intervention/\">Voir toutes les communes</a>."),
+    ("Dans quelles communes intervenez-vous ?", "Nous intervenons dans tout le Var (83), notamment à Toulon et dans son agglomération, à Fréjus, Saint-Raphaël, Draguignan, ainsi qu\'à Le Muy, Les Arcs-sur-Argens, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan, Lorgues, Taradeau, Le Thoronet, mais aussi Fréjus, Saint-Raphaël, Toulon et son agglomération (La Seyne-sur-Mer, La Garde, La Valette-du-Var, Hyères, Six-Fours-les-Plages, Ollioules). <a href=\"/zones-intervention/\">Voir toutes les communes</a>."),
     ("En combien de temps arrivez-vous ?", delay_faq()),
     ("Vos factures sont-elles acceptées par les assurances ?", "Oui. Après un cambriolage ou une tentative d'effraction, nous remettons une facture détaillée. Nos clients se font rembourser auprès de leur assureur habitation, selon les garanties de leur contrat."),
     ("Faut-il changer la serrure après une perte de clés ?", "C'est recommandé, surtout si vos clés étaient accompagnées d'un document portant votre adresse. Changer le cylindre suffit souvent et coûte moins cher que la serrure complète."),
-    ("Qui va intervenir chez moi ?", "Un serrurier de " + B.NAME + ", artisan installé à Vidauban. Vous l'avez au téléphone avant son arrivée, il vous annonce le prix avant de commencer et vous remet une facture détaillée. Après l'intervention, vous gardez le même numéro pour tout suivi."),
+    ("Qui va intervenir chez moi ?", "Un serrurier de " + B.NAME + ", artisan local. Vous l'avez au téléphone avant son arrivée, il vous annonce le prix avant de commencer et vous remet une facture détaillée. Après l'intervention, vous gardez le même numéro pour tout suivi."),
     ("Que faire en attendant le serrurier ?", "Vérifiez les autres accès et s'il existe un double chez un proche, ne forcez pas la porte et préparez un justificatif d'identité ou de domicile. Après une effraction, appelez le 17 et ne touchez à rien avant le passage des enquêteurs."),
     ("Comment être sûr de ne pas tomber sur un serrurier arnaqueur ?", "Exigez un prix avant le déplacement et un devis avant les travaux, méfiez-vous des faux documents « officiels » dans les boîtes aux lettres et préférez un artisan réellement local. <a href=\"/conseils/choisir-serrurier-eviter-arnaques/\">Lire notre guide</a>."),
 ]
@@ -1036,16 +1036,16 @@ HOME_FAQ = [
 
 def build_home():
     path = "/"
-    title = "Serrurier Vidauban & Var 24h/24 — %s, dépannage 7j/7" % B.NAME
-    desc = "Serrurier à Vidauban et dans le Var, 24h/24 et 7j/7 : ouverture de porte, changement de serrure, porte blindée, clés, rideau métallique. Prix annoncé avant intervention. ☎ 06 75 93 19 04"
+    title = "Serrurier dans le Var (83) 24h/24 — %s, dépannage 7j/7" % B.NAME
+    desc = "Serrurier dans tout le Var (83), 24h/24 et 7j/7 : ouverture de porte, changement de serrure, porte blindée, clés, rideau métallique. Prix annoncé avant intervention. ☎ 06 75 93 19 04"
     website = {"@context": "https://schema.org", "@type": "WebSite", "@id": SITE + "/#site", "name": B.NAME, "url": SITE + "/", "inLanguage": "fr-FR", "publisher": {"@id": SITE + "/#entreprise"}}
     out = head(title, desc, path, [business_schema(), website, faq_schema(HOME_FAQ)])
     out += header(path)
     out += f"""<section class="hero hero-split">
   <div class="wrap hero-inner">
     <div class="hero-text">
-    <div class="pill avail-badge"><span class="dot dot-pulse"></span><span>Artisan serrurier · Vidauban &amp; tout le Var (83)</span></div>
-    <h1>Votre serrurier à Vidauban<br><span class="accent">et dans tout le Var, 24h/24</span></h1>
+    <div class="pill avail-badge"><span class="dot dot-pulse"></span><span>Artisan serrurier · Tout le Var (83)</span></div>
+    <h1>Votre serrurier<br><span class="accent">dans tout le Var, 24h/24</span></h1>
     <p class="lead">Porte claquée, clés perdues, serrure bloquée ? <b>Un artisan local vous répond en direct, jour et nuit, 7j/7</b>, et intervient avec un prix annoncé avant de commencer. Plus de {B.YEARS.rstrip("+")} ans d'expérience, travail soigné, facture détaillée acceptée par votre assureur.</p>
     <a href="tel:{B.PHONE_TEL}" class="hero-cta">
       <span class="num">{phone_icon(24, True)} {B.PHONE}</span>
@@ -1074,7 +1074,7 @@ def build_home():
     <div class="sec-head">
       <div class="pill pill-purple sec-badge">{svc_icon("shield", 15)}Services professionnels</div>
       <h2>Nos services de serrurerie dans le Var</h2>
-      <p>Un artisan serrurier à votre service pour l'urgence comme pour les travaux, 24h/24 et 7j/7, de Vidauban à Draguignan.</p>
+      <p>Un artisan serrurier à votre service pour l'urgence comme pour les travaux, 24h/24 et 7j/7, dans tout le Var (83).</p>
     </div>
     {services_grid()}
   </div>
@@ -1082,8 +1082,8 @@ def build_home():
 <div class="alt" style="padding:0 0 10px"><div class="wrap">{stats_block()}</div></div>
 <section class="alt">
   <div class="wrap text-block prose">
-    <h2>Un serrurier de confiance, installé à Vidauban depuis {B.SINCE}</h2>
-    <p><strong>{B.NAME}</strong> est une entreprise artisanale de serrurerie basée à <strong>Vidauban</strong>, au cœur du Var. Depuis {B.SINCE}, nous dépannons et équipons les particuliers, propriétaires, locataires, gestionnaires de résidences secondaires et petites entreprises du centre Var : Le Muy, Les Arcs-sur-Argens, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan et les communes voisines.</p>
+    <h2>Un serrurier de confiance dans tout le Var depuis {B.SINCE}</h2>
+    <p><strong>{B.NAME}</strong> est une entreprise artisanale de serrurerie qui intervient dans <strong>tout le Var (83)</strong>. Depuis {B.SINCE}, nous dépannons et équipons les particuliers, propriétaires, locataires, gestionnaires de résidences secondaires et petites entreprises de tout le département : Toulon, La Seyne-sur-Mer, Hyères, Fréjus, Saint-Raphaël, Draguignan, Le Muy, Le Luc et les communes voisines.</p>
     <p>Notre métier, c'est de régler vos problèmes de serrurerie <strong>rapidement, proprement et au juste prix</strong>. Une porte claquée un dimanche soir, des clés perdues en rentrant de vacances, une serrure forcée après un cambriolage : vous joignez directement un serrurier au <a href="tel:{B.PHONE_TEL}">{B.PHONE}</a>, sans plateforme ni centre d'appel. Il vous écoute, vous aide à sécuriser la situation et vous annonce une fourchette de prix <strong>avant</strong> de prendre la route.</p>
     <p>Nous intervenons sur toute la serrurerie de la maison et du commerce : <a href="/ouverture-de-porte-var/">ouverture de porte</a>, <a href="/changement-serrure-var/">changement de serrure et de cylindre A2P</a>, <a href="/porte-blindee-var/">porte blindée et blindage de porte</a>, <a href="/reproduction-cles-var/">reproduction de clés</a>, <a href="/serrure-connectee-var/">serrure connectée</a> et <a href="/rideau-metallique-var/">dépannage de rideaux métalliques</a>. Après un cambriolage, nous sécurisons votre logement et fournissons les <a href="/{ASSURANCE_PAGE['slug']}/">justificatifs demandés par votre assurance</a>.</p>
     <p>Ce qui nous distingue ? Des engagements simples et tenus : un prix annoncé à l'avance, un devis validé avant les travaux, aucune intervention inutile et une facture détaillée. Des engagements tenus à chaque intervention, de jour comme de nuit.</p>
@@ -1103,7 +1103,7 @@ def build_home():
 """
     out += process_section("Simple, clair, sans surprise")
     out += insurers_section("alt")
-    out += cta_band("Porte claquée, clés perdues ?", "Nous intervenons à Vidauban et dans tout le Var, tous les jours, 24h/24.")
+    out += cta_band("Porte claquée, clés perdues ?", "Nous intervenons dans tout le Var (83), tous les jours, 24h/24.")
     out += zones_section()
     out += realisations_section(cls="alt")
     out += reviews_section("alt" if not B.REALISATIONS else "")
@@ -1137,7 +1137,7 @@ def build_service(s, idx):
     <article class="prose">
       {sections}
       <h2>{esc(s["short"])} : où intervenons-nous ?</h2>
-      <p>Nous intervenons depuis Vidauban dans tout le centre Var. Retrouvez le détail de notre intervention dans votre commune :</p>
+      <p>Nous intervenons dans tout le Var (83). Retrouvez le détail de notre intervention dans votre commune :</p>
       <div class="chips" style="margin-bottom:14px">{city_chips}</div>
       <p>Nous intervenons aussi dans les communes voisines : </p>
       <div class="chips">{other_chips}</div>
@@ -1178,7 +1178,7 @@ def build_combo(s, c, si, ci):
         ("En combien de temps intervenez-vous %s ?" % c["a"], delay_sentence(c) + " Pour une urgence, appelez le 06 75 93 19 04."),
         sf[v % len(sf)],
         sf[(v + 1) % len(sf)],
-        ("Intervenez-vous aussi autour %s ?" % c["de"], "Oui, nous intervenons également à %s et dans tout le centre Var. <a href=\"/zones-intervention/\">Voir toutes nos zones</a>." % near_names),
+        ("Intervenez-vous aussi autour %s ?" % c["de"], "Oui, nous intervenons également à %s et dans tout le Var. <a href=\"/zones-intervention/\">Voir toutes nos zones</a>." % near_names),
     ]
     schemas = [business_schema(), breadcrumb_schema(crumbs),
                service_schema("%s %s" % (s["combo_h1"], c["a"]), strip_tags(lead), path, c["name"], s["price_min"]),
@@ -1238,7 +1238,7 @@ def build_city(c):
         ("Intervenez-vous %s la nuit et le week-end ?" % c["a"], "Oui, nous intervenons 24h/24 et 7j/7, jours fériés compris. " + majorations_sentence() + " La majoration vous est annoncée avant le déplacement."),
         ("Combien coûte un serrurier %s ?" % c["a"], "Nos interventions démarrent à 69 € pour une ouverture de porte, 129 € pour un changement de serrure et 15 € pour un double de clé, en journée. Le prix est annoncé au téléphone avant le départ et confirmé sur place. <a href=\"/tarifs/\">Voir nos tarifs</a>."),
         ("Vos factures sont-elles prises en charge par mon assurance ?", "Après une effraction, nous remettons une facture détaillée que nos clients transmettent à leur assureur habitation pour se faire rembourser, selon les garanties de leur contrat."),
-        ("Quelles communes desservez-vous autour %s ?" % c["de"], "Nous intervenons notamment à %s, et dans tout le centre Var." % ", ".join(n["name"] for n in near)),
+        ("Quelles communes desservez-vous autour %s ?" % c["de"], "Nous intervenons notamment à %s, et dans tout le Var." % ", ".join(n["name"] for n in near)),
     ]
     schemas = [business_schema(), breadcrumb_schema(crumbs), faq_schema(faq)]
     out = head(title, desc, path, schemas)
@@ -1265,7 +1265,7 @@ def build_city(c):
         <li><strong>Rideaux métalliques et volets</strong> : dépannage et réparation.</li>
       </ul>
       <h2>Pourquoi faire appel à nous {c["a"]} ?</h2>
-      <p>Vous parlez directement à un artisan serrurier installé à Vidauban, pas à une plateforme. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement puis validé avec vous avant les travaux. Nous ne proposons que les interventions utiles et vous remettons une facture détaillée. Nous sommes installés à Vidauban depuis {B.SINCE}.</p>
+      <p>Vous parlez directement à un artisan serrurier local, pas à une plateforme. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement puis validé avec vous avant les travaux. Nous ne proposons que les interventions utiles et vous remettons une facture détaillée. Nous intervenons dans le Var depuis {B.SINCE}.</p>
       <h2>Communes voisines {c["de"]}</h2>
       <p>Nous intervenons aussi dans les communes proches :</p>
       <div class="chips">{near_html}</div>
@@ -1302,7 +1302,7 @@ def build_prestations():
                "Toutes nos prestations de serrurerie dans le Var : urgence 24h/24, ouverture de porte, changement de serrure, porte blindée, clés, serrure connectée, rideau métallique.",
                path, [business_schema(), breadcrumb_schema(crumbs)])
     out += header(path)
-    out += page_hero(crumbs, "Nos prestations de serrurerie dans le Var", "De la porte claquée en pleine nuit à la pose d'une porte blindée, <b>un seul artisan</b> pour toute la serrurerie de votre logement, de Vidauban à Draguignan.", ["Devis gratuit", "Prix annoncé à l'avance", "Travaux garantis"], image="serrurier-devis-client.jpg", image_alt="Serrurier présentant le devis à une cliente")
+    out += page_hero(crumbs, "Nos prestations de serrurerie dans le Var", "De la porte claquée en pleine nuit à la pose d'une porte blindée, <b>un seul artisan</b> pour toute la serrurerie de votre logement, partout dans le Var.", ["Devis gratuit", "Prix annoncé à l'avance", "Travaux garantis"], image="serrurier-devis-client.jpg", image_alt="Serrurier présentant le devis à une cliente")
     out += trust_marquee()
     out += f"""<section><div class="wrap">{services_grid()}</div></section>
 <section class="alt"><div class="wrap text-block prose">
@@ -1382,11 +1382,11 @@ def build_assurance():
 def build_zones():
     path = "/zones-intervention/"
     crumbs = [("Accueil", "/"), ("Zones d'intervention", path)]
-    out = head("Zones d'intervention — serrurier Vidauban, Draguignan, Toulon, Fréjus… (Var)",
-               "Serrurier basé à Vidauban, intervention 24h/24 dans le centre Var : Le Muy, Les Arcs, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan, Fréjus, Saint-Raphaël, Toulon, Hyères et plus.",
+    out = head("Zones d'intervention — serrurier dans tout le Var (83) : Toulon, Fréjus, Draguignan…",
+               "Serrurier dans tout le Var (83), intervention 24h/24 : Toulon, La Seyne-sur-Mer, Hyères, Le Muy, Les Arcs, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan, Fréjus, Saint-Raphaël, Toulon, Hyères et plus.",
                path, [business_schema(), breadcrumb_schema(crumbs)])
     out += header(path)
-    out += page_hero(crumbs, "Nos zones d'intervention dans le Var", "Basés à <b>Vidauban</b>, nous intervenons 24h/24 dans tout le centre Var. Délais indicatifs depuis notre base, hors trafic.", ["Artisan local", "Délai annoncé à l'appel", "7j/7"])
+    out += page_hero(crumbs, "Nos zones d'intervention dans le Var", "Nous intervenons 24h/24 dans <b>tout le Var (83)</b>. Délais indicatifs hors trafic, confirmés au moment de l'appel.", ["Artisan local", "Délai annoncé à l'appel", "7j/7"])
     rows = ""
     for c in CITIES:
         links = " · ".join('<a href="%s">%s</a>' % (combo_path(s, c), esc(s["short"])) for s in SERVICES)
@@ -1478,15 +1478,15 @@ def build_tarifs():
 def build_about():
     path = "/a-propos/"
     crumbs = [("Accueil", "/"), ("À propos", path)]
-    out = head("À propos de %s — artisan serrurier à Vidauban depuis %d" % (B.NAME, B.SINCE),
-               "%s, artisan serrurier indépendant installé à Vidauban (Var) depuis %d : notre histoire, nos engagements et notre charte de confiance." % (B.NAME, B.SINCE),
+    out = head("À propos de %s — artisan serrurier dans le Var depuis %d" % (B.NAME, B.SINCE),
+               "%s, artisan serrurier indépendant présent dans tout le Var (83) depuis %d : notre histoire, nos engagements et notre charte de confiance." % (B.NAME, B.SINCE),
                path, [business_schema(), breadcrumb_schema(crumbs)])
     out += header(path)
-    out += page_hero(crumbs, "Un artisan serrurier local, des engagements tenus", "%s est une entreprise artisanale de serrurerie installée à <b>Vidauban depuis %d</b>. Voici qui nous sommes et comment nous travaillons." % (B.NAME, B.SINCE), ["Plus de %s ans d'expérience" % B.YEARS.rstrip("+"), "Artisan local basé à Vidauban", "Disponible 24h/24 et 7j/7"])
+    out += page_hero(crumbs, "Un artisan serrurier local, des engagements tenus", "%s est une entreprise artisanale de serrurerie présente dans <b>tout le Var (83) depuis %d</b>. Voici qui nous sommes et comment nous travaillons." % (B.NAME, B.SINCE), ["Plus de %s ans d'expérience" % B.YEARS.rstrip("+"), "Artisan local, partout dans le Var", "Disponible 24h/24 et 7j/7"])
     out += f"""<section>
   <div class="wrap text-block prose">
     <h2>Notre histoire</h2>
-    <p>{B.NAME} est né d'une idée simple : proposer aux habitants du centre Var un serrurier <strong>joignable, honnête et efficace</strong>. Installés à Vidauban depuis {B.SINCE}, nous intervenons au quotidien, de la simple porte claquée à la pose de portes blindées.</p>
+    <p>{B.NAME} est né d'une idée simple : proposer aux habitants du Var un serrurier <strong>joignable, honnête et efficace</strong>. Depuis {B.SINCE}, nous intervenons au quotidien, de la simple porte claquée à la pose de portes blindées.</p>
     <p>Nous connaissons les logements du secteur : maisons de village aux portes anciennes, villas avec portail et garage, résidences secondaires du massif des Maures inoccupées une partie de l'année, appartements de Draguignan aux portes palières, commerces à rideau métallique.</p>
     <h2>Pourquoi un artisan local change tout</h2>
     <p>Quand vous cherchez « serrurier urgence » sur internet, beaucoup de numéros mènent à des plateformes nationales qui revendent votre appel à un intervenant parfois éloigné, avec des prix difficiles à prévoir. Avec nous, vous appelez directement le serrurier qui va intervenir. Il connaît le secteur, il est proche, et il a tout intérêt à bien faire : sa réputation se joue ici, auprès de vos voisins.</p>
@@ -1524,8 +1524,8 @@ def build_faq_page():
 def build_contact():
     path = "/contact/"
     crumbs = [("Accueil", "/"), ("Contact", path)]
-    out = head("Contact & devis gratuit — serrurier " + B.NAME + ", Vidauban (Var)",
-               "Contactez " + B.NAME + " : 06 75 93 19 04, 24h/24 et 7j/7, ou demandez un devis gratuit en ligne. Serrurier basé à Vidauban, intervention dans tout le Var.",
+    out = head("Contact & devis gratuit — serrurier " + B.NAME + ", tout le Var (83)",
+               "Contactez " + B.NAME + " : 06 75 93 19 04, 24h/24 et 7j/7, ou demandez un devis gratuit en ligne. Serrurier intervenant dans tout le Var (83).",
                path, [business_schema(), breadcrumb_schema(crumbs)])
     out += header(path)
     out += page_hero(crumbs, "Contact et devis gratuit", "Urgence : appelez le <b>%s</b>, 24h/24. Pour un devis, remplissez le formulaire ci-dessous, nous vous rappelons rapidement." % B.PHONE)
@@ -1536,7 +1536,7 @@ def build_contact():
     <ul>
       <li><strong>Téléphone (24h/24, 7j/7)</strong> : <a href="tel:{B.PHONE_TEL}">{B.PHONE}</a></li>
       <li><strong>E-mail</strong> : <a href="mailto:{B.EMAIL}">{B.EMAIL}</a></li>
-      <li><strong>Zone</strong> : Vidauban ({B.BASE_CP}) et tout le centre Var. <a href="/zones-intervention/">Voir nos zones</a></li>
+      <li><strong>Zone</strong> : tout le Var (83). <a href="/zones-intervention/">Voir nos zones</a></li>
     </ul>
     <h2>Pour un devis plus rapide</h2>
     <p>Indiquez votre commune, le type de besoin et, si possible, envoyez quelques photos par e-mail (porte, serrure, cylindre, rideau métallique). Nous pourrons vous donner une estimation plus précise dès le premier échange.</p>
@@ -1579,9 +1579,9 @@ def build_guides():
         out += f"""<section>
   <div class="wrap layout">
     <article class="prose">
-      <p class="meta-line">Par l'équipe {B.NAME}, artisan serrurier à Vidauban · Mis à jour le {date.today().strftime("%d/%m/%Y")}</p>
+      <p class="meta-line">Par l'équipe {B.NAME}, artisan serrurier dans le Var · Mis à jour le {date.today().strftime("%d/%m/%Y")}</p>
       {g["body"]}
-      <div class="callout"><strong>Besoin d'un serrurier ?</strong> Nous intervenons 24h/24 et 7j/7 à Vidauban et dans tout le centre Var. Appelez le <a href="tel:{B.PHONE_TEL}">{B.PHONE}</a>.</div>
+      <div class="callout"><strong>Besoin d'un serrurier ?</strong> Nous intervenons 24h/24 et 7j/7 dans tout le Var (83). Appelez le <a href="tel:{B.PHONE_TEL}">{B.PHONE}</a>.</div>
     </article>
     <aside class="side">
       {call_card(None)}
@@ -1713,7 +1713,7 @@ def build_legal():
                                       ("médiateur de la consommation", B.MEDIATEUR.get("nom"))) if not v]
     if missing:
         WARNINGS.append("Mentions légales : " + ", ".join(missing))
-    out = head("Mentions légales — %s" % B.NAME, "Mentions légales du site de %s, artisan serrurier à Vidauban (Var)." % B.NAME, path, [breadcrumb_schema(crumbs)], noindex=True)
+    out = head("Mentions légales — %s" % B.NAME, "Mentions légales du site de %s, artisan serrurier dans le Var (83)." % B.NAME, path, [breadcrumb_schema(crumbs)], noindex=True)
     out += header(path)
     out += page_hero(crumbs, "Mentions légales", "Informations légales relatives au site et à l'entreprise.")
     out += f"""<section><div class="wrap text-block prose">
@@ -1776,7 +1776,7 @@ AI_BOTS = [
 
 def build_robots():
     lines = [
-        "# robots.txt — %s, serrurier à Vidauban (Var)" % B.NAME,
+        "# robots.txt — %s, serrurier dans tout le Var (83)" % B.NAME,
         "# Tout le site est ouvert aux moteurs de recherche et aux assistants IA.",
         "",
         "User-agent: *",
@@ -1806,15 +1806,15 @@ def build_sitemap():
 
 
 def build_llms():
-    summary = ("%s est un artisan serrurier indépendant basé à Vidauban (83550, Var, France), en activité depuis %d. "
-               "Il intervient 24h/24 et 7j/7 dans le centre Var pour les urgences et les travaux de serrurerie : ouverture de porte, "
+    summary = ("%s est un artisan serrurier indépendant qui intervient dans tout le Var (83, France), en activité depuis %d (siège à Vidauban). "
+               "Il intervient 24h/24 et 7j/7 dans tout le Var pour les urgences et les travaux de serrurerie : ouverture de porte, "
                "changement de serrure, porte blindée, reproduction de clés, serrure connectée et rideaux métalliques. Téléphone : %s." % (B.NAME, B.SINCE, B.PHONE))
-    lines = ["# %s — Serrurier à Vidauban et dans le Var" % B.NAME, "", "> " + summary, "",
+    lines = ["# %s — Serrurier dans tout le Var (83)" % B.NAME, "", "> " + summary, "",
              "Informations clés :",
              "- Téléphone (24h/24, 7j/7) : %s" % B.PHONE,
              "- E-mail : %s" % B.EMAIL,
              "- Base : %s (%s), %s" % (B.BASE_CITY, B.BASE_CP, B.DEPARTEMENT),
-             "- Expérience : artisan installé à Vidauban depuis %d" % B.SINCE,
+             "- Expérience : artisan dans le Var depuis %d (siège à Vidauban)" % B.SINCE,
              "- Tarifs : ouverture de porte dès 69 €, changement de serrure dès 129 € (garantie 2 ans), double de clé dès 15 €, dépannage de rideau métallique dès 79 €, porte blindée et serrure connectée sur devis. Diagnostic téléphonique et devis gratuits. " + majorations_sentence(),
              "- Tarifs selon l'heure d'intervention (heure de Paris) : " + " ; ".join("%s %s : %s" % (label.lower(), rate_hours(pid), ", ".join("%s %s" % (sv["short"], rate_price(sv["price_min"], coef)) for sv in SERVICES if sv["price_min"])) for pid, label, coef in B.RATE_PERIODS) + " (prix TTC à partir de). Dimanches et jours fériés : tarif de nuit. Déplacement : " + deplacement_txt() + "." + (" Main-d'œuvre : %s TTC de l'heure." % eur(B.TAUX_HORAIRE) if B.TAUX_HORAIRE else ""),
              "- Engagements : prix annoncé avant le déplacement, devis validé avant les travaux, facture détaillée, travaux garantis.",

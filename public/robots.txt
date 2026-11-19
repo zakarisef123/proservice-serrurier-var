@@ -1,4 +1,4 @@
-# robots.txt — PRO SERVICE 83, serrurier à Vidauban (Var)
+# robots.txt — PROSERVICE 83, serrurier dans tout le Var (83)
 # Tout le site est ouvert aux moteurs de recherche et aux assistants IA.
 
 User-agent: *
@@ -31,7 +31,7 @@ User-agent: YouBot
 Allow: /
 Disallow: /404.html
 
-Sitemap: https://pro-service83serrurerie.netlify.app/sitemap.xml
+Sitemap: https://serrurier.pro-service83.com/sitemap.xml
 
-# Résumé du site pour les modèles de langage : https://pro-service83serrurerie.netlify.app/llms.txt
-# Version complète : https://pro-service83serrurerie.netlify.app/llms-full.txt
+# Résumé du site pour les modèles de langage : https://serrurier.pro-service83.com/llms.txt
+# Version complète : https://serrurier.pro-service83.com/llms-full.txt

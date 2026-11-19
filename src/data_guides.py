@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """Guides pratiques (rubrique Conseils)."""
 
+from data_business import NAME
+
 GUIDES = [
     {
         "slug": "porte-claquee-que-faire",
@@ -22,7 +24,7 @@ GUIDES = [
             "<h2>4. Préparez un justificatif</h2>"
             "<p>Un serrurier sérieux vous demandera une <strong>pièce d'identité</strong> ou un <strong>justificatif de domicile</strong> avant d'ouvrir. C'est une protection pour vous. Un document sur votre téléphone (facture, bail, courrier) peut suffire.</p>"
             "<h2>5. Demandez le prix avant le déplacement</h2>"
-            "<p>Un professionnel doit pouvoir vous donner une fourchette de prix au téléphone, en précisant les éventuels suppléments de nuit ou de week-end. Méfiez-vous d'un tarif annoncé « sur place » sans aucune indication. Chez PRO SERVICE 83, l'ouverture de porte démarre à 69 € en journée, et le prix est toujours confirmé avant de commencer.</p>"
+            f"<p>Un professionnel doit pouvoir vous donner une fourchette de prix au téléphone, en précisant les éventuels suppléments de nuit ou de week-end. Méfiez-vous d'un tarif annoncé « sur place » sans aucune indication. Chez {NAME}, l'ouverture de porte démarre à 69 € en journée, et le prix est toujours confirmé avant de commencer.</p>"
             "<h2>Pour éviter que ça se reproduise</h2>"
             "<ul><li>Confiez un double à une personne de confiance.</li>"
             "<li>Prenez l'habitude de fermer à clé de l'intérieur : la clé reste alors dans votre main.</li>"
@@ -117,7 +119,7 @@ GUIDES = [
             "<li><strong>Refusez le perçage</strong> s'il n'est pas justifié et annoncé avec son prix.</li>"
             "<li><strong>Exigez une facture détaillée</strong>, indispensable pour l'assurance.</li></ol>"
             "<h2>Notre engagement</h2>"
-            "<p>PRO SERVICE 83 est un artisan installé à Vidauban. Vous nous joignez en direct au 06 75 93 19 04. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement et confirmé sur place avant les travaux. <a href=\"/a-propos/\">Découvrez notre charte de confiance</a>.</p>"
+            f"<p>{NAME} est un artisan installé à Vidauban. Vous nous joignez en direct au 06 75 93 19 04. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement et confirmé sur place avant les travaux. <a href=\"/a-propos/\">Découvrez notre charte de confiance</a>.</p>"
             "<div class=\"callout info\">En cas de litige avec un professionnel, vous pouvez signaler la pratique sur le site SignalConso de la DGCCRF.</div>",
     },
     {

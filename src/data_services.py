@@ -208,7 +208,7 @@ SERVICES = [
         "lead": "Pose d'un <b>bloc-porte blindé</b> ou blindage de votre porte existante, serrure multipoints certifiée A2P : nous renforçons l'accès principal de votre logement, avec un devis gratuit et détaillé.",
         "checks": ["Devis gratuit et détaillé", "Serrures multipoints A2P", "Pose soignée"],
         "card_desc": "Installation de portes blindées et serrures multipoints pour une sécurité maximale de votre logement.",
-        "card_checks": ["Certifié A2P", "Multipoints"],
+        "card_checks": ["Serrures certifiées A2P", "Multipoints"],
         "sections": [
             ("Bloc-porte blindé ou blindage de porte ?",
              "<ul><li><strong>Le bloc-porte blindé</strong> remplace toute la porte et son cadre. C'est la solution la plus sûre : la porte, le cadre et la serrure sont conçus ensemble.</li>"

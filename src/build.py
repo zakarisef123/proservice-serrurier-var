@@ -23,6 +23,8 @@ OUT = os.path.join(ROOT, "public")
 SRC_ASSETS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
 TODAY = date.today().isoformat()
 SITE = B.SITE_URL.rstrip("/")
+SCHEMA_TYPE = "Locksmith"  # type schema.org de l'entreprise
+WARNINGS = []  # éléments à compléter, rappelés à la fin du build
 def _file_hash(*names):
     import hashlib
     h = hashlib.md5()
@@ -38,6 +40,8 @@ ASSET_VERSION = _file_hash("style.css", "main.js")
 
 SERVICE_BY_SLUG = {s["slug"]: s for s in SERVICES}
 CORE_CITIES = [c for c in CITIES if c["core"]]
+# Communes du menu « Zones » : communes principales + celles marquées "menu" (agglomération toulonnaise).
+MENU_CITIES = CORE_CITIES + [c for c in CITIES if c.get("menu") and not c["core"]]
 PAGES = []  # (chemin, priorité) pour le sitemap
 
 
@@ -84,6 +88,81 @@ def delay_txt(c):
     return "Basé à Vidauban" if c["delay"] == 0 else "À ~%d min de Vidauban" % c["delay"]
 
 
+def picture(name, alt, width, height, sizes, cls="", attrs=""):
+    """Image en <picture> : variantes WebP (assets/img/webp/, créées par src/make_webp.py) + JPEG de secours."""
+    import glob
+    base = os.path.splitext(name)[0]
+    widths = sorted(int(os.path.basename(f)[len(base) + 1:-5]) for f in glob.glob(os.path.join(SRC_ASSETS, "img", "webp", base + "-*.webp"))
+                    if os.path.basename(f)[len(base) + 1:-5].isdigit())
+    img = '<img%s src="/assets/img/%s" alt="%s" width="%d" height="%d"%s>' % (' class="%s"' % cls if cls else "", name, esc(alt), width, height, attrs)
+    if not widths:
+        return img
+    srcset = ", ".join("/assets/img/webp/%s-%d.webp %dw" % (base, w, w) for w in widths)
+    return '<picture><source type="image/webp" srcset="%s" sizes="%s">%s</picture>' % (srcset, sizes, img)
+
+
+# ---------------------------------------------------------------- tarifs
+def eur(v):
+    return ("%d" % v if float(v).is_integer() else ("%.2f" % v).replace(".", ",")) + "\u00a0€"
+
+
+def pct(coef):
+    return "+%d\u00a0%%" % round((coef - 1) * 100)
+
+
+def period_coef(pid):
+    return {p: coef for p, _, coef in B.RATE_PERIODS}[pid]
+
+
+def deplacement_txt():
+    if B.DEPLACEMENT is True:
+        return "inclus dans le prix"
+    if B.DEPLACEMENT:
+        return "%s TTC" % eur(B.DEPLACEMENT)
+    return "annoncé au téléphone, avant le départ"
+
+
+def majorations():
+    """[(créneau, majoration)] : soir, nuit, dimanche et jours fériés."""
+    d, e, n = B.RATE_DAY_START, B.RATE_EVENING_START, B.RATE_NIGHT_START
+    return [("Soir, %dh – %dh (lun-sam)" % (e, n), pct(period_coef("soir"))),
+            ("Nuit, %dh – %dh" % (n, d), pct(period_coef("nuit"))),
+            ("Dimanche et jour férié", pct(B.RATE_SUNDAY_COEF))]
+
+
+def majorations_sentence():
+    m = majorations()
+    return ("Prix TTC en journée (lun-sam, %dh – %dh), majorés de %s le soir (%dh – %dh), de %s la nuit (%dh – %dh) "
+            "et de %s les dimanches et jours fériés." % (B.RATE_DAY_START, B.RATE_EVENING_START, m[0][1].replace("+", ""),
+                                                        B.RATE_EVENING_START, B.RATE_NIGHT_START, m[1][1].replace("+", ""),
+                                                        B.RATE_NIGHT_START, B.RATE_DAY_START, m[2][1].replace("+", "")))
+
+
+def price_conditions_html(cls="price-conds"):
+    items = [("Prix", "TTC, en journée (lun-sam, %dh – %dh)" % (B.RATE_DAY_START, B.RATE_EVENING_START)),
+             ("Déplacement", deplacement_txt())]
+    if B.TAUX_HORAIRE:
+        items.append(("Main-d'œuvre", "%s TTC de l'heure" % eur(B.TAUX_HORAIRE)))
+    items += [("Majoration " + label[0].lower() + label[1:], val) for label, val in majorations()]
+    return '<ul class="%s">%s</ul>' % (cls, "".join("<li><b>%s</b><span>%s</span></li>" % (esc(k), esc(v)) for k, v in items))
+
+
+def delay_faq():
+    """Réponse « En combien de temps arrivez-vous ? » construite à partir des délais de data_cities.py."""
+    groups = {}
+    for slug in ["le-muy", "les-arcs-sur-argens", "le-cannet-des-maures", "le-luc", "la-garde-freinet", "gonfaron",
+                 "draguignan", "frejus", "saint-raphael", "hyeres", "toulon"]:
+        c = CITY_BY_SLUG.get(slug)
+        if c:
+            groups.setdefault(c["delay"], []).append(c["name"])
+    parts = []
+    for d in sorted(groups):
+        ns = groups[d]
+        parts.append("%d minutes pour %s" % (d, ns[0] if len(ns) == 1 else ", ".join(ns[:-1]) + " ou " + ns[-1]))
+    return ("Depuis notre base de Vidauban, comptez environ %s, hors trafic. Ces délais sont indicatifs : "
+            "le délai précis vous est donné au moment de l'appel, avant tout déplacement." % ", ".join(parts))
+
+
 # ---------------------------------------------------------------- icônes
 PHONE_SVG = '<svg width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 10.8c1.5 3 3.9 5.4 6.9 6.9l2.3-2.3c.3-.3.7-.4 1.1-.2 1.2.4 2.5.6 3.9.6.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C10.6 22 2 13.4 2 3c0-.6.4-1 1-1h4.2c.6 0 1 .4 1 1 0 1.4.2 2.7.6 3.9.1.4 0 .8-.2 1.1L6.6 10.8Z" {paint}/></svg>'
 
@@ -106,8 +185,8 @@ def business_schema():
     area.append({"@type": "AdministrativeArea", "name": "Var (83)"})
     address = {
         "@type": "PostalAddress",
-        "addressLocality": B.BASE_CITY,
-        "postalCode": B.BASE_CP,
+        "addressLocality": B.ADDRESS_CITY,
+        "postalCode": B.ADDRESS_CP,
         "addressRegion": B.REGION,
         "addressCountry": "FR",
     }
@@ -115,9 +194,10 @@ def business_schema():
         address["streetAddress"] = B.ADDRESS_STREET
     data = {
         "@context": "https://schema.org",
-        "@type": "Plumber",
+        "@type": SCHEMA_TYPE,
         "@id": SITE + "/#entreprise",
         "name": B.NAME,
+        "legalName": B.LEGAL_NAME,
         "description": "Artisan serrurier basé à Vidauban (Var). Dépannage serrurerie 24h/24 et 7j/7 : ouverture de porte, changement de serrure, porte blindée, reproduction de clés, serrure connectée, rideaux métalliques et sécurisation après effraction.",
         "url": SITE + "/",
         "telephone": B.PHONE_TEL,
@@ -150,7 +230,9 @@ def business_schema():
     if same_as:
         data["sameAs"] = same_as
     if B.SIRET:
-        data["identifier"] = {"@type": "PropertyValue", "propertyID": "SIRET", "value": B.SIRET}
+        data["identifier"] = {"@type": "PropertyValue", "propertyID": "SIRET", "value": B.SIRET.replace(" ", "")}
+    if B.TVA:
+        data["vatID"] = B.TVA.replace(" ", "")
     return data
 
 
@@ -217,6 +299,11 @@ def head(title, desc, path, schemas, og_type="website", noindex=False):
         verif += '<meta name="google-site-verification" content="%s">\n' % esc(B.GOOGLE_SITE_VERIFICATION)
     if B.BING_SITE_VERIFICATION:
         verif += '<meta name="msvalidate.01" content="%s">\n' % esc(B.BING_SITE_VERIFICATION)
+    phone_fwd = ""
+    if B.CONV_CALL_FORWARDING:
+        # Appels depuis le site : Google remplace le numéro affiché par un numéro de transfert
+        # et compte l'appel comme conversion au-delà de la durée minimale réglée dans Google Ads.
+        phone_fwd = "\n  gtag('config', '%s', {'phone_conversion_number': '%s'});" % (B.CONV_CALL_FORWARDING, B.PHONE)
     return f"""<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -262,7 +349,7 @@ def head(title, desc, path, schemas, og_type="website", noindex=False):
   }})();
   gtag('js', new Date());
   gtag('config', '{B.GTAG_ID}');
-  window.PS83_CONV = {{call: '{B.CONV_CALL}', form: '{B.CONV_FORM}'}};
+  window.PS83_CONV = {{call: '{B.CONV_CALL}', form: '{B.CONV_FORM}'}};{phone_fwd}
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id={B.GTAG_ID}"></script>
 
@@ -281,12 +368,12 @@ def header(path):
     def cur(href):
         return ' aria-current="page"' if path.startswith(href) and href != "/" else ""
     svc_items = [(s["short"], service_path(s)) for s in SERVICES] + [(ASSURANCE_PAGE["name"], "/%s/" % ASSURANCE_PAGE["slug"]), ("Toutes les prestations", "/prestations/")]
-    zone_items = [("Serrurier %s" % c["name"], city_path(c)) for c in CORE_CITIES] + [("Toutes nos zones (22 communes)", "/zones-intervention/")]
+    zone_items = [("Serrurier %s" % c["name"], city_path(c)) for c in MENU_CITIES] + [("Toutes nos zones (%d communes)" % len(CITIES), "/zones-intervention/")]
 
     def dropdown(label, href, items):
         sub = "".join('<a href="%s">%s</a>' % (h, esc(t)) for t, h in items)
         return ('<div class="has-sub"><a href="%s"%s>%s <span class="caret" aria-hidden="true">▾</span></a>'
-                '<div class="sub">%s</div></div>') % (href, cur(href), label, sub)
+                '<div class="sub%s">%s</div></div>') % (href, cur(href), label, " cols-2" if len(items) > 10 else "", sub)
     links = '<a class="nav-urgent" href="/serrurier-urgence-24h-var/"%s><span class="dot dot-pulse"></span>Urgence 24h/24</a>' % cur("/serrurier-urgence-24h-var/")
     links += dropdown("Prestations", "/prestations/", svc_items)
     links += dropdown("Zones", "/zones-intervention/", zone_items)
@@ -346,7 +433,7 @@ def footer(form_anchor="#devis"):
       </ul></div>
     </div>
     <div class="foot-bottom">
-      <span>© {date.today().year} {B.NAME} — Artisan serrurier indépendant, Vidauban (83550), Var{" · SIRET " + B.SIRET if B.SIRET else ""}.</span>
+      <span>© {date.today().year} {B.LEGAL_NAME} — Artisan serrurier, Vidauban (83550), Var{" · SIRET " + B.SIRET if B.SIRET else ""}{" · " + B.RCS_RM if B.RCS_RM else ""}.</span>
       <span><a href="/mentions-legales/">Mentions légales</a> · <a href="/politique-confidentialite/">Confidentialité</a> · <button type="button" data-consent="open">Cookies</button></span>
     </div>
   </div>
@@ -410,8 +497,8 @@ def page_hero(crumbs, h1, lead, checks=None, badge=None, image=None, image_alt="
         badge_html = '<div class="pill avail-badge" style="margin:18px 0 0"><span class="dot dot-pulse"></span><span>%s</span></div>' % badge
     media = ""
     if image:
-        media = ('<div class="hero-media"><img src="/assets/img/%s" alt="%s" width="560" height="440" fetchpriority="high">'
-                 '<div class="hero-tag"><b>Prix annoncé</b><span>avant toute intervention</span></div></div>') % (image, esc(image_alt))
+        media = ('<div class="hero-media">%s'
+                 '<div class="hero-tag"><b>Prix annoncé</b><span>avant toute intervention</span></div></div>') % picture(image, image_alt, 560, 440, "(max-width: 900px) 100vw, 560px", attrs=' fetchpriority="high"')
     return f"""<section class="page-hero{' with-media' if image else ''}">
   <div class="wrap">
     {crumbs_html(crumbs)}
@@ -436,7 +523,7 @@ def page_hero(crumbs, h1, lead, checks=None, badge=None, image=None, image_alt="
 def trust_items_short():
     items = ["Plus de %s ans d'expérience en serrurerie" % B.YEARS.rstrip("+"), "Disponible 24h/24 et 7j/7",
              "Prix annoncé avant toute intervention", "Devis gratuit, sans engagement",
-             "Factures acceptées par les assurances", "Artisan local basé à Vidauban",
+             "Facture détaillée acceptée par votre assureur", "Artisan local basé à Vidauban",
              "Intervention dans tout le Var (83)", "Travaux garantis"]
     if B.ASSURANCE_DECENNALE:
         items.insert(1, "Assurance décennale & RC professionnelle")
@@ -541,7 +628,7 @@ def realisations_section(limit=6, cls=""):
 
 def strip_band():
     items = [
-        ('<path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z" stroke="currentColor" stroke-width="1.8"/>', "Factures acceptées par les assurances"),
+        ('<path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z" stroke="currentColor" stroke-width="1.8"/>', "Facture détaillée acceptée par votre assureur"),
         ('<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.8"/>', "Disponible 24h/24 et 7j/7"),
         ('<path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="1.8"/>', "Prix annoncé avant intervention"),
         ('<path d="M3 12h4l3-8 4 16 3-8h4" stroke="currentColor" stroke-width="1.8"/>', "Artisan local depuis %d" % B.SINCE),
@@ -745,26 +832,14 @@ def process_section(title="De l'appel à la réparation"):
 """
 
 
-def insurer_logos(marquee=True):
-    tiles = "".join('<li class="ins-logo"><img src="/assets/assurances/%s" alt="%s" loading="lazy" height="44"></li>' % (f, esc(n)) for n, f in B.INSURERS)
-    if not marquee:
-        return '<ul class="ins-grid">%s</ul>' % tiles
-    dup = "".join('<li class="ins-logo" aria-hidden="true"><img src="/assets/assurances/%s" alt="" loading="lazy" height="44"></li>' % f for n, f in B.INSURERS)
-    return '<div class="marquee ins-marquee"><ul class="marquee-track">%s%s</ul></div>' % (tiles, dup)
-
-
 def insurers_section(cls=""):
     return f"""<section class="{cls}" id="assurances">
   <div class="wrap">
     <div class="sec-head">
       <div class="pill pill-green sec-badge">{svc_icon("shield", 15)}Assurances</div>
-      <h2>Une facture reconnue par votre assureur</h2>
-      <p>En cas de sinistre (cambriolage, tentative d'effraction, perte de clés…), la facture détaillée remise après intervention est acceptée par les compagnies d'assurance habitation, mutuelles et banques-assureurs, notamment :</p>
+      <h2>Facture détaillée acceptée par votre assureur</h2>
+      <p>En cas de sinistre (cambriolage, tentative d'effraction, perte de clés…), la facture détaillée remise après chaque intervention vous permet de faire valoir vos droits auprès de votre assureur habitation.</p>
     </div>
-  </div>
-  {insurer_logos()}
-  <div class="wrap">
-    <p class="ins-count">{len(B.INSURERS)} assureurs, mutuelles et banques-assureurs</p>
     <p class="ins-note">Nous remettons une facture détaillée décrivant l'intervention et les dégâts constatés, le justificatif demandé par les assureurs. Remboursement selon les garanties et franchises de votre contrat. <a href="/{ASSURANCE_PAGE['slug']}/" style="color:var(--purple-700);font-weight:600;text-decoration:underline">Cambriolage : comment ça marche ?</a></p>
   </div>
 </section>
@@ -772,24 +847,32 @@ def insurers_section(cls=""):
 
 
 def reviews_section(cls="", city=None):
-    reviews = B.REVIEWS
-    cards = "".join(
-        '<div class="testi"><div class="stars" aria-label="%d étoiles sur 5">%s</div><p>« %s »</p><div class="who"><span class="av">%s</span>%s — %s</div></div>'
-        % (r["stars"], "★" * r["stars"] + "☆" * (5 - r["stars"]), esc(r["text"]),
-           "".join(w[0] for w in r["name"].replace(".", "").split()), esc(r["name"]), esc(r["city"]))
-        for r in reviews)
-    review_btn = ""
+    """Avis clients réels uniquement (B.REVIEWS), chacun avec un lien vers sa source. Masqué si la liste est vide."""
+    if not B.REVIEWS:
+        return ""
+    cards = []
+    for r in B.REVIEWS:
+        src_html = ""
+        if r.get("url"):
+            src_html = ' · <a href="%s" target="_blank" rel="noopener">avis %s</a>' % (esc(r["url"]), esc(r.get("source", "Google")))
+        cards.append('<div class="testi"><div class="stars" aria-label="%d étoiles sur 5">%s</div><p>« %s »</p><div class="who"><span class="av">%s</span><span>%s — %s%s</span></div></div>'
+                     % (r["stars"], "★" * r["stars"] + "☆" * (5 - r["stars"]), esc(r["text"]),
+                        "".join(w[0] for w in r["name"].replace(".", "").split()), esc(r["name"]), esc(r["city"]), src_html))
+    links = ""
+    if B.GOOGLE_BUSINESS_URL:
+        links += '<a class="btn btn-outline" href="%s" target="_blank" rel="noopener">Voir tous les avis sur Google</a>' % esc(B.GOOGLE_BUSINESS_URL)
     if B.GOOGLE_REVIEW_URL:
-        review_btn = '<div class="center" style="margin-top:28px"><a class="btn btn-outline" href="%s" target="_blank" rel="noopener">Laisser un avis sur Google</a></div>' % esc(B.GOOGLE_REVIEW_URL)
+        links += '<a class="btn btn-outline" href="%s" target="_blank" rel="noopener">Laisser un avis sur Google</a>' % esc(B.GOOGLE_REVIEW_URL)
+    if links:
+        links = '<div class="center" style="margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">%s</div>' % links
     return f"""<section class="{cls}" id="avis">
   <div class="wrap">
     <div class="sec-head">
       <div class="pill pill-lav sec-badge">Avis clients</div>
       <h2>Ce que disent nos clients</h2>
-      <p>Note moyenne de {B.RATING} et {B.SATISFACTION} de clients satisfaits sur plus de {B.INTERVENTIONS} interventions depuis {B.SINCE}.</p>
     </div>
-    <div class="testi-grid">{cards}</div>
-    {review_btn}
+    <div class="testi-grid">{"".join(cards)}</div>
+    {links}
   </div>
 </section>
 """
@@ -802,7 +885,7 @@ def services_grid(city=None):
         title = s["short"] + (" " + city["a"] if city else "")
         checks = "".join('<div class="check-row"><span class="check-circle la">✓</span>%s</div>' % esc(c) for c in s["card_checks"])
         cards.append(f"""<article class="svc-card has-img">
-  <a class="svc-img" href="{href}" tabindex="-1" aria-hidden="true"><img src="/assets/img/{s["image"]}" alt="" loading="lazy" width="400" height="240"><span class="pill {'pill-orange' if 'Urgence' in s['badge'] or s['badge'] == 'Dépannage' else 'pill-lav'}">{esc(s["badge"])}</span></a>
+  <a class="svc-img" href="{href}" tabindex="-1" aria-hidden="true">{picture(s["image"], "", 400, 240, "(max-width: 700px) 100vw, 400px", attrs=' loading="lazy"')}<span class="pill {'pill-orange' if 'Urgence' in s['badge'] or s['badge'] == 'Dépannage' else 'pill-lav'}">{esc(s["badge"])}</span></a>
   <div class="svc-body">
     <h3><a href="{href}">{esc(title)}</a></h3>
     <p class="desc">{esc(s["card_desc"])}</p>
@@ -842,10 +925,12 @@ def pricing_section():
     <div class="rate-card" data-active="{first}" data-day="{B.RATE_DAY_START}" data-evening="{B.RATE_EVENING_START}" data-night="{B.RATE_NIGHT_START}">
       <p class="rate-kicker">24H/24 · 7J/7</p>
       <h2>Dépannage d'urgence</h2>
-      <p class="rate-sub">Le tarif dépend de l'heure d'intervention.</p>
+      <p class="rate-sub">Prix TTC « à partir de ». Le tarif dépend de l'heure d'intervention.</p>
       <div class="rate-tabs" role="group" aria-label="Créneau horaire">{tabs}</div>
       <ul class="rate-list">{rows}</ul>
       <p class="rate-now" data-price-now>Dimanches et jours fériés : tarif de nuit toute la journée.</p>
+      {price_conditions_html("rate-conds")}
+      <p class="rate-legal">Devis écrit remis avant tout travail estimé à plus de 150&nbsp;€ TTC. <a href="/tarifs/">Détail de nos tarifs</a></p>
     </div>
   </div>
 </section>
@@ -855,9 +940,9 @@ def pricing_section():
 def stats_block():
     stats = [
         ('<path d="M3 17 9 11 13 15 21 7M21 7h-5M21 7v5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>', B.YEARS, "Années d'expérience", "Depuis %d" % B.SINCE),
-        ('<path d="M12 3.5 14.6 9.1 20.5 9.9 16.2 14 17.3 20 12 17.1 6.7 20 7.8 14 3.5 9.9 9.4 9.1Z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>', B.INTERVENTIONS, "Interventions réalisées", "Note moyenne " + B.RATING),
+        ('<circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.8"/><path d="M12 7v5l3.5 2" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>', "24h/24", "Disponible 7j/7", "Jours fériés compris"),
         ('<path d="M4 6h16M4 12h16M4 18h10" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>', "0\u00a0€", "De surprise sur la facture", "Prix validé avant travaux"),
-        ('<path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z" stroke="#fff" stroke-width="1.8"/><path d="M8.5 12l2.3 2.3L15.5 9.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>', B.SATISFACTION.replace(" ", "\u00a0"), "Clients satisfaits", "Taux de satisfaction"),
+        ('<path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z" stroke="#fff" stroke-width="1.8"/><path d="M8.5 12l2.3 2.3L15.5 9.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>', "Gratuit", "Diagnostic et devis", "Sans engagement"),
     ]
     items = "".join('<div class="stat"><div class="icon-sq"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">%s</svg></div><b>%s</b><div class="lbl">%s</div><div class="sub">%s</div></div>' % s for s in stats)
     return '<div class="stats-card">%s</div>' % items
@@ -883,7 +968,7 @@ def zones_section(current=None, service=None, cls=""):
     <div class="zone-note">
       <span class="pill pill-orange">Hors zone ?</span>
       <h3>On couvre tout le Var</h3>
-      <p>Les délais ci-contre concernent le secteur autour de Vidauban. Pour les communes plus éloignées du Var, nous intervenons aussi : le délai précis est donné au téléphone, avant tout déplacement.</p>
+      <p>Les délais ci-contre sont indicatifs, depuis notre base de Vidauban et hors trafic. Pour une commune qui n'y figure pas, le délai précis est donné au téléphone, avant tout déplacement.</p>
       <a href="tel:{B.PHONE_TEL}" class="btn btn-purple">{phone_icon(18, True)} Vérifier mon secteur</a>
       <a href="/zones-intervention/" class="btn btn-outline">Toutes nos zones d'intervention</a>
     </div>
@@ -935,15 +1020,15 @@ def trust_list_html():
 # ---------------------------------------------------------------- pages
 HOME_FAQ = [
     ("Combien coûte une ouverture de porte ?", "Le tarif de base démarre à 69 € en journée. Il dépend du type de serrure et de l'horaire ; il est toujours annoncé au téléphone et confirmé avant intervention, jamais après. <a href=\"/tarifs/\">Voir nos tarifs</a>."),
-    ("Intervenez-vous vraiment la nuit et le week-end ?", "Oui, un serrurier est joignable 24h/24 et 7j/7 au 06 75 93 19 04, y compris les jours fériés. Un supplément horaire peut s'appliquer et vous est communiqué avant le déplacement."),
+    ("Intervenez-vous vraiment la nuit et le week-end ?", "Oui, un serrurier est joignable 24h/24 et 7j/7 au 06 75 93 19 04, jours fériés compris. " + majorations_sentence() + " La majoration est toujours annoncée avant le déplacement."),
     ("Faut-il justifier son identité pour une ouverture ?", "Oui, une pièce d'identité ou un justificatif de domicile est demandé sur place, pour la sécurité de l'occupant réel du logement."),
     ("La porte sera-t-elle abîmée pour l'ouvrir ?", "Dans la majorité des cas, non : une porte claquée s'ouvre sans dégât. Si la serrure doit être forcée ou percée, c'est toujours annoncé et validé avant."),
     ("Le devis est-il vraiment gratuit ?", "Oui, le diagnostic téléphonique et le devis sur place sont gratuits et sans engagement, que vous acceptiez ou non l'intervention."),
-    ("Dans quelles communes intervenez-vous ?", "Nous sommes basés à Vidauban et intervenons dans tout le centre Var : Le Muy, Les Arcs-sur-Argens, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan, Lorgues, Taradeau, Le Thoronet et au-delà. <a href=\"/zones-intervention/\">Voir toutes les communes</a>."),
-    ("En combien de temps arrivez-vous ?", "Depuis Vidauban, comptez environ 15 minutes pour Le Muy, Les Arcs ou Le Cannet-des-Maures, 20 minutes pour Le Luc ou La Garde-Freinet, 25 minutes pour Gonfaron ou Draguignan, hors trafic. Le délai précis est donné à l'appel."),
-    ("Vos factures sont-elles acceptées par les assurances ?", "Oui. Après un cambriolage ou une tentative d'effraction, nous remettons une facture détaillée. Nos clients se font rembourser auprès de leur assureur habitation (AXA, Allianz, MAIF, MACIF, MAAF, Matmut, Groupama, Generali, Crédit Agricole, Crédit Mutuel, etc.), selon les garanties de leur contrat."),
+    ("Dans quelles communes intervenez-vous ?", "Nous sommes basés à Vidauban et intervenons dans tout le centre Var : Le Muy, Les Arcs-sur-Argens, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan, Lorgues, Taradeau, Le Thoronet, mais aussi Fréjus, Saint-Raphaël, Toulon et son agglomération (La Seyne-sur-Mer, La Garde, La Valette-du-Var, Hyères, Six-Fours-les-Plages, Ollioules). <a href=\"/zones-intervention/\">Voir toutes les communes</a>."),
+    ("En combien de temps arrivez-vous ?", delay_faq()),
+    ("Vos factures sont-elles acceptées par les assurances ?", "Oui. Après un cambriolage ou une tentative d'effraction, nous remettons une facture détaillée. Nos clients se font rembourser auprès de leur assureur habitation, selon les garanties de leur contrat."),
     ("Faut-il changer la serrure après une perte de clés ?", "C'est recommandé, surtout si vos clés étaient accompagnées d'un document portant votre adresse. Changer le cylindre suffit souvent et coûte moins cher que la serrure complète."),
-    ("Qui va intervenir chez moi ?", "Un serrurier de PRO SERVICE 83, artisan installé à Vidauban. Vous l'avez au téléphone avant son arrivée, il vous annonce le prix avant de commencer et vous remet une facture détaillée. Après l'intervention, vous gardez le même numéro pour tout suivi."),
+    ("Qui va intervenir chez moi ?", "Un serrurier de " + B.NAME + ", artisan installé à Vidauban. Vous l'avez au téléphone avant son arrivée, il vous annonce le prix avant de commencer et vous remet une facture détaillée. Après l'intervention, vous gardez le même numéro pour tout suivi."),
     ("Que faire en attendant le serrurier ?", "Vérifiez les autres accès et s'il existe un double chez un proche, ne forcez pas la porte et préparez un justificatif d'identité ou de domicile. Après une effraction, appelez le 17 et ne touchez à rien avant le passage des enquêteurs."),
     ("Comment être sûr de ne pas tomber sur un serrurier arnaqueur ?", "Exigez un prix avant le déplacement et un devis avant les travaux, méfiez-vous des faux documents « officiels » dans les boîtes aux lettres et préférez un artisan réellement local. <a href=\"/conseils/choisir-serrurier-eviter-arnaques/\">Lire notre guide</a>."),
 ]
@@ -951,7 +1036,7 @@ HOME_FAQ = [
 
 def build_home():
     path = "/"
-    title = "Serrurier Vidauban & Var 24h/24 — PRO SERVICE 83, dépannage 7j/7"
+    title = "Serrurier Vidauban & Var 24h/24 — %s, dépannage 7j/7" % B.NAME
     desc = "Serrurier à Vidauban et dans le Var, 24h/24 et 7j/7 : ouverture de porte, changement de serrure, porte blindée, clés, rideau métallique. Prix annoncé avant intervention. ☎ 06 75 93 19 04"
     website = {"@context": "https://schema.org", "@type": "WebSite", "@id": SITE + "/#site", "name": B.NAME, "url": SITE + "/", "inLanguage": "fr-FR", "publisher": {"@id": SITE + "/#entreprise"}}
     out = head(title, desc, path, [business_schema(), website, faq_schema(HOME_FAQ)])
@@ -961,7 +1046,7 @@ def build_home():
     <div class="hero-text">
     <div class="pill avail-badge"><span class="dot dot-pulse"></span><span>Artisan serrurier · Vidauban &amp; tout le Var (83)</span></div>
     <h1>Votre serrurier à Vidauban<br><span class="accent">et dans tout le Var, 24h/24</span></h1>
-    <p class="lead">Porte claquée, clés perdues, serrure bloquée ? <b>Un artisan local vous répond en direct, jour et nuit, 7j/7</b>, et intervient avec un prix annoncé avant de commencer. Plus de {B.YEARS.rstrip("+")} ans d'expérience, travail soigné, facture acceptée par les assurances.</p>
+    <p class="lead">Porte claquée, clés perdues, serrure bloquée ? <b>Un artisan local vous répond en direct, jour et nuit, 7j/7</b>, et intervient avec un prix annoncé avant de commencer. Plus de {B.YEARS.rstrip("+")} ans d'expérience, travail soigné, facture détaillée acceptée par votre assureur.</p>
     <a href="tel:{B.PHONE_TEL}" class="hero-cta">
       <span class="num">{phone_icon(24, True)} {B.PHONE}</span>
       <span class="sub">Appel direct, disponible 24/7</span>
@@ -971,11 +1056,11 @@ def build_home():
       <div class="check-row"><span class="check-circle gr">✓</span>Diagnostic gratuit</div>
       <div class="check-row"><span class="check-circle gr">✓</span>Prix annoncé à l'avance</div>
       <div class="check-row"><span class="check-circle gr">✓</span>Travaux garantis</div>
-      <div class="check-row"><span class="check-circle gr">✓</span>Factures acceptées par les assurances</div>
+      <div class="check-row"><span class="check-circle gr">✓</span>Facture détaillée acceptée par votre assureur</div>
     </div>
     </div>
     <div class="hero-media">
-      <img src="/assets/img/serrurier-devis-client.jpg" alt="Serrurier présentant le devis à une cliente avant l'intervention" width="560" height="560" fetchpriority="high">
+      {picture("serrurier-devis-client.jpg", "Serrurier présentant le devis à une cliente avant l'intervention", 560, 560, "(max-width: 900px) 100vw, 560px", attrs=' fetchpriority="high"')}
       <div class="hero-tag"><b>Sur place</b><span>Devis annoncé avant travaux</span></div>
     </div>
   </div>
@@ -998,10 +1083,10 @@ def build_home():
 <section class="alt">
   <div class="wrap text-block prose">
     <h2>Un serrurier de confiance, installé à Vidauban depuis {B.SINCE}</h2>
-    <p><strong>PRO SERVICE 83</strong> est une entreprise artisanale de serrurerie basée à <strong>Vidauban</strong>, au cœur du Var. Depuis {B.SINCE}, nous dépannons et équipons les particuliers, propriétaires, locataires, gestionnaires de résidences secondaires et petites entreprises du centre Var : Le Muy, Les Arcs-sur-Argens, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan et les communes voisines.</p>
+    <p><strong>{B.NAME}</strong> est une entreprise artisanale de serrurerie basée à <strong>Vidauban</strong>, au cœur du Var. Depuis {B.SINCE}, nous dépannons et équipons les particuliers, propriétaires, locataires, gestionnaires de résidences secondaires et petites entreprises du centre Var : Le Muy, Les Arcs-sur-Argens, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan et les communes voisines.</p>
     <p>Notre métier, c'est de régler vos problèmes de serrurerie <strong>rapidement, proprement et au juste prix</strong>. Une porte claquée un dimanche soir, des clés perdues en rentrant de vacances, une serrure forcée après un cambriolage : vous joignez directement un serrurier au <a href="tel:{B.PHONE_TEL}">{B.PHONE}</a>, sans plateforme ni centre d'appel. Il vous écoute, vous aide à sécuriser la situation et vous annonce une fourchette de prix <strong>avant</strong> de prendre la route.</p>
     <p>Nous intervenons sur toute la serrurerie de la maison et du commerce : <a href="/ouverture-de-porte-var/">ouverture de porte</a>, <a href="/changement-serrure-var/">changement de serrure et de cylindre A2P</a>, <a href="/porte-blindee-var/">porte blindée et blindage de porte</a>, <a href="/reproduction-cles-var/">reproduction de clés</a>, <a href="/serrure-connectee-var/">serrure connectée</a> et <a href="/rideau-metallique-var/">dépannage de rideaux métalliques</a>. Après un cambriolage, nous sécurisons votre logement et fournissons les <a href="/{ASSURANCE_PAGE['slug']}/">justificatifs demandés par votre assurance</a>.</p>
-    <p>Ce qui nous distingue ? Des engagements simples et tenus : un prix annoncé à l'avance, un devis validé avant les travaux, aucune intervention inutile et une facture détaillée. C'est ce qui nous vaut une note moyenne de {B.RATING} et la confiance de nombreux clients qui nous rappellent, et nous recommandent à leurs voisins.</p>
+    <p>Ce qui nous distingue ? Des engagements simples et tenus : un prix annoncé à l'avance, un devis validé avant les travaux, aucune intervention inutile et une facture détaillée. Des engagements tenus à chaque intervention, de jour comme de nuit.</p>
   </div>
 </section>
 <section id="pourquoi">
@@ -1118,7 +1203,7 @@ def build_combo(s, c, si, ci):
       <p>{delay_sentence(c)}</p>
       <div class="callout info"><strong>Notre conseil :</strong> {esc(s["combo_tip"])}</div>
       <h2>Prix et engagements</h2>
-      <p>{"" if s["price_label"].lower().startswith("tarif") else "Tarif : "}<strong>{esc(s["price_label"])}</strong>. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement et confirmé sur place avant les travaux. En fin d'intervention, vous recevez une facture détaillée, acceptée par les assureurs habitation pour vos démarches de remboursement. Les éventuels suppléments de nuit, de week-end ou de jour férié sont toujours annoncés à l'avance.</p>
+      <p>{"" if s["price_label"].lower().startswith("tarif") else "Tarif : "}<strong>{esc(s["price_label"])}</strong>. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement et confirmé sur place avant les travaux. En fin d'intervention, vous recevez une facture détaillée, acceptée par les assureurs habitation pour vos démarches de remboursement. Prix TTC en journée ; déplacement : {deplacement_txt()}. Majorations : {', '.join('%s %s' % (l[0].lower() + l[1:], v) for l, v in majorations())}, toujours annoncées à l'avance.</p>
       <h2>{first_section[0]}</h2>
       {first_section[1]}
       <p>Pour tout savoir sur cette prestation, consultez notre page <a href="{service_path(s)}">{esc(s["name"].lower())} dans le Var</a>, ou découvrez <a href="{city_path(c)}">toutes nos interventions de serrurier {c["a"]}</a>.</p>
@@ -1150,7 +1235,7 @@ def build_city(c):
     near = [CITY_BY_SLUG[n] for n in c["near"] if n in CITY_BY_SLUG]
     faq = [
         ("Quel est le délai d'intervention d'un serrurier %s ?" % c["a"], delay_sentence(c)),
-        ("Intervenez-vous %s la nuit et le week-end ?" % c["a"], "Oui, nous intervenons 24h/24 et 7j/7, jours fériés compris. Un supplément peut s'appliquer la nuit, le week-end et les jours fériés : il vous est annoncé avant le déplacement."),
+        ("Intervenez-vous %s la nuit et le week-end ?" % c["a"], "Oui, nous intervenons 24h/24 et 7j/7, jours fériés compris. " + majorations_sentence() + " La majoration vous est annoncée avant le déplacement."),
         ("Combien coûte un serrurier %s ?" % c["a"], "Nos interventions démarrent à 69 € pour une ouverture de porte, 129 € pour un changement de serrure et 15 € pour un double de clé, en journée. Le prix est annoncé au téléphone avant le départ et confirmé sur place. <a href=\"/tarifs/\">Voir nos tarifs</a>."),
         ("Vos factures sont-elles prises en charge par mon assurance ?", "Après une effraction, nous remettons une facture détaillée que nos clients transmettent à leur assureur habitation pour se faire rembourser, selon les garanties de leur contrat."),
         ("Quelles communes desservez-vous autour %s ?" % c["de"], "Nous intervenons notamment à %s, et dans tout le centre Var." % ", ".join(n["name"] for n in near)),
@@ -1159,22 +1244,16 @@ def build_city(c):
     out = head(title, desc, path, schemas)
     out += header(path)
     lead = "Ouverture de porte, changement de serrure, porte blindée, reproduction de clés : un artisan serrurier intervient <b>%s 24h/24 et 7j/7</b>, avec un prix annoncé avant de partir." % c["a"]
-    out += page_hero(crumbs, "Serrurier %s (%s)" % (c["a"], c["cp"]), lead, ["Diagnostic gratuit", "Prix annoncé à l'avance", "Factures acceptées par les assurances"], badge="%s · disponible 24h/24" % delay_txt(c), image="serrurier-devis-client.jpg", image_alt="Serrurier %s présentant le devis avant l'intervention" % c["a"], quote_service="Serrurier %s" % c["a"])
+    out += page_hero(crumbs, "Serrurier %s (%s)" % (c["a"], c["cp"]), lead, ["Diagnostic gratuit", "Prix annoncé à l'avance", "Facture détaillée acceptée par votre assureur"], badge="%s · disponible 24h/24" % delay_txt(c), image="serrurier-devis-client.jpg", image_alt="Serrurier %s présentant le devis avant l'intervention" % c["a"], quote_service="Serrurier %s" % c["a"])
     out += trust_marquee()
     out += urgent_band()
     near_html = "".join('<a class="chip" href="%s">Serrurier %s <span class="d">%s</span></a>' % (city_path(n), esc(n["name"]), delay_label(n)) for n in near)
-    local_reviews = [r for r in B.REVIEWS if r["city"] == c["name"]]
-    review_html = ""
-    if local_reviews:
-        r = local_reviews[0]
-        review_html = '<div class="callout info"><strong>Avis client %s :</strong> « %s » — %s</div>' % (c["a"], esc(r["text"]), esc(r["name"]))
     out += f"""<section>
   <div class="wrap layout">
     <article class="prose">
       <h2>Votre serrurier {c["a"]}</h2>
       <p>{esc(c["intro"])}</p>
       <p>{esc(c["context"])}</p>
-      {review_html}
       <h2>Nos prestations de serrurerie {c["a"]}</h2>
       <ul>
         <li><strong>Urgence serrurerie 24h/24</strong> : porte claquée, clés perdues, serrure bloquée, effraction.</li>
@@ -1186,7 +1265,7 @@ def build_city(c):
         <li><strong>Rideaux métalliques et volets</strong> : dépannage et réparation.</li>
       </ul>
       <h2>Pourquoi faire appel à nous {c["a"]} ?</h2>
-      <p>Vous parlez directement à un artisan serrurier installé à Vidauban, pas à une plateforme. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement puis validé avec vous avant les travaux. Nous ne proposons que les interventions utiles et vous remettons une facture détaillée. Depuis {B.SINCE}, plus de {B.INTERVENTIONS} interventions et une note moyenne de {B.RATING}.</p>
+      <p>Vous parlez directement à un artisan serrurier installé à Vidauban, pas à une plateforme. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement puis validé avec vous avant les travaux. Nous ne proposons que les interventions utiles et vous remettons une facture détaillée. Nous sommes installés à Vidauban depuis {B.SINCE}.</p>
       <h2>Communes voisines {c["de"]}</h2>
       <p>Nous intervenons aussi dans les communes proches :</p>
       <div class="chips">{near_html}</div>
@@ -1219,7 +1298,7 @@ def build_city(c):
 def build_prestations():
     path = "/prestations/"
     crumbs = [("Accueil", "/"), ("Prestations", path)]
-    out = head("Prestations de serrurerie dans le Var — PRO SERVICE 83",
+    out = head("Prestations de serrurerie dans le Var — " + B.NAME,
                "Toutes nos prestations de serrurerie dans le Var : urgence 24h/24, ouverture de porte, changement de serrure, porte blindée, clés, serrure connectée, rideau métallique.",
                path, [business_schema(), breadcrumb_schema(crumbs)])
     out += header(path)
@@ -1252,12 +1331,12 @@ def build_assurance():
                service_schema("Mise en sécurité et changement de serrure après cambriolage", "Sécurisation du logement, remplacement de serrure et facture pour l'assurance habitation dans le Var.", path, "Var (83)", None),
                faq_schema(faq)]
     out = head("Serrurier après cambriolage dans le Var — mise en sécurité & assurance",
-               "Cambriolage ou tentative d'effraction dans le Var : mise en sécurité le jour même, changement de serrure, facture pour votre assurance (AXA, Allianz, MAIF, MACIF, MAAF, Groupama…). ☎ 06 75 93 19 04",
+               "Cambriolage ou tentative d'effraction dans le Var : mise en sécurité le jour même, changement de serrure, facture pour votre assurance. ☎ 06 75 93 19 04",
                path, schemas)
     out += header(path)
     out += page_hero(crumbs, "Serrurier après cambriolage : mise en sécurité et justificatifs pour l'assurance",
                      "Porte forcée, serrure endommagée : nous <b>sécurisons votre logement le jour même</b> et vous remettons une facture détaillée pour être remboursé par votre assurance habitation.",
-                     ["Intervention le jour même", "Facture détaillée", "Factures acceptées par les assurances"], badge="Disponible 24h/24 · 7j/7",
+                     ["Intervention le jour même", "Facture détaillée", "Facture détaillée acceptée par votre assureur"], badge="Disponible 24h/24 · 7j/7",
                      image=ASSURANCE_PAGE["image"], image_alt=ASSURANCE_PAGE["image_alt"], quote_service="Cambriolage / mise en sécurité")
     out += trust_marquee()
     out += f"""<section>
@@ -1271,10 +1350,8 @@ def build_assurance():
         <li><strong>Justificatifs</strong> : facture détaillée de l'intervention et des dégâts constatés.</li>
       </ol>
       <p>Ces documents permettent à votre assureur d'instruire votre dossier rapidement. Nos clients les transmettent à leur assureur habitation pour se faire rembourser, selon les garanties de leur contrat.</p>
-      <h2>Assureurs auprès desquels nos clients se font rembourser</h2>
-      <p>Nos factures sont notamment acceptées par :</p>
-      {insurer_logos(marquee=False)}
-      <p>Votre assureur n'est pas dans la liste ? Cela ne change rien : une facture détaillée d'un professionnel est le justificatif standard demandé par toutes les compagnies.</p>
+      <h2>Facture détaillée acceptée par votre assureur</h2>
+      <p>Quel que soit votre assureur habitation, la facture détaillée d'un professionnel est le justificatif qu'il demande. Le remboursement dépend ensuite des garanties, plafonds et franchises de votre contrat.</p>
       <h2>Les étapes après un cambriolage</h2>
       <ul>
         <li>Appelez le <strong>17</strong> et ne touchez à rien avant le passage des enquêteurs.</li>
@@ -1305,8 +1382,8 @@ def build_assurance():
 def build_zones():
     path = "/zones-intervention/"
     crumbs = [("Accueil", "/"), ("Zones d'intervention", path)]
-    out = head("Zones d'intervention — serrurier Vidauban, Draguignan, Le Muy, Le Luc… (Var)",
-               "Serrurier basé à Vidauban, intervention 24h/24 dans le centre Var : Le Muy, Les Arcs, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan et plus.",
+    out = head("Zones d'intervention — serrurier Vidauban, Draguignan, Toulon, Fréjus… (Var)",
+               "Serrurier basé à Vidauban, intervention 24h/24 dans le centre Var : Le Muy, Les Arcs, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan, Fréjus, Saint-Raphaël, Toulon, Hyères et plus.",
                path, [business_schema(), breadcrumb_schema(crumbs)])
     out += header(path)
     out += page_hero(crumbs, "Nos zones d'intervention dans le Var", "Basés à <b>Vidauban</b>, nous intervenons 24h/24 dans tout le centre Var. Délais indicatifs depuis notre base, hors trafic.", ["Artisan local", "Délai annoncé à l'appel", "7j/7"])
@@ -1339,8 +1416,10 @@ def build_tarifs():
     path = "/tarifs/"
     crumbs = [("Accueil", "/"), ("Tarifs", path)]
     faq = [
-        ("Le déplacement est-il payant ?", "Les éventuels frais de déplacement vous sont annoncés au téléphone, avant notre départ. Rien ne s'ajoute sur la facture sans votre accord."),
-        ("Y a-t-il un supplément la nuit et le week-end ?", "Oui, un supplément horaire peut s'appliquer la nuit, le week-end et les jours fériés. Il vous est toujours communiqué avant le déplacement."),
+        ("Le déplacement est-il payant ?", ("Non, le déplacement est inclus dans nos prix." if B.DEPLACEMENT is True else
+                                            "Le déplacement est facturé %s, annoncé au téléphone avant notre départ." % deplacement_txt() if B.DEPLACEMENT else
+                                            "Les éventuels frais de déplacement vous sont annoncés au téléphone, avant notre départ.") + " Rien ne s'ajoute sur la facture sans votre accord."),
+        ("Y a-t-il un supplément la nuit et le week-end ?", "Oui. " + majorations_sentence() + " La majoration vous est toujours communiquée avant le déplacement."),
         ("Le devis est-il gratuit ?", "Oui, le diagnostic téléphonique et le devis sur place sont gratuits et sans engagement."),
         ("Puis-je refuser le devis sur place ?", "Oui. Le prix est confirmé avant de commencer et vous restez libre de refuser."),
     ]
@@ -1349,15 +1428,23 @@ def build_tarifs():
                path, [business_schema(), breadcrumb_schema(crumbs), faq_schema(faq)])
     out += header(path)
     out += page_hero(crumbs, "Nos tarifs de serrurier dans le Var", "Des <b>prix clairs, annoncés avant le déplacement</b> et confirmés sur place avant les travaux. Pas de mauvaise surprise sur la facture.", ["Devis gratuit", "Sans frais cachés", "Facture détaillée"])
-    rows = "".join('<tr><td><a href="%s"><strong>%s</strong></a></td><td>%s</td></tr>' % (service_path(s), esc(s["name"]), esc(s["price_label"])) for s in SERVICES)
+    def price_cells(price_min, label):
+        if not price_min:
+            return '<td colspan="3">%s</td>' % esc(label)
+        return "".join("<td>dès %s</td>" % rate_price(price_min, coef) for _, _, coef in B.RATE_PERIODS)
+    rows = "".join('<tr><td><a href="%s"><strong>%s</strong></a></td>%s</tr>' % (service_path(s), esc(s["name"]), price_cells(s["price_min"], s["price_label"])) for s in SERVICES)
+    rows += "".join('<tr><td><strong>%s</strong></td>%s</tr>' % (esc(label), price_cells(p, "sur devis")) for label, p in getattr(B, "PRICE_DETAILS", []))
+    hours = "".join("<th>%s<br><small>%s</small></th>" % (esc(label), rate_hours(pid)) for pid, label, _ in B.RATE_PERIODS)
     out += f"""<section>
   <div class="wrap layout">
     <article class="prose">
       <h2>Grille de prix indicative</h2>
-      <div class="table-scroll"><table><thead><tr><th>Prestation</th><th>Prix</th></tr></thead><tbody>{rows}
-        <tr><td><strong>Diagnostic téléphonique</strong></td><td>gratuit</td></tr>
-        <tr><td><strong>Devis sur place</strong></td><td>gratuit, sans engagement</td></tr></tbody></table></div>
-      <p>Prix en journée. Les interventions de nuit, de week-end et de jour férié peuvent faire l'objet d'un supplément, toujours annoncé avant le déplacement.</p>
+      <div class="table-scroll"><table><thead><tr><th>Prestation (prix TTC)</th>{hours}</tr></thead><tbody>{rows}
+        <tr><td><strong>Diagnostic téléphonique</strong></td><td colspan="3">gratuit</td></tr>
+        <tr><td><strong>Devis sur place</strong></td><td colspan="3">gratuit, sans engagement</td></tr></tbody></table></div>
+      <p>Prix TTC « à partir de ». Dimanches et jours fériés : tarif de nuit toute la journée.</p>
+      <h2>Déplacement, main-d'œuvre et majorations</h2>
+      {price_conditions_html()}
       <h2>Ce qui fait varier le prix</h2>
       <ul>
         <li><strong>L'état de la porte</strong> : une porte claquée s'ouvre plus simplement qu'une porte fermée à clé ou blindée.</li>
@@ -1371,7 +1458,7 @@ def build_tarifs():
         <li>Sur place, nous confirmons le prix avant de commencer. Vous validez, ou vous refusez.</li>
         <li>En fin d'intervention, la facture correspond au prix validé, détaillée poste par poste.</li>
       </ol>
-      <div class="callout info">Conformément à la réglementation sur le dépannage à domicile, un devis écrit détaillé vous est remis avant les travaux dont le montant estimé dépasse 150 € TTC.</div>
+      <div class="callout info">Conformément à l'arrêté du 24 janvier 2017 sur le dépannage, la réparation et l'entretien à domicile, un devis écrit détaillé vous est remis avant les travaux dont le montant estimé dépasse 150 € TTC.</div>
     </article>
     <aside class="side">
       {quick_form(path, title="Demander un prix")}
@@ -1391,15 +1478,15 @@ def build_tarifs():
 def build_about():
     path = "/a-propos/"
     crumbs = [("Accueil", "/"), ("À propos", path)]
-    out = head("À propos de PRO SERVICE 83 — artisan serrurier à Vidauban depuis %d" % B.SINCE,
-               "PRO SERVICE 83, artisan serrurier indépendant installé à Vidauban (Var) depuis %d : notre histoire, nos engagements et notre charte de confiance." % B.SINCE,
+    out = head("À propos de %s — artisan serrurier à Vidauban depuis %d" % (B.NAME, B.SINCE),
+               "%s, artisan serrurier indépendant installé à Vidauban (Var) depuis %d : notre histoire, nos engagements et notre charte de confiance." % (B.NAME, B.SINCE),
                path, [business_schema(), breadcrumb_schema(crumbs)])
     out += header(path)
-    out += page_hero(crumbs, "Un artisan serrurier local, des engagements tenus", "PRO SERVICE 83 est une entreprise artisanale de serrurerie installée à <b>Vidauban depuis %d</b>. Voici qui nous sommes et comment nous travaillons." % B.SINCE, ["Plus de %s ans d'expérience" % B.YEARS.rstrip("+"), "%s interventions" % B.INTERVENTIONS, "Note moyenne %s" % B.RATING])
+    out += page_hero(crumbs, "Un artisan serrurier local, des engagements tenus", "%s est une entreprise artisanale de serrurerie installée à <b>Vidauban depuis %d</b>. Voici qui nous sommes et comment nous travaillons." % (B.NAME, B.SINCE), ["Plus de %s ans d'expérience" % B.YEARS.rstrip("+"), "Artisan local basé à Vidauban", "Disponible 24h/24 et 7j/7"])
     out += f"""<section>
   <div class="wrap text-block prose">
     <h2>Notre histoire</h2>
-    <p>PRO SERVICE 83 est né d'une idée simple : proposer aux habitants du centre Var un serrurier <strong>joignable, honnête et efficace</strong>. Installés à Vidauban depuis {B.SINCE}, nous avons réalisé plus de {B.INTERVENTIONS} interventions, de la simple porte claquée à la pose de portes blindées.</p>
+    <p>{B.NAME} est né d'une idée simple : proposer aux habitants du centre Var un serrurier <strong>joignable, honnête et efficace</strong>. Installés à Vidauban depuis {B.SINCE}, nous intervenons au quotidien, de la simple porte claquée à la pose de portes blindées.</p>
     <p>Nous connaissons les logements du secteur : maisons de village aux portes anciennes, villas avec portail et garage, résidences secondaires du massif des Maures inoccupées une partie de l'année, appartements de Draguignan aux portes palières, commerces à rideau métallique.</p>
     <h2>Pourquoi un artisan local change tout</h2>
     <p>Quand vous cherchez « serrurier urgence » sur internet, beaucoup de numéros mènent à des plateformes nationales qui revendent votre appel à un intervenant parfois éloigné, avec des prix difficiles à prévoir. Avec nous, vous appelez directement le serrurier qui va intervenir. Il connaît le secteur, il est proche, et il a tout intérêt à bien faire : sa réputation se joue ici, auprès de vos voisins.</p>
@@ -1422,7 +1509,7 @@ def build_faq_page():
     crumbs = [("Accueil", "/"), ("FAQ", path)]
     groups = [("Général", HOME_FAQ)] + [(s["short"], s["faq"]) for s in SERVICES]
     all_faq = [qa for _, g in groups for qa in g]
-    out = head("FAQ serrurier Var — prix, délais, urgence, assurance | PRO SERVICE 83",
+    out = head("FAQ serrurier Var — prix, délais, urgence, assurance | " + B.NAME,
                "Toutes les réponses à vos questions de serrurerie : prix, délais d'intervention, urgence de nuit, ouverture de porte, changement de serrure, porte blindée, assurance.",
                path, [business_schema(), breadcrumb_schema(crumbs), faq_schema(all_faq)])
     out += header(path)
@@ -1437,8 +1524,8 @@ def build_faq_page():
 def build_contact():
     path = "/contact/"
     crumbs = [("Accueil", "/"), ("Contact", path)]
-    out = head("Contact & devis gratuit — serrurier PRO SERVICE 83, Vidauban (Var)",
-               "Contactez PRO SERVICE 83 : 06 75 93 19 04, 24h/24 et 7j/7, ou demandez un devis gratuit en ligne. Serrurier basé à Vidauban, intervention dans tout le Var.",
+    out = head("Contact & devis gratuit — serrurier " + B.NAME + ", Vidauban (Var)",
+               "Contactez " + B.NAME + " : 06 75 93 19 04, 24h/24 et 7j/7, ou demandez un devis gratuit en ligne. Serrurier basé à Vidauban, intervention dans tout le Var.",
                path, [business_schema(), breadcrumb_schema(crumbs)])
     out += header(path)
     out += page_hero(crumbs, "Contact et devis gratuit", "Urgence : appelez le <b>%s</b>, 24h/24. Pour un devis, remplissez le formulaire ci-dessous, nous vous rappelons rapidement." % B.PHONE)
@@ -1586,23 +1673,55 @@ def build_plan():
 def build_legal():
     path = "/mentions-legales/"
     crumbs = [("Accueil", "/"), ("Mentions légales", path)]
-    lines = ["<li><strong>Raison sociale</strong> : %s</li>" % B.LEGAL_NAME,
-             "<li><strong>Activité</strong> : artisan serrurier, dépannage et travaux de serrurerie</li>",
-             "<li><strong>Adresse</strong> : %s%s %s, France</li>" % (B.ADDRESS_STREET + ", " if B.ADDRESS_STREET else "", B.BASE_CP, B.BASE_CITY),
-             "<li><strong>Téléphone</strong> : %s</li>" % B.PHONE,
-             "<li><strong>E-mail</strong> : %s</li>" % B.EMAIL]
-    if B.SIRET:
-        lines.append("<li><strong>SIRET</strong> : %s</li>" % B.SIRET)
-    if B.RESPONSABLE_PUBLICATION:
-        lines.append("<li><strong>Responsable de la publication</strong> : %s</li>" % B.RESPONSABLE_PUBLICATION)
+    def li(label, value):
+        return "<li><strong>%s</strong> : %s</li>" % (label, value)
+    siege = "%s%s %s, France" % (B.ADDRESS_STREET + ", " if B.ADDRESS_STREET else "", B.ADDRESS_CP, B.ADDRESS_CITY)
+    lines = [li("Dénomination", esc(B.LEGAL_NAME))]
+    if B.LEGAL_FORM:
+        lines.append(li("Forme juridique", esc(B.LEGAL_FORM)))
+    lines.append(li("Activité", "artisan serrurier, dépannage et travaux de serrurerie"))
+    lines.append(li("Siège social", esc(siege)))
+    for label, value in (("SIRET", B.SIRET), ("Immatriculation", B.RCS_RM), ("N° de TVA intracommunautaire", B.TVA),
+                         ("Directeur de la publication", B.DIRECTEUR_PUBLICATION)):
+        if value:
+            lines.append(li(label, esc(value)))
+    lines += [li("Téléphone", B.PHONE), li("E-mail", '<a href="mailto:%s">%s</a>' % (B.EMAIL, B.EMAIL))]
+
+    def insurance(title, a):
+        if not a.get("assureur"):
+            return ""
+        parts = [esc(a["assureur"])]
+        if a.get("contrat"):
+            parts.append("contrat n° " + esc(a["contrat"]))
+        if a.get("zone"):
+            parts.append("couverture géographique : " + esc(a["zone"]))
+        return li(title, ", ".join(parts))
+    assurances = insurance("Assurance décennale", B.DECENNALE) + insurance("Responsabilité civile professionnelle", B.RC_PRO)
+    assurances_html = "<h2>Assurances professionnelles</h2><ul>%s</ul>" % assurances if assurances else ""
+    if B.MEDIATEUR.get("nom"):
+        site = B.MEDIATEUR.get("site", "")
+        mediation = ("En cas de litige non résolu après réclamation écrite auprès de l'entreprise, le client consommateur peut recourir gratuitement "
+                     "au médiateur de la consommation dont relève l'entreprise : <strong>%s</strong>%s (articles L.612-1 et suivants du Code de la consommation)."
+                     % (esc(B.MEDIATEUR["nom"]), ' — <a href="%s" target="_blank" rel="noopener">%s</a>' % (esc(site), esc(site.replace("https://", "").rstrip("/"))) if site else ""))
+    else:
+        mediation = ("En cas de litige non résolu après réclamation écrite auprès de l'entreprise, le client consommateur peut recourir gratuitement "
+                     "au médiateur de la consommation dont relève l'entreprise (articles L.612-1 et suivants du Code de la consommation).")
+    missing = [label for label, v in (("forme juridique et capital", B.LEGAL_FORM), ("SIRET", B.SIRET), ("RCS / RM", B.RCS_RM),
+                                      ("n° de TVA", B.TVA), ("adresse du siège", B.ADDRESS_STREET),
+                                      ("directeur de la publication", B.DIRECTEUR_PUBLICATION),
+                                      ("assurance décennale", B.DECENNALE.get("assureur")), ("RC pro", B.RC_PRO.get("assureur")),
+                                      ("médiateur de la consommation", B.MEDIATEUR.get("nom"))) if not v]
+    if missing:
+        WARNINGS.append("Mentions légales : " + ", ".join(missing))
     out = head("Mentions légales — %s" % B.NAME, "Mentions légales du site de %s, artisan serrurier à Vidauban (Var)." % B.NAME, path, [breadcrumb_schema(crumbs)], noindex=True)
     out += header(path)
     out += page_hero(crumbs, "Mentions légales", "Informations légales relatives au site et à l'entreprise.")
     out += f"""<section><div class="wrap text-block prose">
   <h2>Éditeur du site</h2><ul>{"".join(lines)}</ul>
-  <h2>Hébergement</h2><p>Netlify, Inc. — San Francisco, Californie, États-Unis — www.netlify.com</p>
-  <h2>Propriété intellectuelle</h2><p>Les textes, illustrations et éléments graphiques de ce site sont la propriété de {B.NAME}, sauf mention contraire. Toute reproduction sans autorisation est interdite. Les noms des compagnies d'assurance cités appartiennent à leurs propriétaires respectifs et sont mentionnés à titre informatif.</p>
-  <h2>Médiation de la consommation</h2><p>Conformément au Code de la consommation, en cas de litige non résolu, le client consommateur peut recourir gratuitement à un médiateur de la consommation, dont les coordonnées lui sont communiquées sur simple demande.</p>
+  {assurances_html}
+  <h2>Hébergement</h2><p>Netlify, Inc. — 512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis — <a href="https://www.netlify.com" target="_blank" rel="noopener">www.netlify.com</a></p>
+  <h2>Propriété intellectuelle</h2><p>Les textes, illustrations et éléments graphiques de ce site sont la propriété de {B.LEGAL_NAME}, sauf mention contraire. Toute reproduction sans autorisation est interdite.</p>
+  <h2>Médiation de la consommation</h2><p>{mediation}</p>
   <h2>Données personnelles</h2><p>Voir notre <a href="/politique-confidentialite/">politique de confidentialité</a>.</p>
 </div></section>
 """
@@ -1695,11 +1814,11 @@ def build_llms():
              "- Téléphone (24h/24, 7j/7) : %s" % B.PHONE,
              "- E-mail : %s" % B.EMAIL,
              "- Base : %s (%s), %s" % (B.BASE_CITY, B.BASE_CP, B.DEPARTEMENT),
-             "- Expérience : depuis %d, plus de %s interventions, note moyenne %s, %s de clients satisfaits" % (B.SINCE, B.INTERVENTIONS, B.RATING, B.SATISFACTION),
-             "- Tarifs : ouverture de porte dès 69 €, changement de serrure dès 129 € (garantie 2 ans), double de clé dès 15 €, dépannage de rideau métallique dès 79 €, porte blindée et serrure connectée sur devis. Diagnostic téléphonique et devis gratuits. Supplément éventuel nuit, week-end et jours fériés annoncé avant le déplacement.",
-             "- Tarifs selon l'heure d'intervention (heure de Paris) : " + " ; ".join("%s %s : %s" % (label.lower(), rate_hours(pid), ", ".join("%s %s" % (sv["short"], rate_price(sv["price_min"], coef)) for sv in SERVICES if sv["price_min"])) for pid, label, coef in B.RATE_PERIODS) + " (prix à partir de). Dimanches et jours fériés : tarif de nuit.",
+             "- Expérience : artisan installé à Vidauban depuis %d" % B.SINCE,
+             "- Tarifs : ouverture de porte dès 69 €, changement de serrure dès 129 € (garantie 2 ans), double de clé dès 15 €, dépannage de rideau métallique dès 79 €, porte blindée et serrure connectée sur devis. Diagnostic téléphonique et devis gratuits. " + majorations_sentence(),
+             "- Tarifs selon l'heure d'intervention (heure de Paris) : " + " ; ".join("%s %s : %s" % (label.lower(), rate_hours(pid), ", ".join("%s %s" % (sv["short"], rate_price(sv["price_min"], coef)) for sv in SERVICES if sv["price_min"])) for pid, label, coef in B.RATE_PERIODS) + " (prix TTC à partir de). Dimanches et jours fériés : tarif de nuit. Déplacement : " + deplacement_txt() + "." + (" Main-d'œuvre : %s TTC de l'heure." % eur(B.TAUX_HORAIRE) if B.TAUX_HORAIRE else ""),
              "- Engagements : prix annoncé avant le déplacement, devis validé avant les travaux, facture détaillée, travaux garantis.",
-             "- Assurance : factures acceptées par les assureurs habitation (%s), selon les garanties du contrat." % ", ".join(n for n, _ in B.INSURERS),
+             "- Assurance : facture détaillée acceptée par votre assureur habitation, remboursement selon les garanties du contrat.",
              "- Communes desservies : %s." % ", ".join("%s (%s, %s)" % (c["name"], c["cp"], delay_label(c)) for c in CITIES),
              "", "## Prestations", ""]
     for s in SERVICES:
@@ -1752,7 +1871,7 @@ def build_static():
         if os.path.exists(src):
             shutil.copy(src, os.path.join(OUT, name))
     manifest = {
-        "name": B.NAME + " — Serrurier Var", "short_name": "PRO SERVICE 83", "lang": "fr",
+        "name": B.NAME + " — Serrurier Var", "short_name": B.NAME, "lang": "fr",
         "start_url": "/", "display": "browser", "background_color": "#ffffff", "theme_color": "#4a2a86",
         "icons": [{"src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png"},
                   {"src": "/assets/logo-512.png", "sizes": "512x512", "type": "image/png"}],
@@ -1790,6 +1909,25 @@ def main():
     build_sitemap()
     build_llms()
     print("%d pages indexables générées dans %s" % (len(PAGES), OUT))
+    if not B.SIRET:
+        WARNINGS.append("SIRET absent du pied de page et du JSON-LD")
+    if not (B.CONV_CALL and B.CONV_FORM):
+        WARNINGS.append("Conversions Google Ads : CONV_CALL / CONV_FORM vides, aucune conversion envoyée")
+    if not B.CONV_CALL_FORWARDING:
+        WARNINGS.append("Appels depuis le site (numéro de transfert Google, 60 s) : CONV_CALL_FORWARDING vide")
+    if B.DEPLACEMENT is None:
+        WARNINGS.append("Tarifs : DEPLACEMENT non renseigné (inclus ou prix)")
+    if not B.TAUX_HORAIRE:
+        WARNINGS.append("Tarifs : TAUX_HORAIRE non renseigné")
+    if B.RATE_SUNDAY_COEF != period_coef("nuit"):
+        WARNINGS.append("Tarifs : RATE_SUNDAY_COEF différent du tarif de nuit, la carte de l'accueil affiche le tarif de nuit le dimanche")
+    unconfirmed = [c["name"] for c in CITIES if c.get("delay_todo")]
+    if unconfirmed:
+        WARNINGS.append("Délais à confirmer : " + ", ".join(unconfirmed))
+    if WARNINGS:
+        print("\nÀ compléter :")
+        for w in WARNINGS:
+            print("  - " + w)
 
 
 if __name__ == "__main__":

@@ -46,8 +46,11 @@ YEARS = "12+"
 
 # ---------------------------------------------------------------- Google Ads
 GTAG_ID = "AW-18380568336"
+# Google Tag Manager : balises de conversion Google Ads (événements clic_appel / envoi_formulaire).
+GTM_ID = "GTM-5J8RCV4Q"
 # Libellés de conversion complets (« AW-…/LIBELLÉ »). Vide = aucune conversion envoyée.
 # Créer de préférence des actions dédiées « Serrurier » dans le compte AW-18380568336.
+# Conversions envoyées par Google Tag Manager (GTM_ID ci-dessous) : laisser vides.
 CONV_CALL = ""   # clic sur un numéro (conversion secondaire)
 CONV_FORM = ""   # formulaire envoyé (page /merci/)
 # Appels depuis le site (numéro de transfert Google, durée minimale 60 s) : libellé de l'action

@@ -123,7 +123,7 @@ INSURERS = [
     ("Caisse d'Épargne", 'caisse-epargne.png'), ('La Banque Postale Assurances', 'la-banque-postale-assurances.png'),
 ]
 
-# Marques de serrures sur lesquelles nous intervenons (logos dans src/assets/marques/).
+# Marques de serrures sur lesquelles j'interviens (logos dans src/assets/marques/).
 BRANDS = [
     ('Vachette', 'vachette.png'), ('Point Fort Fichet', 'fichet.png'), ('Bricard', 'bricard.png'),
     ('Picard Serrures', 'picard.svg'), ('Mul-T-Lock', 'mul-t-lock.png'), ('Iseo', 'iseo.svg'),

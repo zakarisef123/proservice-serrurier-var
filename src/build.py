@@ -1125,6 +1125,7 @@ def build_home():
   </div>
 </section>
 """
+    out += insurers_section("ins-top")
     out += trust_marquee()
     out += urgent_band()
     out += pricing_section()
@@ -1161,7 +1162,6 @@ def build_home():
 </section>
 """
     out += process_section("Simple, clair, sans surprise")
-    out += insurers_section("alt")
     out += brands_section()
     out += cta_band("Porte claquée, clés perdues ?", "Nous intervenons dans tout le Var (83), tous les jours, 24h/24.")
     out += realisations_section(cls="alt")
@@ -1349,6 +1349,7 @@ def build_city(c):
     out += header(path)
     lead = "Ouverture de porte, changement de serrure, porte blindée, clé cassée : un artisan serrurier intervient <b>%s 24h/24 et 7j/7</b>, avec un prix annoncé avant de partir." % c["a"]
     out += city_hero(c, crumbs)
+    out += insurers_section("ins-top")
     out += trust_marquee()
     out += urgent_band()
     out += pricing_section()
@@ -1395,7 +1396,6 @@ def build_city(c):
     out += charter_section()
     out += guarantees_section("alt")
     out += process_section("Simple, clair, sans surprise")
-    out += insurers_section("alt")
     out += brands_section()
     out += cta_band("Porte claquée, clés perdues ?", "Nous intervenons %s et dans les communes voisines, tous les jours, 24h/24." % c["a"])
     out += zones_section(current=c)

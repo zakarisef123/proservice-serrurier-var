@@ -97,3 +97,7 @@ Le thème est en fin de `src/assets/style.css`. Logo : badge rond jaune « 24/7 
 
 Les délais des communes ajoutées sont **estimés** (distance depuis Vidauban, relief) : à vérifier et corriger
 dans `src/data_communes_var.py` (champ `delay`).
+
+## Bandeaux de logos
+
+Bandeau défilant des logos d'assureurs (`INSURERS` dans `src/data_business.py`, images dans `src/assets/assurances/`) et des marques de serrures (`BRANDS`, images dans `src/assets/marques/`, logos récupérés sur les sites officiels des fabricants), avec une mention « logos cités à titre d'information, sans partenariat ».

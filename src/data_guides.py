@@ -119,18 +119,18 @@ GUIDES = [
             "<li><strong>Refusez le perçage</strong> s'il n'est pas justifié et annoncé avec son prix.</li>"
             "<li><strong>Exigez une facture détaillée</strong>, indispensable pour l'assurance.</li></ol>"
             "<h2>Notre engagement</h2>"
-            f"<p>{NAME} est un artisan local qui intervient dans le Var. Vous nous joignez en direct au 06 75 93 19 04. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement et confirmé sur place avant les travaux. <a href=\"/a-propos/\">Découvrez notre charte de confiance</a>.</p>"
+            f"<p>{NAME} est un artisan local qui intervient 24h/24. Vous nous joignez en direct au 06 75 93 19 04. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement et confirmé sur place avant les travaux. <a href=\"/a-propos/\">Découvrez notre charte de confiance</a>.</p>"
             "<div class=\"callout info\">En cas de litige avec un professionnel, vous pouvez signaler la pratique sur le site SignalConso de la DGCCRF.</div>",
     },
     {
         "slug": "securiser-residence-secondaire",
-        "title": "Résidence secondaire dans le Var : comment la sécuriser",
-        "meta": "Résidence secondaire inoccupée dans le Var : sécuriser porte d'entrée et accès, serrure certifiée, serrure connectée, précautions avant de partir.",
-        "h1": "Sécuriser une résidence secondaire dans le Var",
+        "title": "Résidence secondaire : comment la sécuriser",
+        "meta": "Résidence secondaire inoccupée : sécuriser porte d'entrée et accès, serrure certifiée, serrure connectée, précautions avant de partir.",
+        "h1": "Sécuriser une résidence secondaire",
         "excerpt": "Porte, serrure, accès secondaires, serrure connectée et précautions avant le départ : la check-list d'un serrurier.",
         "services": ["porte-blindee-var", "serrure-connectee-var"],
         "body":
-            "<p>Le Var compte de très nombreuses résidences secondaires, inoccupées une grande partie de l'année. Une maison vide est une cible : quelques mesures simples réduisent nettement le risque.</p>"
+            "<p>La région compte de très nombreuses résidences secondaires, inoccupées une grande partie de l'année. Une maison vide est une cible : quelques mesures simples réduisent nettement le risque.</p>"
             "<h2>La porte d'entrée en priorité</h2>"
             "<p>C'est l'accès le plus attaqué. Vérifiez qu'elle dispose d'une serrure certifiée avec plusieurs points de fermeture et d'un cylindre de sécurité. Si la porte est ancienne, un <strong>blindage</strong> ou un <strong>bloc-porte blindé</strong> change tout. <a href=\"/porte-blindee-var/\">Voir les portes blindées</a>.</p>"
             "<h2>Les accès secondaires</h2>"

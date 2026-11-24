@@ -30,7 +30,7 @@ RC_PRO = {"assureur": "", "contrat": "", "zone": ""}
 # Médiateur de la consommation (obligatoire pour un professionnel qui travaille avec des particuliers).
 MEDIATEUR = {"nom": "", "site": ""}  # ex. {"nom": "CM2C", "site": "https://www.cm2c.net"}
 
-TAGLINE = "Artisan serrurier dans le Var (83) — dépannage 24h/24"
+TAGLINE = "Artisan serrurier — dépannage 24h/24"
 PHONE = "06 75 93 19 04"
 PHONE_TEL = "+33675931904"
 # Adresse e-mail publique (contact, JSON-LD).
@@ -38,7 +38,7 @@ EMAIL = "proservice83contact@gmail.com"
 BASE_CITY = "Vidauban"
 BASE_CP = "83550"
 REGION = "Provence-Alpes-Côte d'Azur"
-DEPARTEMENT = "Var (83)"
+DEPARTEMENT = "Provence"
 GEO = (43.4272, 6.4319)  # Vidauban
 SINCE = 2013
 YEARS = "12+"
@@ -61,7 +61,7 @@ CONV_CALL_FORWARDING = ""
 # assurances ci-dessus sont renseignées.
 ASSURANCE_DECENNALE = bool(DECENNALE["assureur"] and RC_PRO["assureur"])
 
-# Photos de chantiers de serrurerie réalisés dans le Var (galerie + page Réalisations, masquées si vide).
+# Photos de chantiers de serrurerie réalisés (galerie + page Réalisations, masquées si vide).
 # Déposer les photos dans src/assets/chantiers/ puis ajouter par exemple :
 # {"image": "porte-blindee-vidauban.jpg", "title": "Porte blindée posée à Vidauban",
 #  "text": "Bloc-porte blindé avec serrure 5 points A2P…", "service": "porte-blindee-var"},

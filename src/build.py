@@ -7,6 +7,7 @@ Aucune dépendance externe.
 """
 import html
 import json
+import re
 import os
 import shutil
 import sys
@@ -207,11 +208,11 @@ def business_schema():
         "@id": SITE + "/#entreprise",
         "name": B.NAME,
         "legalName": B.LEGAL_NAME,
-        "description": "Artisan serrurier intervenant dans tout le Var (83). Dépannage serrurerie 24h/24 et 7j/7 : ouverture de porte, changement de serrure, porte blindée, clé cassée dans la serrure, serrure connectée, rideaux métalliques et sécurisation après effraction.",
+        "description": "Artisan serrurier intervenant dans le Var (83). Dépannage serrurerie 24h/24 et 7j/7 : ouverture de porte, changement de serrure, porte blindée, clé cassée dans la serrure, serrure connectée, rideaux métalliques et sécurisation après effraction.",
         "url": SITE + "/",
         "telephone": B.PHONE_TEL,
         "email": B.EMAIL,
-        "image": SITE + "/assets/og-image.png",
+        "image": SITE + "/assets/og-image.png?v=3",
         "logo": SITE + "/assets/logo-512.png",
         "priceRange": "€€",
         "currenciesAccepted": "EUR",
@@ -297,6 +298,7 @@ NAV = [
 
 
 def head(title, desc, path, schemas, og_type="website", noindex=False):
+    desc = re.sub(r"\s*[.]?\s*☎.*$", "", desc).rstrip(" .") + "."  # pas de numéro dans l'aperçu de partage
     canonical = abs_url(path)
     schema_tags = "\n".join(
         '<script type="application/ld+json">%s</script>' % json.dumps(s, ensure_ascii=False, separators=(",", ":"))
@@ -338,7 +340,7 @@ def head(title, desc, path, schemas, og_type="website", noindex=False):
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:url" content="{canonical}">
-<meta property="og:image" content="{SITE}/assets/og-image.png">
+<meta property="og:image" content="{SITE}/assets/og-image.png?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
@@ -433,7 +435,7 @@ def footer(form_anchor="#devis"):
     <div class="foot-cols">
       <div>
         <a class="logo" href="/">{LOGO_SVG.replace('class="logo-mark"', 'class="logo-mark" width="34" height="34"')}<span class="logo-text"><span class="l2" style="display:block">Proservice</span><span class="l1" style="display:block">Serrurerie · Var</span></span></a>
-        <p class="foot-about">Artisan serrurier indépendant depuis {B.SINCE}. Dépannage <b>24h/24 et 7j/7</b> dans <b>tout le Var (83)</b> : ouverture de porte, serrure, porte blindée, clés, rideaux métalliques.</p>
+        <p class="foot-about">Artisan serrurier indépendant depuis {B.SINCE}. Dépannage <b>24h/24 et 7j/7</b> dans le <b>Var (83)</b> : ouverture de porte, serrure, porte blindée, clés, rideaux métalliques.</p>
         <p class="foot-about"><a href="tel:{B.PHONE_TEL}"><b>{B.PHONE}</b></a><br><a href="mailto:{B.EMAIL}">{B.EMAIL}</a></p>
       </div>
       <div><h2>Prestations</h2><ul>{svc_links}</ul></div>
@@ -449,7 +451,7 @@ def footer(form_anchor="#devis"):
       </ul></div>
     </div>
     <div class="foot-bottom">
-      <span>© {date.today().year} {B.LEGAL_NAME} — Artisan serrurier dans tout le Var (83){" · SIRET " + B.SIRET if B.SIRET else ""}{" · " + B.RCS_RM if B.RCS_RM else ""}.</span>
+      <span>© {date.today().year} {B.LEGAL_NAME} — Artisan serrurier dans le Var (83){" · SIRET " + B.SIRET if B.SIRET else ""}{" · " + B.RCS_RM if B.RCS_RM else ""}.</span>
       <span><a href="/mentions-legales/">Mentions légales</a> · <a href="/politique-confidentialite/">Confidentialité</a> · <button type="button" data-consent="open">Cookies</button></span>
     </div>
   </div>
@@ -539,8 +541,8 @@ def page_hero(crumbs, h1, lead, checks=None, badge=None, image=None, image_alt="
 def trust_items_short():
     items = ["Plus de %s ans d'expérience en serrurerie" % B.YEARS.rstrip("+"), "Disponible 24h/24 et 7j/7",
              "Prix annoncé avant toute intervention", "Devis gratuit, sans engagement",
-             "Facture détaillée acceptée par votre assureur", "Artisan local, partout dans le Var",
-             "Intervention dans tout le Var (83)", "Travaux garantis"]
+             "Facture détaillée acceptée par votre assureur", "Artisan local, dans le Var",
+             "Intervention dans le Var (83)", "Travaux garantis"]
     if B.ASSURANCE_DECENNALE:
         items.insert(1, "Assurance décennale & RC professionnelle")
     return items
@@ -564,7 +566,7 @@ def urgent_band():
 """
 
 
-def cta_band(title="Porte claquée, serrure, projet de sécurité ?", text="Un artisan serrurier joignable 24h/24 et 7j/7 dans tout le Var (83)."):
+def cta_band(title="Porte claquée, serrure, projet de sécurité ?", text="Un artisan serrurier joignable 24h/24 et 7j/7 dans le Var (83)."):
     return f"""<section class="cta-band"><div class="wrap cta-inner">
   <div><h2>{title}</h2><p>{text}</p></div>
   <div class="cta-actions">
@@ -720,7 +722,7 @@ def contact_section(path, title="Besoin d'un serrurier maintenant ?", service=No
         </div>
         <div class="cinfo">
           <div class="icon-sq">{svc_icon("shield", 18)}</div>
-          <div><b>Tout le Var (83)</b><span>Diagnostic téléphonique et devis gratuits</span></div>
+          <div><b>Var (83)</b><span>Diagnostic téléphonique et devis gratuits</span></div>
         </div>
       </div>
     </div>
@@ -1017,7 +1019,7 @@ def zones_section(current=None, service=None, cls=""):
     </div>
     <div class="zone-note">
       <span class="pill pill-orange">Hors zone ?</span>
-      <h3>On couvre tout le Var</h3>
+      <h3>Nous couvrons le Var</h3>
       <p>Les délais ci-contre sont indicatifs, hors trafic. Pour une commune qui n'y figure pas, le délai précis est donné au téléphone, avant tout déplacement.</p>
       <a href="tel:{B.PHONE_TEL}" class="btn btn-purple">{phone_icon(18, True)} Vérifier mon secteur</a>
       <a href="/zones-intervention/" class="btn btn-outline">Toutes nos zones d'intervention</a>
@@ -1084,7 +1086,7 @@ HOME_FAQ = [
     ("Faut-il justifier son identité pour une ouverture ?", "Oui, une pièce d'identité ou un justificatif de domicile est demandé sur place, pour la sécurité de l'occupant réel du logement."),
     ("La porte sera-t-elle abîmée pour l'ouvrir ?", "Dans la majorité des cas, non : une porte claquée s'ouvre sans dégât. Si la serrure doit être forcée ou percée, c'est toujours annoncé et validé avant."),
     ("Le devis est-il vraiment gratuit ?", "Oui, le diagnostic téléphonique et le devis sur place sont gratuits et sans engagement, que vous acceptiez ou non l'intervention."),
-    ("Dans quelles communes intervenez-vous ?", "Dans tout le Var (83), sur les 153 communes du département. <a href=\"/zones-intervention/\">Voir toutes les communes</a>."),
+    ("Dans quelles communes intervenez-vous ?", "Dans le Var (83), sur les 153 communes du département. <a href=\"/zones-intervention/\">Voir toutes les communes</a>."),
     ("En combien de temps arrivez-vous ?", "Le délai dépend de votre commune et de l'heure de l'appel : il vous est annoncé au téléphone, avant le déplacement. <a href=\"/zones-intervention/\">Voir nos zones d'intervention</a>."),
     ("Vos factures sont-elles acceptées par les assurances ?", "Oui. Après un cambriolage ou une tentative d'effraction, nous remettons une facture détaillée. Nos clients se font rembourser auprès de leur assureur habitation, selon les garanties de leur contrat."),
     ("Faut-il changer la serrure après une perte de clés ?", "C'est recommandé, surtout si vos clés étaient accompagnées d'un document portant votre adresse. Changer le cylindre suffit souvent et coûte moins cher que la serrure complète."),
@@ -1096,16 +1098,16 @@ HOME_FAQ = [
 
 def build_home():
     path = "/"
-    title = "Serrurier dans le Var (83) 24h/24 — %s, dépannage 7j/7" % B.NAME
-    desc = "Serrurier dans tout le Var (83), 24h/24 et 7j/7 : ouverture de porte, changement de serrure, porte blindée, clés, rideau métallique. Prix annoncé avant intervention. ☎ 06 75 93 19 04"
+    title = "Artisan serrurier 24h/24 — %s, dépannage 7j/7" % B.NAME
+    desc = "Artisan serrurier 24h/24 et 7j/7 : ouverture de porte, changement de serrure, porte blindée, clés, rideau métallique. Prix annoncé avant intervention. ☎ 06 75 93 19 04"
     website = {"@context": "https://schema.org", "@type": "WebSite", "@id": SITE + "/#site", "name": B.NAME, "url": SITE + "/", "inLanguage": "fr-FR", "publisher": {"@id": SITE + "/#entreprise"}}
     out = head(title, desc, path, [business_schema(), website, faq_schema(HOME_FAQ)])
     out += header(path)
     out += f"""<section class="hero hero-split">
   <div class="wrap hero-inner">
     <div class="hero-text">
-    <div class="pill avail-badge"><span class="dot dot-pulse"></span><span>Artisan serrurier · Tout le Var (83)</span></div>
-    <h1>Votre serrurier<br><span class="accent">dans tout le Var, 24h/24</span></h1>
+    <div class="pill avail-badge"><span class="dot dot-pulse"></span><span>Artisan serrurier · Var (83)</span></div>
+    <h1>Artisan serrurier<br><span class="accent">24h/24 et 7j/7</span></h1>
     <p class="lead">Porte claquée, clés perdues, serrure bloquée ? <b>Un artisan local vous répond en direct, jour et nuit, 7j/7</b>, et intervient avec un prix annoncé avant de commencer. Plus de {B.YEARS.rstrip("+")} ans d'expérience, travail soigné, facture détaillée acceptée par votre assureur.</p>
     <a href="tel:{B.PHONE_TEL}" class="hero-cta">
       <span class="num">{phone_icon(24, True)} {B.PHONE}</span>
@@ -1134,7 +1136,7 @@ def build_home():
     <div class="sec-head">
       <div class="pill pill-purple sec-badge">{svc_icon("shield", 15)}Services professionnels</div>
       <h2>Nos services de serrurerie dans le Var</h2>
-      <p>Un artisan serrurier à votre service pour l'urgence comme pour les travaux, 24h/24 et 7j/7, dans tout le Var (83).</p>
+      <p>Un artisan serrurier à votre service pour l'urgence comme pour les travaux, 24h/24 et 7j/7, dans le Var (83).</p>
     </div>
     {services_grid()}
   </div>
@@ -1144,8 +1146,8 @@ def build_home():
     out += f"""<div class="alt" style="padding:0 0 10px"><div class="wrap">{stats_block()}</div></div>
 <section class="alt">
   <div class="wrap text-block prose">
-    <h2>Un serrurier de confiance dans tout le Var depuis {B.SINCE}</h2>
-    <p><strong>{B.NAME}</strong> est une entreprise artisanale de serrurerie qui intervient dans <strong>tout le Var (83)</strong>. Depuis {B.SINCE}, nous dépannons et équipons les particuliers, propriétaires, locataires, gestionnaires de résidences secondaires et petites entreprises de tout le département.</p>
+    <h2>Un serrurier de confiance dans le Var depuis {B.SINCE}</h2>
+    <p><strong>{B.NAME}</strong> est une entreprise artisanale de serrurerie qui intervient dans le <strong>Var (83)</strong>. Depuis {B.SINCE}, nous dépannons et équipons les particuliers, propriétaires, locataires, gestionnaires de résidences secondaires et petites entreprises de tout le département.</p>
     <p>Notre métier, c'est de régler vos problèmes de serrurerie <strong>rapidement, proprement et au juste prix</strong>. Une porte claquée un dimanche soir, des clés perdues en rentrant de vacances, une serrure forcée après un cambriolage : vous joignez directement un serrurier au <a href="tel:{B.PHONE_TEL}">{B.PHONE}</a>, sans plateforme ni centre d'appel. Il vous écoute, vous aide à sécuriser la situation et vous annonce une fourchette de prix <strong>avant</strong> de prendre la route.</p>
     <p>Nous intervenons sur toute la serrurerie de la maison et du commerce : <a href="/ouverture-de-porte-var/">ouverture de porte</a>, <a href="/changement-serrure-var/">changement de serrure et de cylindre A2P</a>, <a href="/porte-blindee-var/">porte blindée et blindage de porte</a>, <a href="/cle-cassee-serrure-var/">extraction de clé cassée dans la serrure</a>, <a href="/serrure-connectee-var/">serrure connectée</a> et <a href="/rideau-metallique-var/">dépannage de rideaux métalliques</a>. Après un cambriolage, nous sécurisons votre logement et fournissons les <a href="/{ASSURANCE_PAGE['slug']}/">justificatifs demandés par votre assurance</a>.</p>
     <p>Ce qui nous distingue ? Des engagements simples et tenus : un prix annoncé à l'avance, un devis validé avant les travaux, aucune intervention inutile et une facture détaillée. Des engagements tenus à chaque intervention, de jour comme de nuit.</p>
@@ -1165,7 +1167,7 @@ def build_home():
 """
     out += process_section("Simple, clair, sans surprise")
     out += brands_section()
-    out += cta_band("Porte claquée, clés perdues ?", "Nous intervenons dans tout le Var (83), tous les jours, 24h/24.")
+    out += cta_band("Porte claquée, clés perdues ?", "Nous intervenons dans le Var (83), tous les jours, 24h/24.")
     out += realisations_section(cls="alt")
     out += reviews_section("alt" if not B.REALISATIONS else "")
     out += guides_teaser(GUIDES[:3])
@@ -1198,7 +1200,7 @@ def build_service(s, idx):
     <article class="prose">
       {sections}
       <h2>{esc(s["short"])} : où intervenons-nous ?</h2>
-      <p>Nous intervenons dans tout le Var (83). Retrouvez le détail de notre intervention dans votre commune :</p>
+      <p>Nous intervenons dans le Var (83). Retrouvez le détail de notre intervention dans votre commune :</p>
       <div class="chips" style="margin-bottom:14px">{city_chips}</div>
       <p>Nous intervenons aussi dans les communes voisines : </p>
       <div class="chips">{other_chips}</div>
@@ -1239,7 +1241,7 @@ def build_combo(s, c, si, ci):
         ("En combien de temps intervenez-vous %s ?" % c["a"], delay_sentence(c) + " Pour une urgence, appelez le 06 75 93 19 04."),
         sf[v % len(sf)],
         sf[(v + 1) % len(sf)],
-        ("Intervenez-vous aussi autour %s ?" % c["de"], "Oui, nous intervenons également à %s et dans tout le Var. <a href=\"/zones-intervention/\">Voir toutes nos zones</a>." % near_names),
+        ("Intervenez-vous aussi autour %s ?" % c["de"], "Oui, nous intervenons également à %s et dans le Var. <a href=\"/zones-intervention/\">Voir toutes nos zones</a>." % near_names),
     ]
     schemas = [business_schema(), breadcrumb_schema(crumbs),
                service_schema("%s %s" % (s["combo_h1"], c["a"]), strip_tags(lead), path, c["name"], s["price_min"]),
@@ -1344,7 +1346,7 @@ def build_city(c):
         ("Intervenez-vous %s la nuit et le week-end ?" % c["a"], "Oui, nous intervenons 24h/24 et 7j/7, jours fériés compris. " + majorations_sentence() + " La majoration vous est annoncée avant le déplacement."),
         ("Combien coûte un serrurier %s ?" % c["a"], "Nos prix TTC en journée : " + prices_summary() + ". Le prix exact dépend de l'intervention et de l'horaire ; il est toujours annoncé au téléphone et confirmé sur place avant les travaux. <a href=\"/tarifs/\">Voir nos tarifs</a>."),
         ("Vos factures sont-elles prises en charge par mon assurance ?", "Après une effraction, nous remettons une facture détaillée que nos clients transmettent à leur assureur habitation pour se faire rembourser, selon les garanties de leur contrat."),
-        ("Quelles communes desservez-vous autour %s ?" % c["de"], "Nous intervenons notamment à %s, et dans tout le Var." % ", ".join(n["name"] for n in near)),
+        ("Quelles communes desservez-vous autour %s ?" % c["de"], "Nous intervenons notamment à %s, et dans le Var." % ", ".join(n["name"] for n in near)),
     ]
     schemas = [business_schema(), breadcrumb_schema(crumbs), faq_schema(faq)]
     out = head(title, desc, path, schemas)
@@ -1417,7 +1419,7 @@ def build_prestations():
                "Toutes nos prestations de serrurerie dans le Var : urgence 24h/24, ouverture de porte, changement de serrure, porte blindée, clés, serrure connectée, rideau métallique.",
                path, [business_schema(), breadcrumb_schema(crumbs)])
     out += header(path)
-    out += page_hero(crumbs, "Nos prestations de serrurerie dans le Var", "De la porte claquée en pleine nuit à la pose d'une porte blindée, <b>un seul artisan</b> pour toute la serrurerie de votre logement, partout dans le Var.", ["Devis gratuit", "Prix annoncé à l'avance", "Travaux garantis"], image="serrurier-devis-client.jpg", image_alt="Serrurier présentant le devis à une cliente")
+    out += page_hero(crumbs, "Nos prestations de serrurerie dans le Var", "De la porte claquée en pleine nuit à la pose d'une porte blindée, <b>un seul artisan</b> pour toute la serrurerie de votre logement, dans le Var.", ["Devis gratuit", "Prix annoncé à l'avance", "Travaux garantis"], image="serrurier-devis-client.jpg", image_alt="Serrurier présentant le devis à une cliente")
     out += trust_marquee()
     out += f"""<section><div class="wrap">{services_grid()}</div></section>
 <section class="alt"><div class="wrap text-block prose">
@@ -1497,11 +1499,11 @@ def build_assurance():
 def build_zones():
     path = "/zones-intervention/"
     crumbs = [("Accueil", "/"), ("Zones d'intervention", path)]
-    out = head("Zones d'intervention — serrurier dans tout le Var (83) : Toulon, Fréjus, Draguignan…",
-               "Serrurier dans tout le Var (83), intervention 24h/24 : Toulon, La Seyne-sur-Mer, Hyères, Le Muy, Les Arcs, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan, Fréjus, Saint-Raphaël, Toulon, Hyères et plus.",
+    out = head("Zones d'intervention — serrurier dans le Var (83) : Toulon, Fréjus, Draguignan…",
+               "Serrurier dans le Var (83), intervention 24h/24 : Toulon, La Seyne-sur-Mer, Hyères, Le Muy, Les Arcs, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan, Fréjus, Saint-Raphaël, Toulon, Hyères et plus.",
                path, [business_schema(), breadcrumb_schema(crumbs)])
     out += header(path)
-    out += page_hero(crumbs, "Nos zones d'intervention dans le Var", "Nous intervenons 24h/24 dans <b>tout le Var (83)</b>. Délais indicatifs hors trafic, confirmés au moment de l'appel.", ["Artisan local", "Délai annoncé à l'appel", "7j/7"])
+    out += page_hero(crumbs, "Nos zones d'intervention dans le Var", "Nous intervenons 24h/24 dans le <b>Var (83)</b>. Délais indicatifs hors trafic, confirmés au moment de l'appel.", ["Artisan local", "Délai annoncé à l'appel", "7j/7"])
     rows = ""
     for c in CITIES:
         links = " · ".join('<a href="%s">%s</a>' % (combo_path(s, c), esc(s["short"])) for s in SERVICES)
@@ -1520,7 +1522,7 @@ def build_zones():
   <div class="wrap">
     <div class="sec-head"><h2>Toutes nos prestations, commune par commune</h2></div>
     <div class="table-scroll"><table class="prices"><thead><tr><th>Commune</th><th>Code postal</th><th>Délai</th><th>Prestations</th></tr></thead><tbody>{rows}</tbody></table></div>
-    <p class="ins-note">Votre commune n'apparaît pas ? Nous couvrons tout le Var : appelez le {B.PHONE}, nous vous indiquons le délai.</p>
+    <p class="ins-note">Votre commune n'apparaît pas ? Nous couvrons le Var : appelez le {B.PHONE}, nous vous indiquons le délai.</p>
   </div>
 </section>
 """
@@ -1596,10 +1598,10 @@ def build_about():
     path = "/a-propos/"
     crumbs = [("Accueil", "/"), ("À propos", path)]
     out = head("À propos de %s — artisan serrurier dans le Var depuis %d" % (B.NAME, B.SINCE),
-               "%s, artisan serrurier indépendant présent dans tout le Var (83) depuis %d : notre histoire, nos engagements et notre charte de confiance." % (B.NAME, B.SINCE),
+               "%s, artisan serrurier indépendant présent dans le Var (83) depuis %d : notre histoire, nos engagements et notre charte de confiance." % (B.NAME, B.SINCE),
                path, [business_schema(), breadcrumb_schema(crumbs)])
     out += header(path)
-    out += page_hero(crumbs, "Un artisan serrurier local, des engagements tenus", "%s est une entreprise artisanale de serrurerie présente dans <b>tout le Var (83) depuis %d</b>. Voici qui nous sommes et comment nous travaillons." % (B.NAME, B.SINCE), ["Plus de %s ans d'expérience" % B.YEARS.rstrip("+"), "Artisan local, partout dans le Var", "Disponible 24h/24 et 7j/7"])
+    out += page_hero(crumbs, "Un artisan serrurier local, des engagements tenus", "%s est une entreprise artisanale de serrurerie présente dans le <b>Var (83) depuis %d</b>. Voici qui nous sommes et comment nous travaillons." % (B.NAME, B.SINCE), ["Plus de %s ans d'expérience" % B.YEARS.rstrip("+"), "Artisan local, dans le Var", "Disponible 24h/24 et 7j/7"])
     out += f"""<section>
   <div class="wrap text-block prose">
     <h2>Notre histoire</h2>
@@ -1641,8 +1643,8 @@ def build_faq_page():
 def build_contact():
     path = "/contact/"
     crumbs = [("Accueil", "/"), ("Contact", path)]
-    out = head("Contact & devis gratuit — serrurier " + B.NAME + ", tout le Var (83)",
-               "Contactez " + B.NAME + " : 06 75 93 19 04, 24h/24 et 7j/7, ou demandez un devis gratuit en ligne. Serrurier intervenant dans tout le Var (83).",
+    out = head("Contact & devis gratuit — serrurier " + B.NAME + ", le Var (83)",
+               "Contactez " + B.NAME + " : 06 75 93 19 04, 24h/24 et 7j/7, ou demandez un devis gratuit en ligne. Serrurier intervenant dans le Var (83).",
                path, [business_schema(), breadcrumb_schema(crumbs)])
     out += header(path)
     out += page_hero(crumbs, "Contact et devis gratuit", "Urgence : appelez le <b>%s</b>, 24h/24. Pour un devis, remplissez le formulaire ci-dessous, nous vous rappelons rapidement." % B.PHONE)
@@ -1653,7 +1655,7 @@ def build_contact():
     <ul>
       <li><strong>Téléphone (24h/24, 7j/7)</strong> : <a href="tel:{B.PHONE_TEL}">{B.PHONE}</a></li>
       <li><strong>E-mail</strong> : <a href="mailto:{B.EMAIL}">{B.EMAIL}</a></li>
-      <li><strong>Zone</strong> : tout le Var (83). <a href="/zones-intervention/">Voir nos zones</a></li>
+      <li><strong>Zone</strong> : le Var (83). <a href="/zones-intervention/">Voir nos zones</a></li>
     </ul>
     <h2>Pour un devis plus rapide</h2>
     <p>Indiquez votre commune, le type de besoin et, si possible, envoyez quelques photos par e-mail (porte, serrure, cylindre, rideau métallique). Nous pourrons vous donner une estimation plus précise dès le premier échange.</p>
@@ -1684,7 +1686,7 @@ def build_guides():
             "@context": "https://schema.org", "@type": "Article",
             "headline": g["h1"], "description": g["meta"], "inLanguage": "fr-FR",
             "mainEntityOfPage": abs_url(gp), "datePublished": TODAY, "dateModified": TODAY,
-            "image": SITE + "/assets/og-image.png",
+            "image": SITE + "/assets/og-image.png?v=3",
             "author": {"@type": "Organization", "name": B.NAME, "url": SITE + "/"},
             "publisher": {"@id": SITE + "/#entreprise"},
         }
@@ -1698,7 +1700,7 @@ def build_guides():
     <article class="prose">
       <p class="meta-line">Par l'équipe {B.NAME}, artisan serrurier dans le Var · Mis à jour le {date.today().strftime("%d/%m/%Y")}</p>
       {g["body"]}
-      <div class="callout"><strong>Besoin d'un serrurier ?</strong> Nous intervenons 24h/24 et 7j/7 dans tout le Var (83). Appelez le <a href="tel:{B.PHONE_TEL}">{B.PHONE}</a>.</div>
+      <div class="callout"><strong>Besoin d'un serrurier ?</strong> Nous intervenons 24h/24 et 7j/7 dans le Var (83). Appelez le <a href="tel:{B.PHONE_TEL}">{B.PHONE}</a>.</div>
     </article>
     <aside class="side">
       {call_card(None)}
@@ -1893,7 +1895,7 @@ AI_BOTS = [
 
 def build_robots():
     lines = [
-        "# robots.txt — %s, serrurier dans tout le Var (83)" % B.NAME,
+        "# robots.txt — %s, serrurier dans le Var (83)" % B.NAME,
         "# Tout le site est ouvert aux moteurs de recherche et aux assistants IA.",
         "",
         "User-agent: *",
@@ -1923,10 +1925,10 @@ def build_sitemap():
 
 
 def build_llms():
-    summary = ("%s est un artisan serrurier indépendant qui intervient dans tout le Var (83, France), en activité depuis %d (siège à Vidauban). "
-               "Il intervient 24h/24 et 7j/7 dans tout le Var pour les urgences et les travaux de serrurerie : ouverture de porte, "
+    summary = ("%s est un artisan serrurier indépendant qui intervient dans le Var (83, France), en activité depuis %d (siège à Vidauban). "
+               "Il intervient 24h/24 et 7j/7 dans le Var pour les urgences et les travaux de serrurerie : ouverture de porte, "
                "changement de serrure, porte blindée, clé cassée dans la serrure, serrure connectée et rideaux métalliques. Téléphone : %s." % (B.NAME, B.SINCE, B.PHONE))
-    lines = ["# %s — Serrurier dans tout le Var (83)" % B.NAME, "", "> " + summary, "",
+    lines = ["# %s — Serrurier dans le Var (83)" % B.NAME, "", "> " + summary, "",
              "Informations clés :",
              "- Téléphone (24h/24, 7j/7) : %s" % B.PHONE,
              "- E-mail : %s" % B.EMAIL,

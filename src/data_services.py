@@ -17,7 +17,7 @@ SERVICES = [
         "title": "Serrurier urgence 24h/24 dans le Var — nuit, week-end, jours fériés",
         "meta": "Serrurier d'urgence dans le Var 24h/24 et 7j/7 : porte claquée, clés perdues, serrure bloquée, effraction. Tarif annoncé avant déplacement. ☎ 06 75 93 19 04",
         "h1": "Serrurier d'urgence 24h/24 et 7j/7 dans le Var",
-        "lead": "Porte claquée, clés perdues, serrure bloquée, porte forcée : un serrurier vous répond <b>jour et nuit, week-end et jours fériés compris</b>, partout dans le Var (83).",
+        "lead": "Porte claquée, clés perdues, serrure bloquée, porte forcée : un serrurier vous répond <b>jour et nuit, week-end et jours fériés compris</b>, dans le Var (83).",
         "checks": ["Réponse immédiate au téléphone", "Prix annoncé avant de partir", "Facture pour l'assurance"],
         "card_desc": "Porte claquée, clés perdues, effraction : un serrurier joignable jour et nuit, week-end et jours fériés compris.",
         "card_checks": ["Disponible 7j/7", "Tarif confirmé avant déplacement"],
@@ -177,7 +177,7 @@ SERVICES = [
         "combo_meta": "Changement de serrure et de cylindre {a} : serrures A2P, multipoints, garantie 2 ans, dès 129 €. {delay_txt}. ☎ 06 75 93 19 04",
         "combo_intros": [
             "Clés perdues, effraction ou serrure usée {a} : nous remplaçons votre cylindre ou votre serrure par un modèle certifié A2P, à partir de 129 €, garantie 2 ans.",
-            "Vous venez d'emménager {a} ou avez perdu vos clés ? Changer le cylindre est le moyen le plus sûr de reprendre le contrôle de vos accès. Nous intervenons rapidement, partout dans le Var.",
+            "Vous venez d'emménager {a} ou avez perdu vos clés ? Changer le cylindre est le moyen le plus sûr de reprendre le contrôle de vos accès. Nous intervenons rapidement, dans le Var.",
             "Changement de serrure {a} : à l'identique ou en montée en gamme, avec un conseil honnête sur le niveau de sécurité dont vous avez vraiment besoin.",
         ],
         "combo_points": [

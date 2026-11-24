@@ -69,7 +69,7 @@ puis ajouter une notification e-mail vers proservice83contact@gmail.com.
 ## À compléter
 
 Dans `src/data_business.py` :
-- `SITE_URL` : l'adresse du site (prévue : https://pro-service83serrurerie.netlify.app, nommer le projet Netlify `pro-service83serrurerie`), à remplacer par le nom de domaine définitif (sert aux URL canoniques, au sitemap, à robots.txt et à llms.txt)
+- `SITE_URL` : l'adresse du site (prévue : https://serrurier.pro-service83.com, nommer le projet Netlify `pro-service83serrurerie`), à remplacer par le nom de domaine définitif (sert aux URL canoniques, au sitemap, à robots.txt et à llms.txt)
 - `SIRET`, `ADDRESS_STREET`, `RESPONSABLE_PUBLICATION` : obligatoires dans les mentions légales
 - `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION` : codes de validation Search Console / Bing Webmaster Tools
 - `CONV_CALL`, `CONV_FORM` : libellés des conversions Google Ads de la serrurerie (`AW-…/…`), vides = aucune conversion envoyée

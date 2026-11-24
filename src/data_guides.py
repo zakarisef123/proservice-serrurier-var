@@ -119,7 +119,7 @@ GUIDES = [
             "<li><strong>Refusez le perçage</strong> s'il n'est pas justifié et annoncé avec son prix.</li>"
             "<li><strong>Exigez une facture détaillée</strong>, indispensable pour l'assurance.</li></ol>"
             "<h2>Notre engagement</h2>"
-            f"<p>{NAME} est un artisan local qui intervient dans tout le Var. Vous nous joignez en direct au 06 75 93 19 04. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement et confirmé sur place avant les travaux. <a href=\"/a-propos/\">Découvrez notre charte de confiance</a>.</p>"
+            f"<p>{NAME} est un artisan local qui intervient dans le Var. Vous nous joignez en direct au 06 75 93 19 04. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement et confirmé sur place avant les travaux. <a href=\"/a-propos/\">Découvrez notre charte de confiance</a>.</p>"
             "<div class=\"callout info\">En cas de litige avec un professionnel, vous pouvez signaler la pratique sur le site SignalConso de la DGCCRF.</div>",
     },
     {

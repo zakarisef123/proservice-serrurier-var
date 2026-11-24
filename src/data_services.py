@@ -44,7 +44,7 @@ SERVICES = [
         ],
         "faq": [
             ("Combien coûte un serrurier en urgence la nuit ou le dimanche ?", "Le prix dépend de la situation et de l'horaire. Un supplément peut s'appliquer la nuit, le week-end et les jours fériés : il vous est annoncé au téléphone avant le déplacement, puis le prix total est confirmé sur place avant de commencer."),
-            ("En combien de temps un serrurier peut-il arriver ?", "Selon votre commune, comptez de 15 minutes (Le Muy, Les Arcs, Le Cannet-des-Maures) à environ une heure (Toulon et son agglomération), hors trafic. Le délai précis vous est donné au moment de l'appel."),
+            ("En combien de temps un serrurier peut-il arriver ?", "Comptez 15 à 40 minutes selon votre commune et la circulation. Le délai précis vous est donné au moment de l'appel."),
             ("Faut-il justifier son identité pour une ouverture de porte ?", "Oui. Une pièce d'identité ou un justificatif de domicile est demandé sur place, pour la sécurité de l'occupant réel du logement."),
             ("Intervenez-vous après un cambriolage ?", "Oui. Nous sécurisons le logement le jour même (remplacement de serrure ou fermeture provisoire) et vous remettons une facture détaillée pour votre déclaration à l'assurance."),
         ],

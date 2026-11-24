@@ -219,7 +219,7 @@ def business_schema():
         "foundingDate": str(B.SINCE),
         "address": address,
         "geo": {"@type": "GeoCoordinates", "latitude": B.GEO[0], "longitude": B.GEO[1]},
-        "areaServed": area,
+        "areaServed": area + [{"@type": "AdministrativeArea", "name": "Var (83)"}],
         "openingHoursSpecification": [{
             "@type": "OpeningHoursSpecification",
             "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
@@ -435,7 +435,7 @@ def footer(form_anchor="#devis"):
     <div class="foot-cols">
       <div>
         <a class="logo" href="/">{LOGO_SVG.replace('class="logo-mark"', 'class="logo-mark" width="34" height="34"')}<span class="logo-text"><span class="l2" style="display:block">Proservice</span><span class="l1" style="display:block">Serrurerie · 24h/24</span></span></a>
-        <p class="foot-about">Artisan serrurier indépendant depuis {B.SINCE}. Dépannage <b>24h/24 et 7j/7</b> : ouverture de porte, serrure, porte blindée, clés, rideaux métalliques.</p>
+        <p class="foot-about">Artisan serrurier indépendant depuis {B.SINCE}. Dépannage <b>24h/24 et 7j/7</b> dans le <b>Var (83)</b> : ouverture de porte, serrure, porte blindée, clés, rideaux métalliques.</p>
         <p class="foot-about"><a href="tel:{B.PHONE_TEL}"><b>{B.PHONE}</b></a><br><a href="mailto:{B.EMAIL}">{B.EMAIL}</a></p>
       </div>
       <div><h2>Prestations</h2><ul>{svc_links}</ul></div>
@@ -1086,7 +1086,7 @@ HOME_FAQ = [
     ("Faut-il justifier son identité pour une ouverture ?", "Oui, une pièce d'identité ou un justificatif de domicile est demandé sur place, pour la sécurité de l'occupant réel du logement."),
     ("La porte sera-t-elle abîmée pour l'ouvrir ?", "Dans la majorité des cas, non : une porte claquée s'ouvre sans dégât. Si la serrure doit être forcée ou percée, c'est toujours annoncé et validé avant."),
     ("Le devis est-il vraiment gratuit ?", "Oui, le diagnostic téléphonique et le devis sur place sont gratuits et sans engagement, que vous acceptiez ou non l'intervention."),
-    ("Dans quelles communes intervenez-vous ?", "Dans notre secteur, sur les 153 communes du département. <a href=\"/zones-intervention/\">Voir toutes les communes</a>."),
+    ("Dans quelles communes intervenez-vous ?", "Dans les 153 communes du Var (83). <a href=\"/zones-intervention/\">Voir toutes les communes</a>."),
     ("En combien de temps arrivez-vous ?", "Le délai dépend de votre commune et de l'heure de l'appel : il vous est annoncé au téléphone, avant le déplacement. <a href=\"/zones-intervention/\">Voir nos zones d'intervention</a>."),
     ("Vos factures sont-elles acceptées par les assurances ?", "Oui. Après un cambriolage ou une tentative d'effraction, nous remettons une facture détaillée. Nos clients se font rembourser auprès de leur assureur habitation, selon les garanties de leur contrat."),
     ("Faut-il changer la serrure après une perte de clés ?", "C'est recommandé, surtout si vos clés étaient accompagnées d'un document portant votre adresse. Changer le cylindre suffit souvent et coûte moins cher que la serrure complète."),
@@ -1147,7 +1147,7 @@ def build_home():
 <section class="alt">
   <div class="wrap text-block prose">
     <h2>Un serrurier de confiance depuis {B.SINCE}</h2>
-    <p><strong>{B.NAME}</strong> est une entreprise artisanale de serrurerie qui intervient 24h/24 et 7j/7. Depuis {B.SINCE}, nous dépannons et équipons les particuliers, propriétaires, locataires, gestionnaires de résidences secondaires et petites entreprises de tout le département.</p>
+    <p><strong>{B.NAME}</strong> est une entreprise artisanale de serrurerie qui intervient dans le Var (83), 24h/24 et 7j/7. Depuis {B.SINCE}, nous dépannons et équipons les particuliers, propriétaires, locataires, gestionnaires de résidences secondaires et petites entreprises de tout le département.</p>
     <p>Notre métier, c'est de régler vos problèmes de serrurerie <strong>rapidement, proprement et au juste prix</strong>. Une porte claquée un dimanche soir, des clés perdues en rentrant de vacances, une serrure forcée après un cambriolage : vous joignez directement un serrurier au <a href="tel:{B.PHONE_TEL}">{B.PHONE}</a>, sans plateforme ni centre d'appel. Il vous écoute, vous aide à sécuriser la situation et vous annonce une fourchette de prix <strong>avant</strong> de prendre la route.</p>
     <p>Nous intervenons sur toute la serrurerie de la maison et du commerce : <a href="/ouverture-de-porte-var/">ouverture de porte</a>, <a href="/changement-serrure-var/">changement de serrure et de cylindre A2P</a>, <a href="/porte-blindee-var/">porte blindée et blindage de porte</a>, <a href="/cle-cassee-serrure-var/">extraction de clé cassée dans la serrure</a>, <a href="/serrure-connectee-var/">serrure connectée</a> et <a href="/rideau-metallique-var/">dépannage de rideaux métalliques</a>. Après un cambriolage, nous sécurisons votre logement et fournissons les <a href="/{ASSURANCE_PAGE['slug']}/">justificatifs demandés par votre assurance</a>.</p>
     <p>Ce qui nous distingue ? Des engagements simples et tenus : un prix annoncé à l'avance, un devis validé avant les travaux, aucune intervention inutile et une facture détaillée. Des engagements tenus à chaque intervention, de jour comme de nuit.</p>
@@ -1374,7 +1374,7 @@ def build_city(c):
         <li><strong>Rideaux métalliques et volets</strong> : dépannage et réparation.</li>
       </ul>
       <h2>Pourquoi faire appel à nous {c["a"]} ?</h2>
-      <p>Vous parlez directement à un artisan serrurier local, pas à une plateforme. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement puis validé avec vous avant les travaux. Nous ne proposons que les interventions utiles et vous remettons une facture détaillée. Nous intervenons depuis {B.SINCE}.</p>
+      <p>Vous parlez directement à un artisan serrurier local, pas à une plateforme. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement puis validé avec vous avant les travaux. Nous ne proposons que les interventions utiles et vous remettons une facture détaillée. Nous intervenons dans le Var depuis {B.SINCE}.</p>
       <h2>Communes voisines {c["de"]}</h2>
       <p>Nous intervenons aussi dans les communes proches :</p>
       <div class="chips">{near_html}</div>
@@ -1514,7 +1514,7 @@ def build_zones():
     {zone_cards(CORE_CITIES)}
     <div class="sec-head" style="margin-top:56px"><h2>Autres communes desservies</h2></div>
     {zone_cards([c for c in CITIES if not c["core"]])}
-    <div class="sec-head" style="margin-top:56px"><h2>Toutes les communes de la région ({len(ALL_CITIES)})</h2><p>Chaque commune a sa page. Délais estimés hors trafic, confirmés au téléphone avant tout déplacement.</p></div>
+    <div class="sec-head" style="margin-top:56px"><h2>Toutes les communes du Var ({len(ALL_CITIES)})</h2><p>Chaque commune a sa page. Délais estimés hors trafic, confirmés au téléphone avant tout déplacement.</p></div>
     {sector_blocks()}
   </div>
 </section>

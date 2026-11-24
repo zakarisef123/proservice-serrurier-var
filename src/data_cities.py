@@ -240,7 +240,7 @@ CONTEXTS = {
     "plaine": [
         "{a}, le parc mêle maisons de village et lotissements récents, souvent avec plusieurs accès (porte d'entrée, garage, portail) : portes claquées, clés perdues et changements de cylindre après emménagement font partie de nos interventions courantes.",
         "Dans le secteur {de}, nous intervenons sur les serrures multipoints des maisons récentes comme sur les portes anciennes du centre : ouverture, dépannage, changement de serrure et blindage, avec un prix annoncé avant de partir.",
-        "{a}, nous intervenons dans le centre ancien comme dans les quartiers pavillonnaires et les commerces : ouverture de porte, reproduction de clés, rideau métallique bloqué ou sécurisation après effraction.",
+        "{a}, nous intervenons dans le centre ancien comme dans les quartiers pavillonnaires et les commerces : ouverture de porte, clé cassée dans la serrure, rideau métallique bloqué ou sécurisation après effraction.",
     ],
 }
 

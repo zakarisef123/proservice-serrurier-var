@@ -19,3 +19,125 @@
   for = "/robots.txt"
   [headers.values]
     Content-Type = "text/plain; charset=utf-8"
+
+# Ancienne prestation « reproduction de clés » remplacée par « clé cassée dans la serrure ».
+[[redirects]]
+  from = "/reproduction-cles-var/"
+  to = "/cle-cassee-serrure-var/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-vidauban/"
+  to = "/cle-cassee-vidauban/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-le-muy/"
+  to = "/cle-cassee-le-muy/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-les-arcs-sur-argens/"
+  to = "/cle-cassee-les-arcs-sur-argens/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-le-cannet-des-maures/"
+  to = "/cle-cassee-le-cannet-des-maures/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-le-luc/"
+  to = "/cle-cassee-le-luc/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-la-garde-freinet/"
+  to = "/cle-cassee-la-garde-freinet/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-gonfaron/"
+  to = "/cle-cassee-gonfaron/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-draguignan/"
+  to = "/cle-cassee-draguignan/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-taradeau/"
+  to = "/cle-cassee-taradeau/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-lorgues/"
+  to = "/cle-cassee-lorgues/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-le-thoronet/"
+  to = "/cle-cassee-le-thoronet/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-les-mayons/"
+  to = "/cle-cassee-les-mayons/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-trans-en-provence/"
+  to = "/cle-cassee-trans-en-provence/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-la-motte/"
+  to = "/cle-cassee-la-motte/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-flayosc/"
+  to = "/cle-cassee-flayosc/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-roquebrune-sur-argens/"
+  to = "/cle-cassee-roquebrune-sur-argens/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-puget-sur-argens/"
+  to = "/cle-cassee-puget-sur-argens/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-frejus/"
+  to = "/cle-cassee-frejus/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-saint-raphael/"
+  to = "/cle-cassee-saint-raphael/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-sainte-maxime/"
+  to = "/cle-cassee-sainte-maxime/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-grimaud/"
+  to = "/cle-cassee-grimaud/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-pignans/"
+  to = "/cle-cassee-pignans/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-toulon/"
+  to = "/cle-cassee-toulon/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-la-seyne-sur-mer/"
+  to = "/cle-cassee-la-seyne-sur-mer/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-la-garde/"
+  to = "/cle-cassee-la-garde/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-la-valette-du-var/"
+  to = "/cle-cassee-la-valette-du-var/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-hyeres/"
+  to = "/cle-cassee-hyeres/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-six-fours-les-plages/"
+  to = "/cle-cassee-six-fours-les-plages/"
+  status = 301
+[[redirects]]
+  from = "/reproduction-cles-ollioules/"
+  to = "/cle-cassee-ollioules/"
+  status = 301

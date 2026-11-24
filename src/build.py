@@ -138,6 +138,15 @@ def majorations_sentence():
                                                         B.RATE_NIGHT_START, B.RATE_DAY_START, m[2][1].replace("+", "")))
 
 
+def prices_summary():
+    """« fuite d'eau dès 79 €, débouchage dès 99 €… » à partir des prix des prestations (hors urgence)."""
+    items = []
+    for sv in SERVICES:
+        if sv["price_min"] and "urgence" not in sv["slug"]:
+            items.append("%s %s" % (sv["short"].lower(), sv["price_label"].replace("à partir de", "dès")))
+    return ", ".join(items)
+
+
 def price_conditions_html(cls="price-conds"):
     items = [("Prix", "TTC, en journée (lun-sam, %dh – %dh)" % (B.RATE_DAY_START, B.RATE_EVENING_START)),
              ("Déplacement", deplacement_txt())]
@@ -198,7 +207,7 @@ def business_schema():
         "@id": SITE + "/#entreprise",
         "name": B.NAME,
         "legalName": B.LEGAL_NAME,
-        "description": "Artisan serrurier intervenant dans tout le Var (83). Dépannage serrurerie 24h/24 et 7j/7 : ouverture de porte, changement de serrure, porte blindée, reproduction de clés, serrure connectée, rideaux métalliques et sécurisation après effraction.",
+        "description": "Artisan serrurier intervenant dans tout le Var (83). Dépannage serrurerie 24h/24 et 7j/7 : ouverture de porte, changement de serrure, porte blindée, clé cassée dans la serrure, serrure connectée, rideaux métalliques et sécurisation après effraction.",
         "url": SITE + "/",
         "telephone": B.PHONE_TEL,
         "email": B.EMAIL,
@@ -216,7 +225,7 @@ def business_schema():
             "opens": "00:00", "closes": "23:59",
         }],
         "knowsAbout": ["Serrurerie", "Ouverture de porte", "Changement de serrure", "Porte blindée",
-                       "Reproduction de clés", "Serrure connectée", "Rideau métallique", "Sécurisation après effraction"],
+                       "Extraction de clé cassée", "Serrure connectée", "Rideau métallique", "Sécurisation après effraction"],
         "hasOfferCatalog": {
             "@type": "OfferCatalog",
             "name": "Prestations de serrurerie",
@@ -922,7 +931,7 @@ def pricing_section():
         for pid, label, coef in B.RATE_PERIODS)
     rows = ""
     for s in SERVICES:
-        if not s["price_min"]:
+        if not s["price_min"] or s.get("rate_card") is False:
             continue
         prices = "".join('<b data-p="%s">%s</b>' % (pid, rate_price(s["price_min"], coef)) for pid, label, coef in B.RATE_PERIODS)
         rows += '<li><a href="%s">%s</a><span class="rate-price"><small>à partir de</small>%s</span></li>' % (service_path(s), esc(s["short"]), prices)
@@ -1040,13 +1049,13 @@ def trust_list_html():
 
 # ---------------------------------------------------------------- pages
 HOME_FAQ = [
-    ("Combien coûte une ouverture de porte ?", "Le tarif de base démarre à 69 € en journée. Il dépend du type de serrure et de l'horaire ; il est toujours annoncé au téléphone et confirmé avant intervention, jamais après. <a href=\"/tarifs/\">Voir nos tarifs</a>."),
+    ("Combien coûte une intervention de serrurier ?", "Nos prix TTC en journée : " + prices_summary() + ". Le prix exact dépend de l'intervention et de l'horaire ; il est toujours annoncé au téléphone et confirmé sur place avant les travaux. <a href=\"/tarifs/\">Voir nos tarifs</a>."),
     ("Intervenez-vous vraiment la nuit et le week-end ?", "Oui, un serrurier est joignable 24h/24 et 7j/7 au 06 75 93 19 04, jours fériés compris. " + majorations_sentence() + " La majoration est toujours annoncée avant le déplacement."),
     ("Faut-il justifier son identité pour une ouverture ?", "Oui, une pièce d'identité ou un justificatif de domicile est demandé sur place, pour la sécurité de l'occupant réel du logement."),
     ("La porte sera-t-elle abîmée pour l'ouvrir ?", "Dans la majorité des cas, non : une porte claquée s'ouvre sans dégât. Si la serrure doit être forcée ou percée, c'est toujours annoncé et validé avant."),
     ("Le devis est-il vraiment gratuit ?", "Oui, le diagnostic téléphonique et le devis sur place sont gratuits et sans engagement, que vous acceptiez ou non l'intervention."),
-    ("Dans quelles communes intervenez-vous ?", "Nous intervenons dans tout le Var (83), notamment à Toulon et dans son agglomération, à Fréjus, Saint-Raphaël, Draguignan, ainsi qu\'à Le Muy, Les Arcs-sur-Argens, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan, Lorgues, Taradeau, Le Thoronet, mais aussi Fréjus, Saint-Raphaël, Toulon et son agglomération (La Seyne-sur-Mer, La Garde, La Valette-du-Var, Hyères, Six-Fours-les-Plages, Ollioules). <a href=\"/zones-intervention/\">Voir toutes les communes</a>."),
-    ("En combien de temps arrivez-vous ?", delay_faq()),
+    ("Dans quelles communes intervenez-vous ?", "Dans tout le Var (83), sur les 153 communes du département. <a href=\"/zones-intervention/\">Voir toutes les communes</a>."),
+    ("En combien de temps arrivez-vous ?", "Le délai dépend de votre commune et de l'heure de l'appel : il vous est annoncé au téléphone, avant le déplacement. <a href=\"/zones-intervention/\">Voir nos zones d'intervention</a>."),
     ("Vos factures sont-elles acceptées par les assurances ?", "Oui. Après un cambriolage ou une tentative d'effraction, nous remettons une facture détaillée. Nos clients se font rembourser auprès de leur assureur habitation, selon les garanties de leur contrat."),
     ("Faut-il changer la serrure après une perte de clés ?", "C'est recommandé, surtout si vos clés étaient accompagnées d'un document portant votre adresse. Changer le cylindre suffit souvent et coûte moins cher que la serrure complète."),
     ("Qui va intervenir chez moi ?", "Un serrurier de " + B.NAME + ", artisan local. Vous l'avez au téléphone avant son arrivée, il vous annonce le prix avant de commencer et vous remet une facture détaillée. Après l'intervention, vous gardez le même numéro pour tout suivi."),
@@ -1081,7 +1090,7 @@ def build_home():
     </div>
     </div>
     <div class="hero-media">
-      {picture("serrurier-devis-client.jpg", "Serrurier présentant le devis à une cliente avant l'intervention", 560, 560, "(max-width: 900px) 100vw, 560px", attrs=' fetchpriority="high"')}
+      {picture("serrurier-intervention-var.jpg", "Serrurier en train de poser une serrure", 452, 452, "(max-width: 900px) 100vw, 560px", attrs=' fetchpriority="high"')}
       <div class="hero-tag"><b>Sur place</b><span>Devis annoncé avant travaux</span></div>
     </div>
   </div>
@@ -1104,9 +1113,9 @@ def build_home():
 <section class="alt">
   <div class="wrap text-block prose">
     <h2>Un serrurier de confiance dans tout le Var depuis {B.SINCE}</h2>
-    <p><strong>{B.NAME}</strong> est une entreprise artisanale de serrurerie qui intervient dans <strong>tout le Var (83)</strong>. Depuis {B.SINCE}, nous dépannons et équipons les particuliers, propriétaires, locataires, gestionnaires de résidences secondaires et petites entreprises de tout le département : Toulon, La Seyne-sur-Mer, Hyères, Fréjus, Saint-Raphaël, Draguignan, Le Muy, Le Luc et les communes voisines.</p>
+    <p><strong>{B.NAME}</strong> est une entreprise artisanale de serrurerie qui intervient dans <strong>tout le Var (83)</strong>. Depuis {B.SINCE}, nous dépannons et équipons les particuliers, propriétaires, locataires, gestionnaires de résidences secondaires et petites entreprises de tout le département.</p>
     <p>Notre métier, c'est de régler vos problèmes de serrurerie <strong>rapidement, proprement et au juste prix</strong>. Une porte claquée un dimanche soir, des clés perdues en rentrant de vacances, une serrure forcée après un cambriolage : vous joignez directement un serrurier au <a href="tel:{B.PHONE_TEL}">{B.PHONE}</a>, sans plateforme ni centre d'appel. Il vous écoute, vous aide à sécuriser la situation et vous annonce une fourchette de prix <strong>avant</strong> de prendre la route.</p>
-    <p>Nous intervenons sur toute la serrurerie de la maison et du commerce : <a href="/ouverture-de-porte-var/">ouverture de porte</a>, <a href="/changement-serrure-var/">changement de serrure et de cylindre A2P</a>, <a href="/porte-blindee-var/">porte blindée et blindage de porte</a>, <a href="/reproduction-cles-var/">reproduction de clés</a>, <a href="/serrure-connectee-var/">serrure connectée</a> et <a href="/rideau-metallique-var/">dépannage de rideaux métalliques</a>. Après un cambriolage, nous sécurisons votre logement et fournissons les <a href="/{ASSURANCE_PAGE['slug']}/">justificatifs demandés par votre assurance</a>.</p>
+    <p>Nous intervenons sur toute la serrurerie de la maison et du commerce : <a href="/ouverture-de-porte-var/">ouverture de porte</a>, <a href="/changement-serrure-var/">changement de serrure et de cylindre A2P</a>, <a href="/porte-blindee-var/">porte blindée et blindage de porte</a>, <a href="/cle-cassee-serrure-var/">extraction de clé cassée dans la serrure</a>, <a href="/serrure-connectee-var/">serrure connectée</a> et <a href="/rideau-metallique-var/">dépannage de rideaux métalliques</a>. Après un cambriolage, nous sécurisons votre logement et fournissons les <a href="/{ASSURANCE_PAGE['slug']}/">justificatifs demandés par votre assurance</a>.</p>
     <p>Ce qui nous distingue ? Des engagements simples et tenus : un prix annoncé à l'avance, un devis validé avant les travaux, aucune intervention inutile et une facture détaillée. Des engagements tenus à chaque intervention, de jour comme de nuit.</p>
   </div>
 </section>
@@ -1125,7 +1134,6 @@ def build_home():
     out += process_section("Simple, clair, sans surprise")
     out += insurers_section("alt")
     out += cta_band("Porte claquée, clés perdues ?", "Nous intervenons dans tout le Var (83), tous les jours, 24h/24.")
-    out += zones_section()
     out += realisations_section(cls="alt")
     out += reviews_section("alt" if not B.REALISATIONS else "")
     out += guides_teaser(GUIDES[:3])
@@ -1302,14 +1310,14 @@ def build_city(c):
     faq = [
         ("Quel est le délai d'intervention d'un serrurier %s ?" % c["a"], delay_sentence(c)),
         ("Intervenez-vous %s la nuit et le week-end ?" % c["a"], "Oui, nous intervenons 24h/24 et 7j/7, jours fériés compris. " + majorations_sentence() + " La majoration vous est annoncée avant le déplacement."),
-        ("Combien coûte un serrurier %s ?" % c["a"], "Nos interventions démarrent à 69 € pour une ouverture de porte, 129 € pour un changement de serrure et 15 € pour un double de clé, en journée. Le prix est annoncé au téléphone avant le départ et confirmé sur place. <a href=\"/tarifs/\">Voir nos tarifs</a>."),
+        ("Combien coûte un serrurier %s ?" % c["a"], "Nos prix TTC en journée : " + prices_summary() + ". Le prix exact dépend de l'intervention et de l'horaire ; il est toujours annoncé au téléphone et confirmé sur place avant les travaux. <a href=\"/tarifs/\">Voir nos tarifs</a>."),
         ("Vos factures sont-elles prises en charge par mon assurance ?", "Après une effraction, nous remettons une facture détaillée que nos clients transmettent à leur assureur habitation pour se faire rembourser, selon les garanties de leur contrat."),
         ("Quelles communes desservez-vous autour %s ?" % c["de"], "Nous intervenons notamment à %s, et dans tout le Var." % ", ".join(n["name"] for n in near)),
     ]
     schemas = [business_schema(), breadcrumb_schema(crumbs), faq_schema(faq)]
     out = head(title, desc, path, schemas)
     out += header(path)
-    lead = "Ouverture de porte, changement de serrure, porte blindée, reproduction de clés : un artisan serrurier intervient <b>%s 24h/24 et 7j/7</b>, avec un prix annoncé avant de partir." % c["a"]
+    lead = "Ouverture de porte, changement de serrure, porte blindée, clé cassée : un artisan serrurier intervient <b>%s 24h/24 et 7j/7</b>, avec un prix annoncé avant de partir." % c["a"]
     out += city_hero(c, crumbs)
     out += trust_marquee()
     out += urgent_band()
@@ -1327,7 +1335,7 @@ def build_city(c):
         <li><strong>Ouverture de porte</strong> claquée ou fermée à clé, sans casse dans la majorité des cas.</li>
         <li><strong>Changement de serrure et de cylindre</strong>, serrures certifiées A2P, garantie 2 ans.</li>
         <li><strong>Porte blindée</strong> : pose de bloc-porte et blindage de porte existante.</li>
-        <li><strong>Reproduction de clés</strong> standards et sécurisées.</li>
+        <li><strong>Clé cassée dans la serrure</strong> : extraction sans casse, cylindre remplacé si besoin.</li>
         <li><strong>Serrure connectée</strong> : à code, biométrique ou pilotée par téléphone.</li>
         <li><strong>Rideaux métalliques et volets</strong> : dépannage et réparation.</li>
       </ul>
@@ -1500,7 +1508,7 @@ def build_tarifs():
         ("Puis-je refuser le devis sur place ?", "Oui. Le prix est confirmé avant de commencer et vous restez libre de refuser."),
     ]
     out = head("Tarifs serrurier dans le Var — prix ouverture de porte, serrure, clés",
-               "Tarifs de serrurier dans le Var : ouverture de porte dès 69 €, changement de serrure dès 129 €, double de clé dès 15 €, rideau métallique dès 79 €. Devis gratuit, prix annoncé avant intervention.",
+               "Tarifs de serrurier dans le Var : " + prices_summary() + ". Devis gratuit, prix annoncé avant intervention, sans frais cachés.",
                path, [business_schema(), breadcrumb_schema(crumbs), faq_schema(faq)])
     out += header(path)
     out += page_hero(crumbs, "Nos tarifs de serrurier dans le Var", "Des <b>prix clairs, annoncés avant le déplacement</b> et confirmés sur place avant les travaux. Pas de mauvaise surprise sur la facture.", ["Devis gratuit", "Sans frais cachés", "Facture détaillée"])
@@ -1508,7 +1516,7 @@ def build_tarifs():
         if not price_min:
             return '<td colspan="3">%s</td>' % esc(label)
         return "".join("<td>dès %s</td>" % rate_price(price_min, coef) for _, _, coef in B.RATE_PERIODS)
-    rows = "".join('<tr><td><a href="%s"><strong>%s</strong></a></td>%s</tr>' % (service_path(s), esc(s["name"]), price_cells(s["price_min"], s["price_label"])) for s in SERVICES)
+    rows = "".join('<tr><td><a href="%s"><strong>%s</strong></a></td>%s</tr>' % (service_path(s), esc(s["name"]), price_cells(s["price_min"], s["price_label"]) if s.get("rate_card") is not False else '<td colspan="3">%s (travaux planifiés, devis détaillé gratuit)</td>' % esc(s["price_label"])) for s in SERVICES)
     rows += "".join('<tr><td><strong>%s</strong></td>%s</tr>' % (esc(label), price_cells(p, "sur devis")) for label, p in getattr(B, "PRICE_DETAILS", []))
     hours = "".join("<th>%s<br><small>%s</small></th>" % (esc(label), rate_hours(pid)) for pid, label, _ in B.RATE_PERIODS)
     out += f"""<section>
@@ -1884,15 +1892,15 @@ def build_sitemap():
 def build_llms():
     summary = ("%s est un artisan serrurier indépendant qui intervient dans tout le Var (83, France), en activité depuis %d (siège à Vidauban). "
                "Il intervient 24h/24 et 7j/7 dans tout le Var pour les urgences et les travaux de serrurerie : ouverture de porte, "
-               "changement de serrure, porte blindée, reproduction de clés, serrure connectée et rideaux métalliques. Téléphone : %s." % (B.NAME, B.SINCE, B.PHONE))
+               "changement de serrure, porte blindée, clé cassée dans la serrure, serrure connectée et rideaux métalliques. Téléphone : %s." % (B.NAME, B.SINCE, B.PHONE))
     lines = ["# %s — Serrurier dans tout le Var (83)" % B.NAME, "", "> " + summary, "",
              "Informations clés :",
              "- Téléphone (24h/24, 7j/7) : %s" % B.PHONE,
              "- E-mail : %s" % B.EMAIL,
              "- Base : %s (%s), %s" % (B.BASE_CITY, B.BASE_CP, B.DEPARTEMENT),
              "- Expérience : artisan dans le Var depuis %d (siège à Vidauban)" % B.SINCE,
-             "- Tarifs : ouverture de porte dès 69 €, changement de serrure dès 129 € (garantie 2 ans), double de clé dès 15 €, dépannage de rideau métallique dès 79 €, porte blindée et serrure connectée sur devis. Diagnostic téléphonique et devis gratuits. " + majorations_sentence(),
-             "- Tarifs selon l'heure d'intervention (heure de Paris) : " + " ; ".join("%s %s : %s" % (label.lower(), rate_hours(pid), ", ".join("%s %s" % (sv["short"], rate_price(sv["price_min"], coef)) for sv in SERVICES if sv["price_min"])) for pid, label, coef in B.RATE_PERIODS) + " (prix TTC à partir de). Dimanches et jours fériés : tarif de nuit. Déplacement : " + deplacement_txt() + "." + (" Main-d'œuvre : %s TTC de l'heure." % eur(B.TAUX_HORAIRE) if B.TAUX_HORAIRE else ""),
+             "- Tarifs TTC en journée : " + prices_summary() + ". Diagnostic téléphonique et devis gratuits. " + majorations_sentence(),
+             "- Tarifs selon l'heure d'intervention (heure de Paris) : " + " ; ".join("%s %s : %s" % (label.lower(), rate_hours(pid), ", ".join("%s %s" % (sv["short"], rate_price(sv["price_min"], coef)) for sv in SERVICES if sv["price_min"] and sv.get("rate_card") is not False)) for pid, label, coef in B.RATE_PERIODS) + " (prix TTC à partir de). Dimanches et jours fériés : tarif de nuit. Déplacement : " + deplacement_txt() + "." + (" Main-d'œuvre : %s TTC de l'heure." % eur(B.TAUX_HORAIRE) if B.TAUX_HORAIRE else ""),
              "- Engagements : prix annoncé avant le déplacement, devis validé avant les travaux, facture détaillée, travaux garantis.",
              "- Assurance : facture détaillée acceptée par votre assureur habitation, remboursement selon les garanties du contrat.",
              "- Communes desservies : %s." % ", ".join("%s (%s, %s)" % (c["name"], c["cp"], delay_label(c)) for c in CITIES),

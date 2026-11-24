@@ -1,6 +1,6 @@
 # PROSERVICE 83 — contenu complet du site
 
-> PROSERVICE 83 est un artisan serrurier indépendant qui intervient dans tout le Var (83, France), en activité depuis 2013 (siège à Vidauban). Il intervient 24h/24 et 7j/7 dans tout le Var pour les urgences et les travaux de serrurerie : ouverture de porte, changement de serrure, porte blindée, reproduction de clés, serrure connectée et rideaux métalliques. Téléphone : 06 75 93 19 04.
+> PROSERVICE 83 est un artisan serrurier indépendant qui intervient dans tout le Var (83, France), en activité depuis 2013 (siège à Vidauban). Il intervient 24h/24 et 7j/7 dans tout le Var pour les urgences et les travaux de serrurerie : ouverture de porte, changement de serrure, porte blindée, clé cassée dans la serrure, serrure connectée et rideaux métalliques. Téléphone : 06 75 93 19 04.
 
 Site : https://serrurier.pro-service83.com/
 
@@ -18,7 +18,7 @@ Site : https://serrurier.pro-service83.com/
 ## Serrurier d'urgence 24h/24 et 7j/7 dans le Var
 
 URL : https://serrurier.pro-service83.com/serrurier-urgence-24h-var/
-Tarif : Tarif annoncé avant déplacement
+Tarif : à partir de 69 €
 
 Porte claquée, clés perdues, serrure bloquée, porte forcée : un serrurier vous répond jour et nuit, week-end et jours fériés compris, partout dans le Var (83).
 
@@ -121,7 +121,7 @@ R : Oui, nos remplacements de serrure sont garantis 2 ans, pièces et main-d'œu
 ## Porte blindée et blindage de porte dans le Var
 
 URL : https://serrurier.pro-service83.com/porte-blindee-var/
-Tarif : sur devis
+Tarif : à partir de 890 €
 
 Pose d'un bloc-porte blindé ou blindage de votre porte existante, serrure multipoints certifiée A2P : nous renforçons l'accès principal de votre logement, avec un devis gratuit et détaillé.
 
@@ -151,40 +151,43 @@ R : Le blindage d'une porte existante se fait généralement dans la journée. L
 Q : Une porte blindée est-elle exigée par les assurances ?
 R : Pas systématiquement, mais certains contrats l'imposent ou accordent de meilleures garanties avec une porte et une serrure certifiées. Vérifiez votre contrat.
 
-## Reproduction de clés dans le Var
+## Clé cassée ou coincée dans la serrure dans le Var
 
-URL : https://serrurier.pro-service83.com/reproduction-cles-var/
-Tarif : à partir de 15 €
+URL : https://serrurier.pro-service83.com/cle-cassee-serrure-var/
+Tarif : à partir de 59 €
 
-Double de clé standard, clé sécurisée avec carte de propriété, organigramme : nous reproduisons vos clés sur place ou en atelier partenaire. À partir de 15 €.
+Un morceau de clé reste dans le cylindre, la clé tourne dans le vide ou refuse de sortir : nous extrayons la clé sans abîmer la serrure dans la plupart des cas, et vous rouvrons la porte. À partir de 59 €, 24h/24.
 
-### Les clés que nous reproduisons
+### Ce qu'il ne faut pas tenter
 
-Clés standards de porte d'entrée, de garage, de boîte aux lettres. Clés de sécurité et haute sécurité, protégées par une carte de propriété. Clés à passe et organigrammes pour copropriétés, commerces et bureaux.
+Ne pas forcer avec une pince ou un tournevis : le morceau s'enfonce encore plus et les goupilles s'abîment. Ne pas mettre de colle sur l'autre moitié de la clé pour « recoller » : la colle bloque définitivement le cylindre. Ne pas injecter de lubrifiant en quantité : il rend l'extraction plus difficile. Garder l'autre morceau de la clé : il nous aide à choisir l'outil et peut servir pour un double.
 
-### Clés sécurisées : la carte de propriété
+### Comment se passe l'extraction
 
-Les cylindres de sécurité sont livrés avec une carte de propriété. Elle est indispensable pour commander un double : c'est ce qui empêche qu'un tiers fasse copier vos clés à votre insu. Le double est alors commandé auprès du fabricant ou d'un distributeur agréé, avec un délai variable selon la marque. Vous avez perdu votre carte de propriété ? Il faut généralement changer le cylindre pour obtenir une nouvelle carte. Nous vous conseillons la solution la plus économique.
+Nous utilisons des extracteurs fins qui glissent le long du morceau de clé pour l'accrocher et le ramener, sans démonter la porte. Si la clé s'est cassée alors que le cylindre était tourné, nous le remettons d'abord en position. Dans la grande majorité des cas, la serrure continue de fonctionner normalement ensuite.
 
-### Combien de doubles faut-il ?
+### Quand faut-il changer le cylindre ?
 
-Gardez un double chez une personne de confiance (proche, voisin) : en cas de porte claquée, c'est la solution la plus économique. Évitez de cacher une clé près de la porte, et ne notez jamais votre adresse sur un porte-clés.
+Si le cylindre est usé, grippé ou abîmé par une tentative d'extraction, ou si la clé s'est cassée parce que la serrure force, nous vous conseillons de le remplacer : c'est souvent la cause de la casse. Nous vous proposons alors un cylindre adapté, avec un prix annoncé avant la pose. Voir notre page changement de serrure.
 
 ### Questions fréquentes
 
-Q : Combien coûte un double de clé ?
-R : À partir de 15 € pour une clé standard. Les clés sécurisées sont plus chères et nécessitent la carte de propriété.
+Q : Combien coûte l'extraction d'une clé cassée ?
+R : À partir de 59 € TTC en journée. Si le cylindre doit être remplacé, le prix vous est annoncé avant la pose.
 
-Q : Puis-je faire reproduire une clé sécurisée sans la carte ?
-R : Non, c'est justement la protection apportée par la carte. Sans carte, il faut changer le cylindre.
+Q : Faut-il changer la serrure après une clé cassée ?
+R : Pas forcément : dans la plupart des cas, la clé est extraite et la serrure fonctionne à nouveau. Le remplacement est conseillé si le cylindre est usé ou abîmé.
 
-Q : Quel est le délai pour un double de clé ?
-R : Les clés standards sont reproduites rapidement. Les clés sécurisées sont commandées chez le fabricant, avec un délai variable selon la marque.
+Q : Ma clé est cassée et je suis dehors, que faire ?
+R : Appelez-nous : nous extrayons la clé et vous rouvrons la porte dans le même déplacement, 24h/24 et 7j/7.
+
+Q : Pourquoi ma clé s'est-elle cassée ?
+R : Le plus souvent à cause d'une clé usée ou d'un cylindre grippé qui oblige à forcer. Un cylindre qui accroche doit être nettoyé ou remplacé avant que la clé casse.
 
 ## Serrure connectée et électronique dans le Var
 
 URL : https://serrurier.pro-service83.com/serrure-connectee-var/
-Tarif : sur devis
+Tarif : à partir de 149 €
 
 Serrure à code, à empreinte digitale ou pilotée depuis votre téléphone : nous vous conseillons, installons et paramétrons votre serrure connectée, avec une prise en main complète.
 
@@ -243,8 +246,8 @@ R : Oui, nous dépannons les volets roulants bloqués ou déréglés.
 
 ## Questions générales
 
-Q : Combien coûte une ouverture de porte ?
-R : Le tarif de base démarre à 69 € en journée. Il dépend du type de serrure et de l'horaire ; il est toujours annoncé au téléphone et confirmé avant intervention, jamais après. Voir nos tarifs.
+Q : Combien coûte une intervention de serrurier ?
+R : Nos prix TTC en journée : ouverture de porte dès 69 €, remplacement serrure dès 129 €, porte blindée dès 890 €, clé cassée dès 59 €, serrure connectée dès 149 €, volets métalliques dès 79 €. Le prix exact dépend de l'intervention et de l'horaire ; il est toujours annoncé au téléphone et confirmé sur place avant les travaux. Voir nos tarifs.
 
 Q : Intervenez-vous vraiment la nuit et le week-end ?
 R : Oui, un serrurier est joignable 24h/24 et 7j/7 au 06 75 93 19 04, jours fériés compris. Prix TTC en journée (lun-sam, 8h – 18h), majorés de 25 % le soir (18h – 22h), de 50 % la nuit (22h – 8h) et de 50 % les dimanches et jours fériés. La majoration est toujours annoncée avant le déplacement.
@@ -259,10 +262,10 @@ Q : Le devis est-il vraiment gratuit ?
 R : Oui, le diagnostic téléphonique et le devis sur place sont gratuits et sans engagement, que vous acceptiez ou non l'intervention.
 
 Q : Dans quelles communes intervenez-vous ?
-R : Nous intervenons dans tout le Var (83), notamment à Toulon et dans son agglomération, à Fréjus, Saint-Raphaël, Draguignan, ainsi qu'à Le Muy, Les Arcs-sur-Argens, Le Cannet-des-Maures, Le Luc, La Garde-Freinet, Gonfaron, Draguignan, Lorgues, Taradeau, Le Thoronet, mais aussi Fréjus, Saint-Raphaël, Toulon et son agglomération (La Seyne-sur-Mer, La Garde, La Valette-du-Var, Hyères, Six-Fours-les-Plages, Ollioules). Voir toutes les communes.
+R : Dans tout le Var (83), sur les 153 communes du département. Voir toutes les communes.
 
 Q : En combien de temps arrivez-vous ?
-R : Selon votre commune, comptez environ 15 minutes pour Le Muy, Les Arcs-sur-Argens ou Le Cannet-des-Maures, 20 minutes pour Le Luc ou La Garde-Freinet, 25 minutes pour Gonfaron ou Draguignan, 35 minutes pour Fréjus, 40 minutes pour Saint-Raphaël, 45 minutes pour Hyères, 50 minutes pour Toulon, hors trafic. Ces délais sont indicatifs : le délai précis vous est donné au moment de l'appel, avant tout déplacement.
+R : Le délai dépend de votre commune et de l'heure de l'appel : il vous est annoncé au téléphone, avant le déplacement. Voir nos zones d'intervention.
 
 Q : Vos factures sont-elles acceptées par les assurances ?
 R : Oui. Après un cambriolage ou une tentative d'effraction, nous remettons une facture détaillée. Nos clients se font rembourser auprès de leur assureur habitation, selon les garanties de leur contrat.

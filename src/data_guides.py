@@ -36,7 +36,7 @@ GUIDES = [
         "meta": "Clé cassée ou coincée dans la serrure : ce qu'il faut éviter, comment le serrurier extrait la clé et quand il faut changer le cylindre.",
         "h1": "Clé cassée dans la serrure : que faire ?",
         "excerpt": "Ce qu'il ne faut pas tenter, comment se passe l'extraction et quand le cylindre doit être remplacé.",
-        "services": ["ouverture-de-porte-var", "changement-serrure-var"],
+        "services": ["cle-cassee-serrure-var", "ouverture-de-porte-var", "changement-serrure-var"],
         "body":
             "<p>Une clé usée ou tordue finit parfois par casser dans le cylindre. Selon que la porte est ouverte ou fermée, la situation est plus ou moins urgente. Voici comment réagir.</p>"
             "<h2>Ce qu'il ne faut pas faire</h2>"
@@ -151,7 +151,7 @@ GUIDES = [
         "meta": "Clés perdues, serrure cassée, changement de serrure à l'entrée dans les lieux : qui paie le serrurier en location, selon le décret sur les réparations locatives.",
         "h1": "Serrure en location : qui paie le serrurier ?",
         "excerpt": "Clés perdues, serrure usée, effraction, changement de locataire : la répartition des frais entre locataire et propriétaire.",
-        "services": ["changement-serrure-var", "reproduction-cles-var"],
+        "services": ["changement-serrure-var", "cle-cassee-serrure-var"],
         "body":
             "<p>En location, la question revient souvent : qui doit payer le serrurier ? La réponse dépend de la cause de l'intervention.</p>"
             "<h2>Ce qui est à la charge du locataire</h2>"

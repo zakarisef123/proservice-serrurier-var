@@ -1136,7 +1136,7 @@ def build_home():
     <div class="sec-head">
       <div class="pill pill-purple sec-badge">{svc_icon("shield", 15)}Services professionnels</div>
       <h2>Nos services de serrurerie</h2>
-      <p>Un artisan serrurier à votre service pour l'urgence comme pour les travaux, 24h/24 et 7j/7,.</p>
+      <p>Un artisan serrurier à votre service pour l'urgence comme pour les travaux, 24h/24 et 7j/7.</p>
     </div>
     {services_grid()}
   </div>
@@ -1419,7 +1419,7 @@ def build_prestations():
                "Toutes nos prestations de serrurerie : urgence 24h/24, ouverture de porte, changement de serrure, porte blindée, clés, serrure connectée, rideau métallique.",
                path, [business_schema(), breadcrumb_schema(crumbs)])
     out += header(path)
-    out += page_hero(crumbs, "Nos prestations de serrurerie", "De la porte claquée en pleine nuit à la pose d'une porte blindée, <b>un seul artisan</b> pour toute la serrurerie de votre logement,.", ["Devis gratuit", "Prix annoncé à l'avance", "Travaux garantis"], image="serrurier-devis-client.jpg", image_alt="Serrurier présentant le devis à une cliente")
+    out += page_hero(crumbs, "Nos prestations de serrurerie", "De la porte claquée en pleine nuit à la pose d'une porte blindée, <b>un seul artisan</b> pour toute la serrurerie de votre logement.", ["Devis gratuit", "Prix annoncé à l'avance", "Travaux garantis"], image="serrurier-devis-client.jpg", image_alt="Serrurier présentant le devis à une cliente")
     out += trust_marquee()
     out += f"""<section><div class="wrap">{services_grid()}</div></section>
 <section class="alt"><div class="wrap text-block prose">

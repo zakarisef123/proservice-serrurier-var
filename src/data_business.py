@@ -130,3 +130,10 @@ BRANDS = [
     ('Heracles', 'heracles.svg'), ('Deny Security', 'deny.png'), ('Tesa', 'tesa.png'),
     ('Yale', 'yale.svg'), ('Nuki', 'nuki.svg'),
 ]
+
+# ---------------------------------------------------------------- formulaires
+# Les formulaires sont envoyés par FormSubmit (https://formsubmit.co) directement dans cette boîte mail.
+# À la toute première demande, FormSubmit envoie un e-mail « Activate Form » à cette adresse :
+# il faut cliquer une fois sur le lien d'activation, sinon les demandes ne sont pas transmises.
+FORM_EMAIL = EMAIL
+FORM_SITE_LABEL = "Serrurerie"  # apparaît dans l'objet des e-mails reçus

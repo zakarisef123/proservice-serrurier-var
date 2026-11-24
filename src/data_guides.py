@@ -71,7 +71,7 @@ GUIDES = [
             "<h2>5. Sécurisez votre logement</h2>"
             "<p>Une porte forcée ne ferme plus correctement : votre logement reste vulnérable. Un serrurier peut, le jour même, remplacer la serrure endommagée ou poser une <strong>fermeture provisoire</strong>, puis vous proposer une solution durable (serrure certifiée, blindage). Conservez la <strong>facture détaillée</strong> : les frais de remplacement de serrure et de mise en sécurité sont souvent pris en charge par les contrats habitation, selon les garanties.</p>"
             "<h2>Après le cambriolage</h2>"
-            "<p>C'est le bon moment pour faire le point sur la sécurité de vos accès : serrure certifiée A2P, porte blindée ou blindage de porte, verrous supplémentaires. Votre assureur peut aussi exiger un certain niveau de protection pour maintenir vos garanties. <a href=\"/conseils/choisir-serrure-a2p/\">Lire notre guide pour bien choisir sa serrure</a>.</p>",
+            "<p>C'est le bon moment pour faire le point sur la sécurité de vos accès : serrure certifiée A2P, porte blindée ou blindage de porte, verrous supplémentaires. Votre assureur peut aussi exiger un certain niveau de protection pour maintenir vos garanties. <a href=\"/conseils/choisir-serrure-a2p/\">Lire mon guide pour bien choisir sa serrure</a>.</p>",
     },
     {
         "slug": "choisir-serrure-a2p",
@@ -93,7 +93,7 @@ GUIDES = [
             "<h2>Ce que demande votre assurance</h2>"
             "<p>De nombreux contrats habitation précisent le niveau de protection exigé pour la porte d'entrée (serrure certifiée, nombre de points). Si ces conditions ne sont pas respectées, l'indemnisation peut être réduite en cas de vol. Relisez la rubrique « protection » de votre contrat avant de choisir.</p>"
             "<h2>Le conseil d'un professionnel</h2>"
-            "<p>Une excellente serrure sur une porte fragile ne sert à rien : le cambrioleur attaquera la porte ou le cadre. Un serrurier évalue l'ensemble (porte, dormant, mur) et vous conseille la solution cohérente. <a href=\"/changement-serrure-var/\">Voir nos changements de serrure</a>.</p>",
+            "<p>Une excellente serrure sur une porte fragile ne sert à rien : le cambrioleur attaquera la porte ou le cadre. Un serrurier évalue l'ensemble (porte, dormant, mur) et vous conseille la solution cohérente. <a href=\"/changement-serrure-var/\">Voir mes changements de serrure</a>.</p>",
     },
     {
         "slug": "choisir-serrurier-eviter-arnaques",
@@ -112,14 +112,14 @@ GUIDES = [
             "<li><strong>La pression au paiement</strong> d'un montant jamais annoncé.</li></ul>"
             "<h2>Ce que la loi impose au professionnel</h2>"
             "<p>Pour les prestations de dépannage, de réparation et d'entretien dans le bâtiment, dont la serrurerie, le professionnel doit vous informer <strong>avant</strong> l'intervention de ses taux horaires, frais de déplacement et conditions de prix. Au-delà de 150 € TTC estimés, il doit remettre un <strong>devis écrit détaillé</strong> avant d'exécuter les travaux. Une facture détaillée doit vous être remise à la fin.</p>"
-            "<h2>Nos conseils</h2>"
+            "<h2>Mes conseils</h2>"
             "<ol><li><strong>Préférez un artisan réellement local</strong>, joignable directement.</li>"
             "<li><strong>Demandez une estimation au téléphone</strong>, suppléments de nuit et de week-end compris.</li>"
             "<li><strong>Précisez si la porte est claquée ou fermée à clé</strong> : une porte claquée s'ouvre le plus souvent sans casse.</li>"
             "<li><strong>Refusez le perçage</strong> s'il n'est pas justifié et annoncé avec son prix.</li>"
             "<li><strong>Exigez une facture détaillée</strong>, indispensable pour l'assurance.</li></ol>"
-            "<h2>Notre engagement</h2>"
-            f"<p>{NAME} est un artisan local qui intervient 24h/24. Vous nous joignez en direct au 06 75 93 19 04. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement et confirmé sur place avant les travaux. <a href=\"/a-propos/\">Découvrez notre charte de confiance</a>.</p>"
+            "<h2>Mon engagement</h2>"
+            f"<p>{NAME} est un artisan local qui intervient 24h/24. Vous me joignez en direct au 06 75 93 19 04. Le diagnostic téléphonique est gratuit, le prix est annoncé avant le déplacement et confirmé sur place avant les travaux. <a href=\"/a-propos/\">Découvrez ma charte de confiance</a>.</p>"
             "<div class=\"callout info\">En cas de litige avec un professionnel, vous pouvez signaler la pratique sur le site SignalConso de la DGCCRF.</div>",
     },
     {

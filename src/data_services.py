@@ -17,25 +17,25 @@ SERVICES = [
         "title": "Serrurier urgence 24h/24 — nuit, week-end, jours fériés",
         "meta": "Serrurier d'urgence 24h/24 et 7j/7 : porte claquée, clés perdues, serrure bloquée, effraction. Tarif annoncé avant déplacement. ☎ 06 75 93 19 04",
         "h1": "Serrurier d'urgence 24h/24 et 7j/7",
-        "lead": "Porte claquée, clés perdues, serrure bloquée, porte forcée : un serrurier vous répond <b>jour et nuit, week-end et jours fériés compris</b>.",
+        "lead": "Porte claquée, clés perdues, serrure bloquée, porte forcée : je vous réponds <b>jour et nuit, week-end et jours fériés compris</b>.",
         "checks": ["Réponse immédiate au téléphone", "Prix annoncé avant de partir", "Facture pour l'assurance"],
         "card_desc": "Porte claquée, clés perdues, effraction : un serrurier joignable jour et nuit, week-end et jours fériés compris.",
         "card_checks": ["Disponible 7j/7", "Tarif confirmé avant déplacement"],
         "sections": [
             ("Quelles situations justifient un serrurier en urgence ?",
-             "<p>Certaines situations ne peuvent pas attendre le lendemain. Nous intervenons en priorité pour :</p>"
+             "<p>Certaines situations ne peuvent pas attendre le lendemain. J'interviens en priorité pour :</p>"
              "<ul><li><strong>Une porte claquée</strong> : vous êtes dehors, les clés sont à l'intérieur.</li>"
              "<li><strong>Des clés perdues ou volées</strong> : impossible de rentrer, et risque que quelqu'un d'autre puisse le faire.</li>"
              "<li><strong>Une clé cassée dans la serrure</strong> ou une serrure qui ne tourne plus.</li>"
              "<li><strong>Une porte forcée après un cambriolage</strong> : il faut sécuriser le logement le soir même.</li>"
              "<li><strong>Un rideau métallique bloqué</strong> : commerce impossible à ouvrir ou à fermer.</li></ul>"
-             "<p>Au téléphone, nous vous aidons à évaluer la situation. Si l'intervention peut attendre le lendemain sans risque, nous vous le disons : un déplacement de nuit coûte plus cher et nous préférons vous éviter cette dépense lorsqu'elle n'est pas nécessaire.</p>"),
+             "<p>Au téléphone, je vous aide à évaluer la situation. Si l'intervention peut attendre le lendemain sans risque, me vous le dis : un déplacement de nuit coûte plus cher et je préfère vous éviter cette dépense lorsqu'elle n'est pas nécessaire.</p>"),
             ("Les bons réflexes en attendant le serrurier",
              "<ol><li><strong>Vérifiez les autres accès</strong> : porte de garage, porte-fenêtre, un voisin ou un proche qui aurait un double.</li>"
              "<li><strong>N'essayez pas de forcer</strong> la serrure vous-même : vous risquez d'abîmer la porte et d'alourdir la facture.</li>"
              "<li><strong>Préparez un justificatif</strong> : pièce d'identité ou justificatif de domicile, demandé sur place pour toute ouverture.</li>"
              "<li><strong>En cas d'effraction</strong>, ne touchez à rien, appelez la police (17) et prenez des photos pour l'assurance.</li></ol>"
-             "<p>Vous hésitez sur la démarche ? Appelez-nous : nous vous guidons au téléphone pendant que le serrurier est en route.</p>"),
+             "<p>Vous hésitez sur la démarche ? Appelez-moi : je vous guide au téléphone pendant que le serrurier est en route.</p>"),
             ("Serrurier la nuit, le dimanche et les jours fériés",
              "<p>Une porte claquée ne prévient pas. La ligne <strong>06 75 93 19 04</strong> est joignable 24h/24, y compris le dimanche, les jours fériés et pendant les vacances. Les interventions de nuit, de week-end ou de jour férié peuvent faire l'objet d'un supplément horaire : <strong>il vous est toujours communiqué avant le déplacement</strong>, jamais découvert sur la facture.</p>"
              "<p>Ce fonctionnement transparent est l'inverse des pratiques régulièrement dénoncées dans le dépannage de serrurerie. Vous savez ce que vous allez payer avant que le serrurier ne prenne la route, et le prix est confirmé sur place avant tout travail.</p>"),
@@ -46,14 +46,14 @@ SERVICES = [
             ("Combien coûte un serrurier en urgence la nuit ou le dimanche ?", "Le prix dépend de la situation et de l'horaire. Un supplément peut s'appliquer la nuit, le week-end et les jours fériés : il vous est annoncé au téléphone avant le déplacement, puis le prix total est confirmé sur place avant de commencer."),
             ("En combien de temps un serrurier peut-il arriver ?", "Comptez 15 à 40 minutes selon votre commune et la circulation. Le délai précis vous est donné au moment de l'appel."),
             ("Faut-il justifier son identité pour une ouverture de porte ?", "Oui. Une pièce d'identité ou un justificatif de domicile est demandé sur place, pour la sécurité de l'occupant réel du logement."),
-            ("Intervenez-vous après un cambriolage ?", "Oui. Nous sécurisons le logement le jour même (remplacement de serrure ou fermeture provisoire) et vous remettons une facture détaillée pour votre déclaration à l'assurance."),
+            ("Intervenez-vous après un cambriolage ?", "Oui. Je sécurise le logement le jour même (remplacement de serrure ou fermeture provisoire) et vous remets une facture détaillée pour votre déclaration à l'assurance."),
         ],
         "combo_h1": "Serrurier d'urgence 24h/24",
         "combo_title": "Serrurier urgence {city} ({cp}) — 24h/24, 7j/7",
         "combo_meta": "Serrurier d'urgence {a} 24h/24 et 7j/7 : porte claquée, clés perdues, serrure bloquée, effraction. {delay_txt}. Prix annoncé avant déplacement. ☎ 06 75 93 19 04",
         "combo_intros": [
             "Porte claquée un soir de week-end, clés perdues, serrure bloquée : {a}, vous pouvez joindre un serrurier à toute heure au <b>06 75 93 19 04</b>. Le délai d'arrivée vous est donné dès l'appel.",
-            "Besoin d'un serrurier tout de suite {a} ? Notre ligne est ouverte jour et nuit, dimanches et jours fériés compris. Vous décrivez la situation, on vous annonce le prix et le délai, puis un serrurier part avec le matériel adapté.",
+            "Besoin d'un serrurier tout de suite {a} ? Ma ligne est ouverte jour et nuit, dimanches et jours fériés compris. Vous décrivez la situation, je vous annonce le prix et le délai, puis je pars avec le matériel adapté.",
             "Habitants {de}, gardez ce numéro : <b>06 75 93 19 04</b>. En cas d'urgence de serrurerie, un artisan du secteur vous répond directement, sans plateforme ni centre d'appel, et intervient rapidement avec un prix annoncé à l'avance.",
         ],
         "combo_points": [
@@ -64,7 +64,7 @@ SERVICES = [
             "Porte forcée après un cambriolage",
             "Rideau métallique bloqué",
         ],
-        "combo_tip": "En attendant notre arrivée, vérifiez les autres accès et préparez une pièce d'identité ou un justificatif de domicile : il vous sera demandé avant toute ouverture de porte.",
+        "combo_tip": "En attendant mon arrivée, vérifiez les autres accès et préparez une pièce d'identité ou un justificatif de domicile : il vous sera demandé avant toute ouverture de porte.",
     },
     # ------------------------------------------------------------------ OUVERTURE
     {
@@ -81,25 +81,25 @@ SERVICES = [
         "title": "Ouverture de porte — porte claquée ou fermée, dès 69 €",
         "meta": "Ouverture de porte claquée ou fermée à clé, 24h/24 : sans casse dans la majorité des cas, dès 69 €. Prix annoncé avant intervention. ☎ 06 75 93 19 04",
         "h1": "Ouverture de porte claquée ou fermée à clé",
-        "lead": "Porte claquée, clés perdues ou cassées, serrure bloquée : nous ouvrons votre porte <b>sans dégâts dans la majorité des cas</b>, 24h/24. Intervention à partir de 69 €.",
+        "lead": "Porte claquée, clés perdues ou cassées, serrure bloquée : j'ouvre votre porte <b>sans dégâts dans la majorité des cas</b>, 24h/24. Intervention à partir de 69 €.",
         "checks": ["Ouverture sans casse quand c'est possible", "Prix annoncé avant de commencer", "Disponible 24h/24"],
-        "card_desc": "Porte claquée, clé cassée ou perdue ? Nous ouvrons votre porte sans dégâts dans la majorité des cas.",
+        "card_desc": "Porte claquée, clé cassée ou perdue ? J'ouvre votre porte sans dégâts dans la majorité des cas.",
         "card_checks": ["Sans casse", "Technique de poussée"],
         "sections": [
             ("Porte claquée ou porte fermée à clé : ce n'est pas la même chose",
              "<p>Le prix et la technique d'ouverture dépendent d'abord de l'état de votre porte :</p>"
              "<ul><li><strong>Porte claquée</strong> : seul le pêne demi-tour (celui qui se ferme quand on tire la porte) retient la porte. Elle s'ouvre le plus souvent <strong>sans aucun dégât</strong>, avec des outils spécifiques glissés entre la porte et le dormant.</li>"
              "<li><strong>Porte fermée à clé</strong> : les pênes dormants sont engagés. Selon la serrure, l'ouverture se fait par crochetage ou, pour les serrures haute sécurité, par perçage du cylindre, qui doit alors être remplacé.</li>"
-             "<li><strong>Clé cassée ou bloquée</strong> : nous extrayons le morceau de clé, puis nous vérifions le cylindre.</li></ul>"
-             "<p>Au téléphone, décrivez votre porte (porte claquée ou fermée à clé, type de serrure, porte blindée ou non) : nous vous donnons une fourchette de prix avant de partir.</p>"),
-            ("Nos méthodes d'ouverture",
+             "<li><strong>Clé cassée ou bloquée</strong> : j'extrais le morceau de clé, puis je vérifie le cylindre.</li></ul>"
+             "<p>Au téléphone, décrivez votre porte (porte claquée ou fermée à clé, type de serrure, porte blindée ou non) : je vous donne une fourchette de prix avant de partir.</p>"),
+            ("Mes méthodes d'ouverture",
              "<ul><li><strong>Ouverture fine (technique de poussée)</strong> pour les portes claquées : aucune trace, la serrure reste intacte.</li>"
              "<li><strong>Crochetage</strong> des cylindres qui s'y prêtent.</li>"
              "<li><strong>Extraction de clé cassée</strong> avec des outils dédiés.</li>"
              "<li><strong>Perçage du cylindre</strong> en dernier recours, uniquement avec votre accord : le cylindre est alors remplacé sur place.</li></ul>"
              "<div class=\"callout\"><strong>Sécurité :</strong> une pièce d'identité ou un justificatif de domicile vous est demandé avant toute ouverture. C'est une garantie pour vous : personne ne peut faire ouvrir votre logement à votre place.</div>"),
             ("Après l'ouverture",
-             "<p>Si vos clés ont été perdues ou volées, nous vous conseillons de <strong>changer le cylindre</strong> : quelqu'un pourrait les utiliser. Nous pouvons le faire dans la foulée, avec un cylindre adapté à votre porte et à votre budget. <a href=\"/changement-serrure-var/\">Voir le changement de serrure</a>.</p>"),
+             "<p>Si vos clés ont été perdues ou volées, je vous conseille de <strong>changer le cylindre</strong> : quelqu'un pourrait les utiliser. Je peux le faire dans la foulée, avec un cylindre adapté à votre porte et à votre budget. <a href=\"/changement-serrure-var/\">Voir le changement de serrure</a>.</p>"),
         ],
         "faq": [
             ("Combien coûte une ouverture de porte ?", "Le tarif de base démarre à 69 € en journée. Il dépend du type de serrure et de l'horaire ; il est toujours confirmé avant intervention, jamais après."),
@@ -111,9 +111,9 @@ SERVICES = [
         "combo_title": "Ouverture de porte {city} ({cp}) — porte claquée dès 69 €",
         "combo_meta": "Ouverture de porte {a} 24h/24 : porte claquée ou fermée à clé, sans casse dans la majorité des cas, dès 69 €. {delay_txt}. ☎ 06 75 93 19 04",
         "combo_intros": [
-            "Porte claquée ou clés perdues {a} ? Nous ouvrons votre porte 24h/24, sans dégât dans la majorité des cas, à partir de 69 €.",
-            "Vous êtes bloqué dehors {a} ? Un serrurier part avec le matériel d'ouverture adapté. Le prix vous est annoncé au téléphone, avant le déplacement.",
-            "Ouverture de porte claquée, fermée à clé ou porte blindée {a} : nous choisissons la technique la moins destructive et vous annonçons le prix avant de commencer.",
+            "Porte claquée ou clés perdues {a} ? J'ouvre votre porte 24h/24, sans dégât dans la majorité des cas, à partir de 69 €.",
+            "Vous êtes bloqué dehors {a} ? Je pars avec le matériel d'ouverture adapté. Le prix vous est annoncé au téléphone, avant le déplacement.",
+            "Ouverture de porte claquée, fermée à clé ou porte blindée {a} : je choisis la technique la moins destructive et vous annonce le prix avant de commencer.",
         ],
         "combo_points": [
             "Porte claquée, clés à l'intérieur",
@@ -123,7 +123,7 @@ SERVICES = [
             "Serrure bloquée ou grippée",
             "Ouverture de boîte aux lettres",
         ],
-        "combo_tip": "Avant notre arrivée, préparez une pièce d'identité ou un justificatif de domicile (même sur votre téléphone) : il vous sera demandé avant l'ouverture.",
+        "combo_tip": "Avant mon arrivée, préparez une pièce d'identité ou un justificatif de domicile (même sur votre téléphone) : il vous sera demandé avant l'ouverture.",
     },
     # ------------------------------------------------------------------ SERRURE
     {
@@ -140,7 +140,7 @@ SERVICES = [
         "title": "Changement de serrure — serrures A2P, dès 129 €",
         "meta": "Changement de serrure et de cylindre : serrures certifiées A2P, multipoints, à l'identique ou en montée en gamme. Garantie 2 ans, dès 129 €. ☎ 06 75 93 19 04",
         "h1": "Changement de serrure et de cylindre",
-        "lead": "Clés perdues, tentative d'effraction, serrure usée ou montée en gamme : nous installons des <b>serrures et cylindres certifiés A2P</b>, à l'identique ou plus sûrs. À partir de 129 €, garantie 2 ans.",
+        "lead": "Clés perdues, tentative d'effraction, serrure usée ou montée en gamme : j'installe des <b>serrures et cylindres certifiés A2P</b>, à l'identique ou plus sûrs. À partir de 129 €, garantie 2 ans.",
         "checks": ["Serrures certifiées A2P", "Garantie 2 ans", "Conseil sur le niveau de sécurité"],
         "card_desc": "Installation et remplacement de serrures haute sécurité certifiées A2P, à l'identique ou en montée en gamme.",
         "card_checks": ["Serrures certifiées", "Garantie 2 ans"],
@@ -158,26 +158,26 @@ SERVICES = [
              "<tr><td>A2P ★</td><td>5 minutes</td></tr>"
              "<tr><td>A2P ★★</td><td>10 minutes</td></tr>"
              "<tr><td>A2P ★★★</td><td>15 minutes</td></tr></tbody></table></div>"
-             "<p>De nombreux contrats d'assurance habitation imposent une serrure certifiée, parfois avec plusieurs points de fermeture. Vérifiez votre contrat : nous vous conseillons le niveau adapté à votre porte, à votre logement et à votre budget.</p>"),
-            ("Serrures que nous posons",
+             "<p>De nombreux contrats d'assurance habitation imposent une serrure certifiée, parfois avec plusieurs points de fermeture. Vérifiez votre contrat : je vous conseille le niveau adapté à votre porte, à votre logement et à votre budget.</p>"),
+            ("Serrures que je pose",
              "<ul><li><strong>Cylindres</strong> européens standards, de sécurité et haute sécurité.</li>"
              "<li><strong>Serrures en applique</strong> et <strong>serrures à larder</strong> (encastrées).</li>"
              "<li><strong>Serrures multipoints</strong> (3 ou 5 points) pour renforcer une porte existante.</li>"
              "<li><strong>Verrous</strong> et <strong>serrures de garage</strong>, portails et boîtes aux lettres.</li></ul>"
-             "<p>Nous travaillons avec les principales marques du marché et pouvons remplacer votre serrure à l'identique ou proposer une montée en gamme. Tous les remplacements sont garantis 2 ans.</p>"),
+             "<p>Je travaille avec les principales marques du marché et peux remplacer votre serrure à l'identique ou proposer une montée en gamme. Tous les remplacements sont garantis 2 ans.</p>"),
         ],
         "faq": [
             ("Combien coûte le changement d'une serrure ?", "À partir de 129 €. Le prix dépend du type de serrure (cylindre seul, applique, multipoints) et du niveau de sécurité choisi ; il est annoncé avant intervention."),
-            ("Faut-il changer toute la serrure ou seulement le cylindre ?", "Après une perte de clés, changer le cylindre suffit souvent. Après une effraction, la serrure peut être endommagée : nous vérifions et vous conseillons."),
+            ("Faut-il changer toute la serrure ou seulement le cylindre ?", "Après une perte de clés, changer le cylindre suffit souvent. Après une effraction, la serrure peut être endommagée : je vérifie et vous conseille."),
             ("Combien de temps dure un changement de serrure ?", "Un changement de cylindre prend généralement moins d'une heure. Une serrure multipoints demande plus de temps selon la porte."),
-            ("Les serrures sont-elles garanties ?", "Oui, nos remplacements de serrure sont garantis 2 ans, pièces et main-d'œuvre."),
+            ("Les serrures sont-elles garanties ?", "Oui, mes remplacements de serrure sont garantis 2 ans, pièces et main-d'œuvre."),
         ],
         "combo_h1": "Changement de serrure",
         "combo_title": "Changement de serrure {city} ({cp}) — A2P dès 129 €",
         "combo_meta": "Changement de serrure et de cylindre {a} : serrures A2P, multipoints, garantie 2 ans, dès 129 €. {delay_txt}. ☎ 06 75 93 19 04",
         "combo_intros": [
-            "Clés perdues, effraction ou serrure usée {a} : nous remplaçons votre cylindre ou votre serrure par un modèle certifié A2P, à partir de 129 €, garantie 2 ans.",
-            "Vous venez d'emménager {a} ou avez perdu vos clés ? Changer le cylindre est le moyen le plus sûr de reprendre le contrôle de vos accès. Nous intervenons rapidement.",
+            "Clés perdues, effraction ou serrure usée {a} : je remplace votre cylindre ou votre serrure par un modèle certifié A2P, à partir de 129 €, garantie 2 ans.",
+            "Vous venez d'emménager {a} ou avez perdu vos clés ? Changer le cylindre est le moyen le plus sûr de reprendre le contrôle de vos accès. J'interviens rapidement.",
             "Changement de serrure {a} : à l'identique ou en montée en gamme, avec un conseil honnête sur le niveau de sécurité dont vous avez vraiment besoin.",
         ],
         "combo_points": [
@@ -205,7 +205,7 @@ SERVICES = [
         "title": "Porte blindée — pose, blindage de porte, serrure multipoints",
         "meta": "Pose de porte blindée et blindage de porte existante : serrures multipoints certifiées A2P, bloc-porte certifié. Devis gratuit. ☎ 06 75 93 19 04",
         "h1": "Porte blindée et blindage de porte",
-        "lead": "Pose d'un <b>bloc-porte blindé</b> ou blindage de votre porte existante, serrure multipoints certifiée A2P : nous renforçons l'accès principal de votre logement, avec un devis gratuit et détaillé.",
+        "lead": "Pose d'un <b>bloc-porte blindé</b> ou blindage de votre porte existante, serrure multipoints certifiée A2P : je renforce l'accès principal de votre logement, avec un devis gratuit et détaillé.",
         "checks": ["Devis gratuit et détaillé", "Serrures multipoints A2P", "Pose soignée"],
         "card_desc": "Installation de portes blindées et serrures multipoints pour une sécurité maximale de votre logement.",
         "card_checks": ["Serrures certifiées A2P", "Multipoints"],
@@ -213,14 +213,14 @@ SERVICES = [
             ("Bloc-porte blindé ou blindage de porte ?",
              "<ul><li><strong>Le bloc-porte blindé</strong> remplace toute la porte et son cadre. C'est la solution la plus sûre : la porte, le cadre et la serrure sont conçus ensemble.</li>"
              "<li><strong>Le blindage de porte</strong> renforce votre porte existante : plaque d'acier, cornières anti-pince, serrure multipoints et protège-cylindre. Il coûte moins cher et convient quand la porte et le cadre sont en bon état.</li></ul>"
-             "<p>Lors de la visite, nous examinons votre porte, votre cadre et votre mur pour vous conseiller la solution adaptée, sans surdimensionner.</p>"),
+             "<p>Lors de la visite, j'examine votre porte, votre cadre et votre mur pour vous conseiller la solution adaptée, sans surdimensionner.</p>"),
             ("Les certifications à connaître",
              "<p>Les blocs-portes peuvent être certifiés <strong>A2P BP1, BP2 ou BP3</strong>, selon leur résistance à l'effraction (respectivement 5, 10 et 15 minutes minimum). Les serrures et cylindres ont leur propre certification A2P de une à trois étoiles. Certains assureurs les exigent pour des contrats avec garanties vol élevées : vérifiez votre contrat avant de choisir.</p>"),
             ("Une pose soignée",
-             "<p>Une porte blindée n'est efficace que si elle est bien posée : fixation dans un mur sain, réglage précis des points de fermeture, finitions intérieures et extérieures. Nous protégeons les sols, évacuons l'ancienne porte et réglons la porte jusqu'à ce qu'elle ferme parfaitement.</p>"),
+             "<p>Une porte blindée n'est efficace que si elle est bien posée : fixation dans un mur sain, réglage précis des points de fermeture, finitions intérieures et extérieures. Je protège les sols, évacue l'ancienne porte et réglons la porte jusqu'à ce qu'elle ferme parfaitement.</p>"),
         ],
         "faq": [
-            ("Combien coûte une porte blindée ?", "Le prix dépend du type de bloc-porte, de la certification, des finitions et des travaux de pose. Après une visite gratuite, nous vous remettons un devis détaillé."),
+            ("Combien coûte une porte blindée ?", "Le prix dépend du type de bloc-porte, de la certification, des finitions et des travaux de pose. Après une visite gratuite, je vous remets un devis détaillé."),
             ("Peut-on blinder une porte existante ?", "Oui, si la porte et son cadre sont en bon état. Le blindage ajoute une plaque d'acier, des cornières et une serrure multipoints."),
             ("Combien de temps dure la pose ?", "Le blindage d'une porte existante se fait généralement dans la journée. La pose d'un bloc-porte dépend de la fabrication et des travaux de maçonnerie."),
             ("Une porte blindée est-elle exigée par les assurances ?", "Pas systématiquement, mais certains contrats l'imposent ou accordent de meilleures garanties avec une porte et une serrure certifiées. Vérifiez votre contrat."),
@@ -229,9 +229,9 @@ SERVICES = [
         "combo_title": "Porte blindée {city} ({cp}) — pose et blindage de porte",
         "combo_meta": "Porte blindée {a} : pose de bloc-porte, blindage de porte existante, serrure multipoints A2P. Visite et devis gratuits. {delay_txt}. ☎ 06 75 93 19 04",
         "combo_intros": [
-            "Vous voulez renforcer la porte d'entrée de votre logement {a} ? Nous posons des blocs-portes blindés et blindons les portes existantes, avec serrure multipoints certifiée A2P.",
-            "Pour une porte blindée {a}, nous commençons par une visite gratuite : état de la porte, du cadre et du mur, puis devis détaillé selon la solution adaptée.",
-            "Bloc-porte blindé ou blindage de votre porte actuelle {a} : nous vous aidons à choisir la bonne solution, au juste prix, et assurons une pose soignée.",
+            "Vous voulez renforcer la porte d'entrée de votre logement {a} ? Je pose des blocs-portes blindés et blindons les portes existantes, avec serrure multipoints certifiée A2P.",
+            "Pour une porte blindée {a}, je commence par une visite gratuite : état de la porte, du cadre et du mur, puis devis détaillé selon la solution adaptée.",
+            "Bloc-porte blindé ou blindage de votre porte actuelle {a} : je vous aide à choisir la bonne solution, au juste prix, et assure une pose soignée.",
         ],
         "combo_points": [
             "Pose de bloc-porte blindé",
@@ -258,7 +258,7 @@ SERVICES = [
         "title": "Clé cassée dans la serrure — extraction dès 59 €, 24h/24",
         "meta": "Clé cassée ou coincée dans la serrure : extraction sans abîmer la serrure, remplacement du cylindre si besoin. Dès 59 €, 24h/24 et 7j/7. ☎ 06 75 93 19 04",
         "h1": "Clé cassée ou coincée dans la serrure",
-        "lead": "Un morceau de clé reste dans le cylindre, la clé tourne dans le vide ou refuse de sortir : nous <b>extrayons la clé sans abîmer la serrure</b> dans la plupart des cas, et vous rouvrons la porte. À partir de 59 €, 24h/24.",
+        "lead": "Un morceau de clé reste dans le cylindre, la clé tourne dans le vide ou refuse de sortir : je <b>extrais la clé sans abîmer la serrure</b> dans la plupart des cas, et vous rouvrons la porte. À partir de 59 €, 24h/24.",
         "checks": ["Extraction sans casse", "Porte rouverte", "Cylindre remplacé si besoin"],
         "card_desc": "Extraction d'une clé cassée ou coincée dans le cylindre, sans abîmer la serrure, jour et nuit.",
         "card_checks": ["Disponible 24h/24", "Sans casse dans la majorité des cas"],
@@ -267,16 +267,16 @@ SERVICES = [
              "<ul><li><strong>Ne pas forcer</strong> avec une pince ou un tournevis : le morceau s'enfonce encore plus et les goupilles s'abîment.</li>"
              "<li><strong>Ne pas mettre de colle</strong> sur l'autre moitié de la clé pour « recoller » : la colle bloque définitivement le cylindre.</li>"
              "<li><strong>Ne pas injecter de lubrifiant en quantité</strong> : il rend l'extraction plus difficile.</li>"
-             "<li><strong>Garder l'autre morceau de la clé</strong> : il nous aide à choisir l'outil et peut servir pour un double.</li></ul>"),
+             "<li><strong>Garder l'autre morceau de la clé</strong> : il m'aide à choisir l'outil et peut servir pour un double.</li></ul>"),
             ("Comment se passe l'extraction",
-             "<p>Nous utilisons des <strong>extracteurs fins</strong> qui glissent le long du morceau de clé pour l'accrocher et le ramener, sans démonter la porte. Si la clé s'est cassée alors que le cylindre était tourné, nous le remettons d'abord en position. Dans la grande majorité des cas, la serrure continue de fonctionner normalement ensuite.</p>"),
+             "<p>J'utilise des <strong>extracteurs fins</strong> qui glissent le long du morceau de clé pour l'accrocher et le ramener, sans démonter la porte. Si la clé s'est cassée alors que le cylindre était tourné, je le remets d'abord en position. Dans la grande majorité des cas, la serrure continue de fonctionner normalement ensuite.</p>"),
             ("Quand faut-il changer le cylindre ?",
-             "<p>Si le cylindre est usé, grippé ou abîmé par une tentative d'extraction, ou si la clé s'est cassée parce que la serrure force, nous vous conseillons de le remplacer : c'est souvent la cause de la casse. Nous vous proposons alors un cylindre adapté, avec un prix annoncé avant la pose. Voir notre page <a href=\"/changement-serrure-var/\">changement de serrure</a>.</p>"),
+             "<p>Si le cylindre est usé, grippé ou abîmé par une tentative d'extraction, ou si la clé s'est cassée parce que la serrure force, je vous conseille de le remplacer : c'est souvent la cause de la casse. Je vous propose alors un cylindre adapté, avec un prix annoncé avant la pose. Voir ma page <a href=\"/changement-serrure-var/\">changement de serrure</a>.</p>"),
         ],
         "faq": [
             ("Combien coûte l'extraction d'une clé cassée ?", "À partir de 59 € TTC en journée. Si le cylindre doit être remplacé, le prix vous est annoncé avant la pose."),
             ("Faut-il changer la serrure après une clé cassée ?", "Pas forcément : dans la plupart des cas, la clé est extraite et la serrure fonctionne à nouveau. Le remplacement est conseillé si le cylindre est usé ou abîmé."),
-            ("Ma clé est cassée et je suis dehors, que faire ?", "Appelez-nous : nous extrayons la clé et vous rouvrons la porte dans le même déplacement, 24h/24 et 7j/7."),
+            ("Ma clé est cassée et je suis dehors, que faire ?", "Appelez-moi : j'extrais la clé et vous rouvrons la porte dans le même déplacement, 24h/24 et 7j/7."),
             ("Pourquoi ma clé s'est-elle cassée ?", "Le plus souvent à cause d'une clé usée ou d'un cylindre grippé qui oblige à forcer. Un cylindre qui accroche doit être nettoyé ou remplacé avant que la clé casse."),
         ],
         "combo_h1": "Clé cassée dans la serrure",
@@ -284,8 +284,8 @@ SERVICES = [
         "combo_meta": "Clé cassée ou coincée dans la serrure {a} : extraction sans casse, porte rouverte, cylindre remplacé si besoin. {delay_txt}. Dès 59 €. ☎ 06 75 93 19 04",
         "combo_intros": [
             "Une clé cassée dans la serrure {a} ? Ne forcez pas : un serrurier extrait le morceau sans abîmer le cylindre et vous rouvre la porte, à partir de 59 €.",
-            "Clé coincée ou cassée dans le cylindre {a} : nous intervenons 24h/24, avec un prix annoncé avant de partir, et remplaçons le cylindre seulement si c'est nécessaire.",
-            "Habitants {de}, une clé cassée ne veut pas dire serrure à changer. Nous extrayons la clé dans la plupart des cas et vous remettons une facture détaillée.",
+            "Clé coincée ou cassée dans le cylindre {a} : j'interviens 24h/24, avec un prix annoncé avant de partir, et remplace le cylindre seulement si c'est nécessaire.",
+            "Habitants {de}, une clé cassée ne veut pas dire serrure à changer. J'extrais la clé dans la plupart des cas et vous remets une facture détaillée.",
         ],
         "combo_points": [
             "Extraction de clé cassée dans le cylindre",
@@ -312,7 +312,7 @@ SERVICES = [
         "title": "Serrure connectée — installation et paramétrage",
         "meta": "Installation de serrure connectée, électronique, à code ou biométrique : conseil, pose et paramétrage inclus. Devis gratuit. ☎ 06 75 93 19 04",
         "h1": "Serrure connectée et électronique",
-        "lead": "Serrure à code, à empreinte digitale ou pilotée depuis votre téléphone : nous vous conseillons, installons et <b>paramétrons votre serrure connectée</b>, avec une prise en main complète.",
+        "lead": "Serrure à code, à empreinte digitale ou pilotée depuis votre téléphone : je vous conseille, installe et <b>paramétrons votre serrure connectée</b>, avec une prise en main complète.",
         "checks": ["Conseil selon votre porte", "Paramétrage inclus", "Prise en main expliquée"],
         "card_desc": "Installation et paramétrage de serrures électroniques et biométriques, avec prise en main complète.",
         "card_checks": ["Paramétrage inclus", "Toutes marques"],
@@ -323,12 +323,12 @@ SERVICES = [
              "<li><strong>Historique des passages</strong> sur la plupart des modèles.</li>"
              "<li>Idéal pour les <strong>locations saisonnières</strong> et les <strong>résidences secondaires</strong>, nombreuses.</li></ul>"),
             ("Bien choisir : les points à vérifier",
-             "<p>Toutes les serrures connectées ne conviennent pas à toutes les portes. Nous vérifions avec vous la compatibilité avec votre porte et votre cylindre, le niveau de sécurité (certains modèles se posent sur un cylindre certifié), l'alimentation (piles, autonomie, alerte de batterie faible) et la solution de secours en cas de panne (clé mécanique, alimentation de dépannage).</p>"),
+             "<p>Toutes les serrures connectées ne conviennent pas à toutes les portes. Je vérifie avec vous la compatibilité avec votre porte et votre cylindre, le niveau de sécurité (certains modèles se posent sur un cylindre certifié), l'alimentation (piles, autonomie, alerte de batterie faible) et la solution de secours en cas de panne (clé mécanique, alimentation de dépannage).</p>"),
             ("Pose, paramétrage et prise en main",
-             "<p>Nous installons la serrure, la paramétrons avec vous (codes, utilisateurs, application) et vous expliquons son fonctionnement. Vous repartez avec une serrure qui marche, et vous savez vous en servir.</p>"),
+             "<p>J'installe la serrure, la paramétrons avec vous (codes, utilisateurs, application) et vous explique son fonctionnement. Vous repartez avec une serrure qui marche, et vous savez vous en servir.</p>"),
         ],
         "faq": [
-            ("Une serrure connectée est-elle sûre ?", "Une serrure connectée de qualité, posée sur un cylindre de sécurité, offre un bon niveau de protection. Nous vous conseillons les modèles adaptés à votre porte."),
+            ("Une serrure connectée est-elle sûre ?", "Une serrure connectée de qualité, posée sur un cylindre de sécurité, offre un bon niveau de protection. Je vous conseille les modèles adaptés à votre porte."),
             ("Que se passe-t-il si les piles sont vides ?", "La plupart des modèles préviennent bien avant la fin des piles et prévoient une ouverture de secours (clé mécanique ou alimentation externe)."),
             ("Est-ce adapté à une location saisonnière ?", "Oui, c'est l'un des usages les plus intéressants : vous créez un code par séjour, sans remise de clés."),
         ],
@@ -336,9 +336,9 @@ SERVICES = [
         "combo_title": "Serrure connectée {city} — installation et paramétrage",
         "combo_meta": "Serrure connectée {a} : serrure à code, biométrique ou pilotée par téléphone, pose et paramétrage inclus. Devis gratuit. ☎ 06 75 93 19 04",
         "combo_intros": [
-            "Envie d'ouvrir votre porte sans clé {a} ? Serrure à code, à empreinte ou pilotée par téléphone : nous installons et paramétrons votre serrure connectée.",
+            "Envie d'ouvrir votre porte sans clé {a} ? Serrure à code, à empreinte ou pilotée par téléphone : j'installe et paramétrons votre serrure connectée.",
             "Location saisonnière ou résidence secondaire {a} : une serrure connectée vous permet de donner l'accès à distance, sans remise de clés.",
-            "Nous vous conseillons {a} une serrure connectée compatible avec votre porte, la posons et vous expliquons son fonctionnement.",
+            "Je vous conseille {a} une serrure connectée compatible avec votre porte, la pose et vous explique son fonctionnement.",
         ],
         "combo_points": [
             "Serrure à code",
@@ -348,7 +348,7 @@ SERVICES = [
             "Contrôle d'accès de commerce",
             "Paramétrage et prise en main",
         ],
-        "combo_tip": "Avant de commander une serrure connectée, prenez en photo votre porte côté intérieur et votre cylindre : nous vérifions la compatibilité avant tout achat.",
+        "combo_tip": "Avant de commander une serrure connectée, prenez en photo votre porte côté intérieur et votre cylindre : je vérifie la compatibilité avant tout achat.",
     },
     # ------------------------------------------------------------------ RIDEAU
     {
@@ -365,33 +365,33 @@ SERVICES = [
         "title": "Dépannage rideau métallique et volets — dès 79 €",
         "meta": "Dépannage de rideau métallique, rideau de fer et volet roulant bloqué, 7j/7 : diagnostic, réparation, serrure. Dès 79 €. ☎ 06 75 93 19 04",
         "h1": "Dépannage de rideau métallique et de volets",
-        "lead": "Rideau de fer bloqué, volet roulant qui ne remonte plus, serrure de rideau cassée : nous dépannons <b>commerces et particuliers</b>, 7j/7. Intervention à partir de 79 €.",
+        "lead": "Rideau de fer bloqué, volet roulant qui ne remonte plus, serrure de rideau cassée : je dépanne <b>commerces et particuliers</b>, 7j/7. Intervention à partir de 79 €.",
         "checks": ["Diagnostic sur place", "Pièces d'origine", "Commerces et particuliers"],
         "card_desc": "Réparation et dépannage de volets roulants et rideaux de fer bloqués ou déréglés.",
         "card_checks": ["Diagnostic gratuit", "Pièces d'origine"],
         "sections": [
-            ("Nos interventions",
+            ("Mes interventions",
              "<ul><li><strong>Rideau métallique bloqué</strong> en position ouverte ou fermée.</li>"
              "<li><strong>Serrure de rideau</strong> cassée, grippée ou clé perdue.</li>"
              "<li><strong>Lames abîmées</strong> ou déformées après un choc ou une tentative d'effraction.</li>"
              "<li><strong>Problème de motorisation</strong> : moteur, télécommande, fins de course.</li>"
              "<li><strong>Volets roulants</strong> bloqués ou qui descendent de travers.</li></ul>"),
             ("Un commerce ne peut pas rester ouvert",
-             "<p>Un rideau métallique bloqué en position ouverte empêche de fermer la boutique le soir ; bloqué fermé, il empêche d'ouvrir le matin. Nous intervenons rapidement pour <strong>remettre le rideau en service ou sécuriser le commerce</strong>, puis nous vous proposons une réparation durable avec un devis.</p>"),
+             "<p>Un rideau métallique bloqué en position ouverte empêche de fermer la boutique le soir ; bloqué fermé, il empêche d'ouvrir le matin. J'interviens rapidement pour <strong>remettre le rideau en service ou sécuriser le commerce</strong>, puis je vous propose une réparation durable avec un devis.</p>"),
             ("Entretien",
              "<p>Un rideau métallique s'entretient : graissage des coulisses, contrôle des ressorts ou du moteur, vérification de la serrure. Un entretien régulier évite les pannes au mauvais moment.</p>"),
         ],
         "faq": [
             ("Combien coûte le dépannage d'un rideau métallique ?", "À partir de 79 €. Le prix dépend de la panne et des pièces à remplacer ; il est annoncé avant intervention."),
-            ("Intervenez-vous le week-end pour un commerce ?", "Oui, 7j/7. Un rideau bloqué ouvert est une urgence : nous faisons le nécessaire pour que vous puissiez fermer."),
-            ("Réparez-vous aussi les volets roulants des particuliers ?", "Oui, nous dépannons les volets roulants bloqués ou déréglés."),
+            ("Intervenez-vous le week-end pour un commerce ?", "Oui, 7j/7. Un rideau bloqué ouvert est une urgence : je fais le nécessaire pour que vous puissiez fermer."),
+            ("Réparez-vous aussi les volets roulants des particuliers ?", "Oui, je dépanne les volets roulants bloqués ou déréglés."),
         ],
         "combo_h1": "Dépannage de rideau métallique et de volets",
         "combo_title": "Rideau métallique {city} ({cp}) — dépannage dès 79 €",
         "combo_meta": "Dépannage de rideau métallique et volet roulant {a}, 7j/7 : rideau bloqué, serrure, lames, moteur. Dès 79 €. {delay_txt}. ☎ 06 75 93 19 04",
         "combo_intros": [
-            "Rideau de fer bloqué ou volet roulant en panne {a} ? Nous dépannons commerces et particuliers 7j/7, à partir de 79 €.",
-            "Commerçant {a}, votre rideau métallique refuse de se fermer ? Nous intervenons rapidement pour sécuriser votre boutique, puis réparer durablement.",
+            "Rideau de fer bloqué ou volet roulant en panne {a} ? Je dépanne commerces et particuliers 7j/7, à partir de 79 €.",
+            "Commerçant {a}, votre rideau métallique refuse de se fermer ? J'interviens rapidement pour sécuriser votre boutique, puis réparer durablement.",
             "Serrure de rideau cassée, lames abîmées, moteur en panne {a} : diagnostic sur place et prix annoncé avant réparation.",
         ],
         "combo_points": [
@@ -402,7 +402,7 @@ SERVICES = [
             "Volet roulant bloqué",
             "Entretien de rideau métallique",
         ],
-        "combo_tip": "Si le rideau est bloqué à mi-hauteur, ne forcez pas à la main : un ressort ou un axe sous tension peut céder brutalement. Attendez notre arrivée.",
+        "combo_tip": "Si le rideau est bloqué à mi-hauteur, ne forcez pas à la main : un ressort ou un axe sous tension peut céder brutalement. Attendez mon arrivée.",
     },
 ]
 
@@ -422,3 +422,6 @@ SERVICE_ICONS = {
     "wrench": '<path d="M14.7 6.3a4 4 0 0 0-5.2 5.2L4 17l3 3 5.5-5.5a4 4 0 0 0 5.2-5.2l-2.4 2.4-2.6-.6-.6-2.6 2.6-2.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>',
     "shield": '<path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 12l2.3 2.3L15.5 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
 }
+
+# Texte des cartes de services (ton de l'artisan) : (phrase, petit conseil)
+CARD_VOICE = {'plombier-urgence-24h-var': ("Fuite, dégât des eaux, WC qui déborde : je décroche jour et nuit et j'arrive avec le matériel.", "Coupez l'eau au compteur en m'attendant."), 'recherche-de-fuite-var': ('Une fuite ? Je la trouve sans tout casser, et je vous dis le prix avant.', "Notez l'index du compteur, il m'aide à confirmer la fuite."), 'debouchage-canalisation-var': ('WC, évier ou douche bouché : je débouche sans produit agressif pour vos tuyaux.', "Évitez les déboucheurs chimiques en m'attendant."), 'chauffe-eau-var': ("Plus d'eau chaude ? Je répare si c'est possible, je remplace seulement si c'est utile.", "S'il fuit, coupez le disjoncteur du ballon."), 'installation-sanitaire-var': ('WC, lavabo, douche, mitigeur : je pose proprement, avec du matériel qui dure.', "Une photo de l'existant m'aide pour le devis."), 'reparation-canalisation-var': ('Tuyau percé, odeurs, évacuation fatiguée : je répare là où il faut, sans casse inutile.', "Une odeur d'égout ? Remettez de l'eau dans les siphons peu utilisés."), 'renovation-salle-de-bain-var': ("Douche à l'italienne, baignoire remplacée : je m'occupe de tout, avec un devis détaillé.", 'Notez vos mesures et vos envies, je vous conseille.'), 'serrurier-urgence-24h-var': ("Porte claquée, clés perdues, effraction : je décroche jour et nuit et j'arrive vite.", 'Après une effraction, prenez des photos avant de toucher à quoi que ce soit.'), 'ouverture-de-porte-var': ("Porte claquée ou fermée à clé : j'ouvre sans casse dans la plupart des cas.", "Porte juste claquée ? Dites-le-moi, c'est souvent plus rapide."), 'changement-serrure-var': ("Serrure usée ou clés perdues : je change le cylindre, en A2P si votre assurance l'exige.", "Gardez une clé, elle m'aide à choisir le bon cylindre."), 'porte-blindee-var': ('Je blinde votre porte ou je pose une porte blindée adaptée à votre logement.', "Regardez ce qu'exige votre assurance avant de choisir."), 'cle-cassee-serrure-var': ("Clé cassée dans la serrure : je l'extrais sans abîmer le cylindre.", 'Gardez le morceau de clé et ne forcez pas.'), 'serrure-connectee-var': ("Code, badge ou téléphone : je pose votre serrure connectée et je vous l'explique.", 'Gardez toujours une clé de secours.'), 'rideau-metallique-var': ('Rideau ou volet métallique bloqué : je le débloque et je le répare.', 'Ne forcez pas le moteur, coupez son alimentation.'), 'degorgement-canalisation-var': ("Canalisation, égout ou WC bouché : je dégorge au furet ou à l'hydrocureur, jour et nuit.", "N'utilisez plus l'eau en m'attendant."), 'curage-canalisation-var': ('Graisses, calcaire, racines : je nettoie vos canalisations à haute pression sur toute la longueur.', "Jamais d'huile de friture dans l'évier."), 'pompage-nettoyage-cuves-var': ('Sous-sol inondé, regard plein, cuve à vider : je pompe avec le camion, même les gros volumes.', "Coupez l'électricité des pièces inondées."), 'vidange-fosse-septique-var': ("Je vidange votre fosse septique ou votre micro-station et je vérifie qu'elle est en bon état.", "Dégagez l'accès aux tampons avant mon passage."), 'inspection-camera-canalisation-var': ('Une caméra dans le tuyau : je trouve la cause du problème sans rien casser.', "Notez quand le problème apparaît, ça m'aide."), 'travaux-assainissement-var': ("Canalisation cassée, raccordement au tout-à-l'égout : je fais les travaux après un vrai diagnostic.", 'Gardez le rapport SPANC ou le courrier de la mairie.'), 'pompe-de-relevage-var': ('Alarme qui sonne, pompe bloquée : je dépanne, je nettoie ou je remplace votre pompe.', "Si l'alarme sonne, limitez l'eau et vérifiez le disjoncteur."), 'bac-a-graisse-var': ('Je vide et je nettoie votre bac à graisse avant ou après votre service.', 'Des paniers-filtres sur les éviers changent tout.')}

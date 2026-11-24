@@ -1285,8 +1285,8 @@ def city_hero(c, crumbs):
     </div>
     </div>
     <div class="hero-media">
-      {picture("serrurier-devis-client.jpg", "Serrurier " + c["a"] + " présentant le devis avant l'intervention", 560, 560, "(max-width: 900px) 100vw, 560px", attrs=' fetchpriority="high"')}
-      <div class="hero-tag"><b>{esc(c["name"])}</b><span>{esc(delay_label(c))} · devis annoncé avant travaux</span></div>
+      {picture("serrurier-intervention-var.jpg", "Serrurier " + c["a"] + " en train de poser une serrure", 452, 452, "(max-width: 900px) 100vw, 560px", attrs=' fetchpriority="high"')}
+      <div class="hero-tag"><b>{esc(c["name"])}</b><span>{esc(delay_label(c))} · prix annoncé avant travaux</span></div>
     </div>
   </div>
 </section>
